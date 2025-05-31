@@ -12,15 +12,17 @@
   </head>
   <body>
     <div class="auth-container">
-      <!-- Logo above the white card -->
+      <!-- Logo above the white card - now with link -->
       <div class="logo-container">
-        <img src="pictures/logo.png" alt="YumUnity Logo" class="logo" />
+        <a href="info.html">
+          <img src="pictures/logo.png" alt="YumUnity Logo" class="logo" />
+        </a>
       </div>
 
       <div class="auth-card">
         <h1 class="auth-title">Log in</h1>
         <p class="auth-subtitle">
-          Lorem ipsum odor amet,<br />consectetur adipiscing elit.
+          Welcome back — let’s continue<br />the tasty adventure.
         </p>
 
         <form id="loginForm" class="auth-form" action="login.php" method="POST">
@@ -54,11 +56,9 @@
             <p>
               Don't have an account? <a href="register.html">Register here</a>
             </p>
-            <!-- Dodany napis z linkiem do rejestracji -->
           </div>
 
           <button type="submit" class="auth-button">Sign in</button>
-          <!-- Zmiana na "Sign in" -->
         </form>
       </div>
     </div>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 @font-face {
     font-family: 'Pecita';
     src: url('fonts/pecita.otf') format('opentype');
@@ -11,10 +11,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
-    font-family: 'Poppins', sans-serif; /* Zmiana czcionki na Poppins */
     background-color: #E5E1DA;
     min-height: 100vh;
     display: flex;
@@ -22,6 +22,7 @@ body {
     justify-content: center;
     align-items: center;
     padding: 2rem 1rem;
+    color: #000;
 }
 
 .auth-container {
@@ -33,19 +34,25 @@ body {
     width: 100%;
 }
 
-/* Logo above the white card */
+/* Logo */
 .logo-container {
     margin-bottom: 2rem;
 }
 
 .logo {
-    height: 6rem; /* Zwiększenie rozmiaru logo */
+    height: 6rem;
     width: auto;
+    transition: transform 0.3s ease;
 }
 
+.logo:hover {
+    transform: scale(1.05);
+}
+
+/* Karta formularza */
 .auth-card {
     background-color: white;
-    border-radius: 1.5rem; /* Zwiększenie zaokrąglenia rogów */
+    border-radius: 1.5rem;
     padding: 2.5rem 2rem;
     width: 100%;
     max-width: 400px;
@@ -55,17 +62,20 @@ body {
 
 .auth-title {
     font-size: 1.75rem;
-    font-weight: 600;
-    color: black; /* Ustawienie koloru na czarny */
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    color: #000;
 }
 
 .auth-subtitle {
-    color: black; /* Ustawienie koloru na czarny */
     font-size: 0.875rem;
     line-height: 1.4;
     margin-bottom: 2rem;
+    font-weight: 400;
+    color: #000;
 }
 
+/* Formularz */
 .auth-form {
     display: flex;
     flex-direction: column;
@@ -79,22 +89,24 @@ body {
 .form-group input {
     width: 100%;
     padding: 0.875rem 1rem;
-    border: 2px solid #000; /* Czarna obwódka */
+    border: 2px solid #000;
     border-radius: 2rem;
     font-size: 0.875rem;
     outline: none;
     transition: border-color 0.3s ease;
     background-color: white;
-    text-align: center; /* Wyśrodkowanie tekstu w polach formularza */
-    color: black; /* Ustawienie koloru tekstu na czarny */
-}
-
-.form-group input:focus {
-    border-color: #000; /* Pozostaje czarna przy focus */
+    text-align: center;
+    font-weight: 400;
+    color: #000; /* Czarny kolor tekstu */
 }
 
 .form-group input::placeholder {
-    color: black; /* Ustawienie koloru placeholdera na czarny */
+    color: #000; /* Czarny kolor placeholderów */
+    opacity: 0.8;
+}
+
+.form-group input:focus {
+    border-color: #000;
 }
 
 .password-group {
@@ -109,7 +121,7 @@ body {
     background: none;
     border: none;
     cursor: pointer;
-    color: #94ADE2; /* Niebieskie oko */
+    color: #94ADE2;
     font-size: 1rem;
     padding: 0;
     width: 1.5rem;
@@ -119,14 +131,13 @@ body {
     justify-content: center;
 }
 
-.password-toggle:hover {
-    color: #94ADE2; /* Ciemniejszy niebieski przy hover */
-}
-
+/* Wymagania hasła */
 .password-requirements {
     text-align: left;
     margin-top: 0.5rem;
     font-size: 0.75rem;
+    font-weight: 400;
+    color: #000;
 }
 
 .requirement {
@@ -134,23 +145,19 @@ body {
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 0.25rem;
-    color: black; /* Ustawienie koloru na czarny */
 }
 
 .requirement i {
     width: 0.75rem;
     font-size: 0.625rem;
-    color: black; /* Ustawienie koloru ikony na czarny */
+    color: #000;
 }
 
-.requirement span {
-    color: black; /* Ustawienie koloru tekstu wymagań na czarny */
-}
-
+/* Przycisk */
 .auth-button {
-    background-color: #94ADE2; /* Niebieski przycisk */
-    color: black; /* Zmiana koloru tekstu na czarny */
-    border: 2px solid #000; /* Czarna obwódka */
+    background-color: #94ADE2;
+    color: #000;
+    border: 2px solid #000;
     border-radius: 2rem;
     padding: 0.875rem 1rem;
     font-size: 0.875rem;
@@ -158,55 +165,64 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     margin-top: 1rem;
+    width: 100%;
 }
 
 .auth-button:hover {
-    background-color: #94ADE2;
-    border-color: #000;
+    background-color: #84a0d8;
 }
 
-.auth-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-    border-color: #999;
-}
-
+/* Link do logowania/rejestracji */
 .auth-switch {
-    margin-top: 1rem; /* Zmniejszenie odstępu */
+    margin-top: 1.5rem;
     font-size: 0.875rem;
-    color: black; /* Ustawienie koloru na czarny */
+    font-weight: 400;
+    color: #000;
 }
 
+.auth-switch a {
+    color: #94ADE2;
+    text-decoration: underline;
+    font-weight: 500;
+    text-underline-offset: 0.2em;
+    transition: color 0.2s ease;
+}
+
+.auth-switch a:hover {
+    color: #7a92c4;
+}
+
+/* Stopka */
 .auth-footer {
     margin-top: 2rem;
     text-align: center;
 }
 
 .copyright {
-    font-size: 1.125rem; /* Większy rozmiar */
-    color: black; /* Czarny kolor */
-    font-weight: 500;
-    font-family: 'Pecita'; /* Użycie czcionki Pecita */
+    font-size: 1.125rem;
+    font-family: 'Pecita', cursive;
+    color: #000;
+}
+
+/* Komunikaty */
+.error-message,
+.success-message {
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    text-align: center;
+    font-weight: 400;
 }
 
 .error-message {
     background-color: #fee2e2;
     color: #dc2626;
-    padding: 0.75rem;
-    border-radius: 0.5rem;
-    margin-bottom: 1rem;
-    font-size: 0.875rem;
-    text-align: center;
 }
 
 .success-message {
     background-color: #dcfce7;
     color: #16a34a;
-    padding: 0.75rem;
-    border-radius: 0.5rem;
-    margin-bottom: 1rem;
-    font-size: 0.875rem;
-    text-align: center;
 }
 
 /* Responsywność */
@@ -226,8 +242,8 @@ body {
     .copyright {
         font-size: 1rem;
     }
-
-    .auth-button {
-        width: 100%; /* Przycisk zajmuje całą szerokość */
+    
+    .auth-switch {
+        font-size: 0.8125rem;
     }
 }
