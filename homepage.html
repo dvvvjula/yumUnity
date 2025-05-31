@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>YumUnity</title>
+    <link rel="stylesheet" href="homepageStyles.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="page-background">
+    <!-- Left vertical nav -->
+    <nav class="side-navigation" aria-label="Main navigation">
+      <button class="nav-button" aria-label="Home" type="button">
+        <i class="fas fa-home"></i>
+      </button>
+      <button class="nav-button" aria-label="Person" type="button">
+        <i class="fas fa-user"></i>
+      </button>
+      <button class="nav-button" aria-label="Globe" type="button">
+        <i class="fas fa-globe"></i>
+      </button>
+      <button class="nav-button" aria-label="Notifications" type="button">
+        <i class="fas fa-bell"></i>
+      </button>
+    </nav>
+
+    <!-- Top bar with logo and logout -->
+    <header class="page-header">
+      <div class="header-logo-container">
+        <img
+          alt="YM University logo black text on transparent background"
+          class="header-logo"
+          src="pictures/logo.png"
+        />
+      </div>
+      <button class="logout-button" type="button">Log out</button>
+    </header>
+
+    <!-- Main content -->
+    <main class="main-content">
+      <h1 aria-label="Welcome Sack, XYZ!" class="welcome-title">
+        Welcome Sack, XYZ!
+      </h1>
+      <time aria-label="Current time" class="current-time">13:45:62</time>
+
+      <section class="lunch-section" aria-label="Lunch time prompt">
+        <p class="lunch-time-text">Lunch time</p>
+        <div class="lunch-content">
+          <button
+            class="edit-button"
+            aria-label="Edit what's on your plate today"
+            type="button"
+          >
+            <i class="fas fa-pen"></i>
+          </button>
+          <p class="plate-text">What's on Your Plate Today?</p>
+        </div>
+      </section>
+
+      <section class="friends-meals-section">
+        <h2 class="section-title">Recent friends' meals</h2>
+        <div class="meals-carousel" aria-label="Recent friends meals carousel">
+          <!-- Meal card 1 -->
+          <article class="meal-card">
+            <div class="meal-image-container">
+              <img
+                alt="Sandwich cut in half on white plate on a light surface"
+                class="meal-image"
+                src="https://storage.googleapis.com/a1aa/image/f8c8496c-c8a2-4228-cf1d-4c4c8bc595b2.jpg"
+              />
+              <div
+                class="carousel-arrow arrow-left"
+                role="button"
+                tabindex="0"
+                aria-label="Previous meal"
+              >
+                <i class="fas fa-chevron-left"></i>
+              </div>
+              <div
+                class="carousel-arrow arrow-right"
+                role="button"
+                tabindex="0"
+                aria-label="Next meal"
+              >
+                <i class="fas fa-chevron-right"></i>
+              </div>
+            </div>
+            <div class="meal-info">
+              <img
+                alt="Avatar image of user xyz1"
+                class="user-avatar"
+                src="https://storage.googleapis.com/a1aa/image/c92bfdbc-50a3-4a66-eed0-024ffbc22fbb.jpg"
+              />
+              <p class="username">xyz1</p>
+              <div class="meal-actions" aria-label="Meal actions">
+                <i class="fas fa-comment" title="Comment"></i>
+                <i class="fas fa-heart" title="Like"></i>
+              </div>
+            </div>
+            <p class="meal-title">Lorem ipsum odor.</p>
+            <p class="meal-description">
+              Lorem ipsum odor amet, consectetur adipiscing elit. Massa inceptos
+              eget eget natoque semper pretium amet viverra.
+            </p>
+          </article>
+
+          <!-- Meal card 2 -->
+          <article class="meal-card">
+            <div class="meal-image-container">
+              <img
+                alt="Dumplings in a bowl with greens"
+                class="meal-image"
+                src="https://storage.googleapis.com/a1aa/image/cfe2c722-28c9-42d9-3b5b-bea15ceb3706.jpg"
+              />
+              <div
+                class="carousel-arrow arrow-left"
+                role="button"
+                tabindex="0"
+                aria-label="Previous meal"
+              >
+                <i class="fas fa-chevron-left"></i>
+              </div>
+              <div
+                class="carousel-arrow arrow-right"
+                role="button"
+                tabindex="0"
+                aria-label="Next meal"
+              >
+                <i class="fas fa-chevron-right"></i>
+              </div>
+            </div>
+            <div class="meal-info">
+              <img
+                alt="Avatar image of user xyz2"
+                class="user-avatar"
+                src="https://storage.googleapis.com/a1aa/image/1858fdcb-1622-4336-3f64-3227b305b14d.jpg"
+              />
+              <p class="username">xyz2</p>
+              <div class="meal-actions" aria-label="Meal actions">
+                <i class="fas fa-comment" title="Comment"></i>
+                <i class="fas fa-heart" title="Like"></i>
+              </div>
+            </div>
+            <p class="meal-title">Lorem ipsum odor amet.</p>
+            <p class="meal-description">
+              Lorem ipsum odor amet, consectetur adipiscing elit. Massa inceptos
+              eget eget natoque semper pretium amet viverra.
+            </p>
+          </article>
+
+          <!-- Meal card 3 -->
+          <article class="meal-card">
+            <div class="meal-image-container">
+              <img
+                alt="Tofu and greens in a bowl"
+                class="meal-image"
+                src="https://storage.googleapis.com/a1aa/image/e9346f27-f317-4c6f-7e9f-cca453f37b2d.jpg"
+              />
+              <div
+                class="carousel-arrow arrow-left"
+                role="button"
+                tabindex="0"
+                aria-label="Previous meal"
+              >
+                <i class="fas fa-chevron-left"></i>
+              </div>
+              <div
+                class="carousel-arrow arrow-right"
+                role="button"
+                tabindex="0"
+                aria-label="Next meal"
+              >
+                <i class="fas fa-chevron-right"></i>
+              </div>
+            </div>
+            <div class="meal-info">
+              <img
+                alt="Avatar image of user xyz3"
+                class="user-avatar"
+                src="https://storage.googleapis.com/a1aa/image/a2dac0ad-d1e1-4d65-7a01-c8f283ab3c34.jpg"
+              />
+              <p class="username">xyz3</p>
+              <div class="meal-actions" aria-label="Meal actions">
+                <i class="fas fa-comment" title="Comment"></i>
+                <i class="fas fa-heart" title="Like"></i>
+              </div>
+            </div>
+            <p class="meal-title">Lorem ipsum odor amet.</p>
+            <p class="meal-description">
+              Lorem ipsum odor amet, consectetur adipiscing elit. Massa inceptos
+              eget eget natoque semper pretium amet viverra. Panctibus vel
+              taciti odio mus eros risus. Condimentum pretium tincidunt nec
+              mattis ultricies orci mattis. Ac ultrices fermentum consectetur eu
+              accumsan interdum? Semper pellentesque donec accumsan id
+              condimentum vestibulum praesent dictum.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+      <a class="footer-link" href="#">ABOUT US</a>
+      <div class="copyright-info">
+        <span>YumUnity ©</span>
+        <span>All right reserved.</span>
+      </div>
+      <div class="social-media-links">
+        <a aria-label="Facebook" href="#"><i class="fab fa-facebook-f"></i></a>
+        <a aria-label="Instagram" href="#"><i class="fab fa-instagram"></i></a>
+        <a aria-label="Twitter" href="#"><i class="fab fa-twitter"></i></a>
+      </div>
+    </footer>
+  </body>
+</html>

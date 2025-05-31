@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>YumUnity</title>
+    <link rel="stylesheet" href="infoStyles.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="page-container">
+    <!-- Header -->
+    <header class="page-header">
+      <div class="account-prompt">
+        No account?
+        <a class="signup-link" href="register.html">Sign up!</a>
+      </div>
+      <div class="logo-container">
+        <img
+          alt="YumUnity logo in black handwriting style"
+          class="logo"
+          src="pictures/logo.png"
+        />
+      </div>
+      <div>
+        <button
+          class="login-button"
+          type="button"
+          onclick="window.location.href='login.html'"
+        >
+          Log in
+        </button>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section
+      class="hero-section"
+      aria-label="Hero section with rice and vegetables background"
+    >
+      <img
+        alt="Close-up image of a plate with rice, asparagus, and leafy greens on a striped tablecloth"
+        aria-hidden="true"
+        class="hero-image"
+        src="pictures/food-main-page.jpg"
+      />
+      <div class="hero-content">
+        <h1 class="hero-title pecita-font">Where every bite tells a story.</h1>
+        <p class="hero-text">
+          Lorem ipsum odor amet, consectetuer adipiscing elit. Vestibulum
+          molestie odio nibh risus justo platea. Scelerisque aliquet aenean
+          nascetur volutpat suscipit inceptos. Accumsan conubia euismod
+          facilisis vivamus ac dis risus sodales. Eros dapibus nostra ante
+          taciti urna habitant entitu.
+          <strong>Dolor nullam et consequat vel dolor.</strong> Justo nullam
+          venenatis condimentum pharetra quisque natoque varius.
+        </p>
+        <p class="hero-text">
+          Ut tortor imperdiet porttitor maximus massa felis convallis. Volutpat
+          porta sapien suscipit dolor velit nisl nam. Inceptos aliquam rutrum
+          taciti elementum ipsum dui donec vulputate tortor. Nec dignissim
+          dictum quis commodo est! Dignissim vulputate sodales sagittis cras
+          natoque. Dictum eget nisl porttitor metus felis felis. Euismod
+          torquent nibh rhoncus ligula cursus purus.
+        </p>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Left side: Your Feed, But Tastier -->
+      <section class="feed-section">
+        <h2 class="section-title">Your Feed, But Tastier</h2>
+        <div class="carousel-container">
+          <button
+            aria-label="Previous image"
+            class="carousel-button prev-button"
+            type="button"
+            onclick="previousImage()"
+          >
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <div class="carousel-content">
+            <img
+              alt="Food image"
+              class="carousel-image"
+              id="carousel-image"
+              src="https://storage.googleapis.com/a1aa/image/414e2816-72e0-4911-1d1c-fc7e41cfe02d.jpg"
+            />
+          </div>
+          <button
+            aria-label="Next image"
+            class="carousel-button next-button"
+            type="button"
+            onclick="nextImage()"
+          >
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- Right side: Join the YumUnity -->
+      <section class="join-section">
+        <h2 class="section-title">
+          Join the
+          <a class="yumunity-link bold-yumunity" href="#">YumUnity</a>!
+        </h2>
+        <div class="join-content">
+          <p>
+            Lorem ipsum odor amet, consectetuer adipiscing elit. Porttitor
+            volutpat pulvinar lectus ligula urna erat curare pretium. Euismod
+            pharetra habitant duis imperdiet netus. Venenatis lobortis et magnis
+            metus integer tempor adipiscing suscipit euismod. Erat porttitor
+            tristique maecenas congue quam? Posuere dignissim vehicula vel ac
+            vivamus lorem.
+          </p>
+          <p>
+            Lorem ipsum odor amet, consectetuer adipiscing elit. Porttitor
+            volutpat pulvinar lectus ligula urna erat curare pretium. Euismod
+            pharetra habitant duis imperdiet netus. Venenatis lobortis et magnis
+            metus integer tempor adipiscing suscipit euismod.
+          </p>
+          <p>
+            Lorem ipsum odor amet, consectetuer adipiscing elit. Porttitor
+            volutpat pulvinar lectus ligula urna erat curare pretium. Euismod
+            pharetra habitant duis imperdiet netus. Venenatis lobortis et magnis
+            metus integer tempor adipiscing suscipit euismod. Erat porttitor
+            tristique maecenas congue quam? Posuere dignissim vehicula vel ac
+            vivamus lorem.
+          </p>
+        </div>
+        <button
+          class="signup-button"
+          type="button"
+          onclick="window.location.href='register.html'"
+        >
+          Sign up
+        </button>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+      <a class="footer-link" href="#">ABOUT US</a>
+      <div class="copyright">
+        <span>©</span>
+        <span class="footer-yumunity pecita-font">YumUnity</span>
+        <span>All right reserved.</span>
+      </div>
+      <div class="social-links">
+        <a aria-label="Facebook" class="social-link" href="#"
+          ><i class="fab fa-facebook-f"></i
+        ></a>
+        <a aria-label="Instagram" class="social-link" href="#"
+          ><i class="fab fa-instagram"></i
+        ></a>
+        <a aria-label="Twitter" class="social-link" href="#"
+          ><i class="fab fa-twitter"></i
+        ></a>
+      </div>
+    </footer>
+
+    <script>
+      // Gallery images - tylko zdjęcia
+      const galleryImages = [
+        "pictures/pic-gallery-1.jpg",
+        "pictures/pic-gallery-2.jpg",
+        "pictures/pic-gallery-3.jpg",
+      ];
+
+      let currentImageIndex = 0;
+
+      function updateCarousel() {
+        document.getElementById("carousel-image").src =
+          galleryImages[currentImageIndex];
+      }
+
+      function nextImage() {
+        currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+        updateCarousel();
+      }
+
+      function previousImage() {
+        currentImageIndex =
+          (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+        updateCarousel();
+      }
+    </script>
+  </body>
+</html>

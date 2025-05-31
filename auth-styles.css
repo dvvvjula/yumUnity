@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
+@font-face {
+    font-family: 'Pecita';
+    src: url('fonts/pecita.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif; /* Zmiana czcionki na Poppins */
+    background-color: #E5E1DA;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+}
+
+.auth-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+/* Logo above the white card */
+.logo-container {
+    margin-bottom: 2rem;
+}
+
+.logo {
+    height: 6rem; /* Zwiększenie rozmiaru logo */
+    width: auto;
+}
+
+.auth-card {
+    background-color: white;
+    border-radius: 1.5rem; /* Zwiększenie zaokrąglenia rogów */
+    padding: 2.5rem 2rem;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.auth-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: black; /* Ustawienie koloru na czarny */
+}
+
+.auth-subtitle {
+    color: black; /* Ustawienie koloru na czarny */
+    font-size: 0.875rem;
+    line-height: 1.4;
+    margin-bottom: 2rem;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 2px solid #000; /* Czarna obwódka */
+    border-radius: 2rem;
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+    background-color: white;
+    text-align: center; /* Wyśrodkowanie tekstu w polach formularza */
+    color: black; /* Ustawienie koloru tekstu na czarny */
+}
+
+.form-group input:focus {
+    border-color: #000; /* Pozostaje czarna przy focus */
+}
+
+.form-group input::placeholder {
+    color: black; /* Ustawienie koloru placeholdera na czarny */
+}
+
+.password-group {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #94ADE2; /* Niebieskie oko */
+    font-size: 1rem;
+    padding: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.password-toggle:hover {
+    color: #94ADE2; /* Ciemniejszy niebieski przy hover */
+}
+
+.password-requirements {
+    text-align: left;
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+}
+
+.requirement {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+    color: black; /* Ustawienie koloru na czarny */
+}
+
+.requirement i {
+    width: 0.75rem;
+    font-size: 0.625rem;
+    color: black; /* Ustawienie koloru ikony na czarny */
+}
+
+.requirement span {
+    color: black; /* Ustawienie koloru tekstu wymagań na czarny */
+}
+
+.auth-button {
+    background-color: #94ADE2; /* Niebieski przycisk */
+    color: black; /* Zmiana koloru tekstu na czarny */
+    border: 2px solid #000; /* Czarna obwódka */
+    border-radius: 2rem;
+    padding: 0.875rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.auth-button:hover {
+    background-color: #94ADE2;
+    border-color: #000;
+}
+
+.auth-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    border-color: #999;
+}
+
+.auth-switch {
+    margin-top: 1rem; /* Zmniejszenie odstępu */
+    font-size: 0.875rem;
+    color: black; /* Ustawienie koloru na czarny */
+}
+
+.auth-footer {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.copyright {
+    font-size: 1.125rem; /* Większy rozmiar */
+    color: black; /* Czarny kolor */
+    font-weight: 500;
+    font-family: 'Pecita'; /* Użycie czcionki Pecita */
+}
+
+.error-message {
+    background-color: #fee2e2;
+    color: #dc2626;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+.success-message {
+    background-color: #dcfce7;
+    color: #16a34a;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+/* Responsywność */
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .logo {
+        height: 4rem;
+    }
+    
+    .auth-title {
+        font-size: 1.5rem;
+    }
+    
+    .copyright {
+        font-size: 1rem;
+    }
+
+    .auth-button {
+        width: 100%; /* Przycisk zajmuje całą szerokość */
+    }
+}
