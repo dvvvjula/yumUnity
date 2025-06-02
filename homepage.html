@@ -3,222 +3,328 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <title>YumUnity</title>
-    <link rel="stylesheet" href="homepageStyles.css" />
+    <title>YM Meals</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
       rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="homepage-styles.css" />
   </head>
-  <body class="page-background">
-    <!-- Left vertical nav -->
-    <nav class="side-navigation" aria-label="Main navigation">
-      <button class="nav-button" aria-label="Home" type="button">
+  <body>
+    <!-- Left Navigation -->
+    <nav class="left-nav" role="navigation" aria-label="Main navigation">
+      <button
+        class="nav-btn active"
+        onclick="goToPage('homepage.html')"
+        title="Home"
+        type="button"
+        id="nav-home"
+      >
         <i class="fas fa-home"></i>
       </button>
-      <button class="nav-button" aria-label="Person" type="button">
+      <button
+        class="nav-btn"
+        onclick="goToPage('profile.html')"
+        title="Profile"
+        type="button"
+        id="nav-profile"
+      >
         <i class="fas fa-user"></i>
       </button>
-      <button class="nav-button" aria-label="Globe" type="button">
+      <button
+        class="nav-btn"
+        onclick="toggleFriendsPanel()"
+        title="Friends"
+        type="button"
+      >
         <i class="fas fa-globe"></i>
       </button>
-      <button class="nav-button" aria-label="Notifications" type="button">
+      <button
+        class="nav-btn"
+        onclick="toggleNotificationsPanel()"
+        title="Notifications"
+        type="button"
+      >
         <i class="fas fa-bell"></i>
       </button>
     </nav>
 
     <!-- Top bar with logo and logout -->
-    <header class="page-header">
-      <div class="header-logo-container">
-        <img
-          alt="YM University logo black text on transparent background"
-          class="header-logo"
-          src="pictures/logo.png"
-        />
-      </div>
-      <button class="logout-button" type="button">Log out</button>
+    <header class="flex justify-center relative py-4">
+      <img
+        src="/pictures/logo.png"
+        alt="YM University logo black text on transparent background"
+        class="logo-img"
+        role="img"
+        aria-label="YM University logo"
+        tabindex="0"
+        onclick="goToPage('homepage.html')"
+      />
+      <button
+        class="logout-btn"
+        type="button"
+        onclick="goToPage('info.html')"
+        aria-label="Log out"
+      >
+        Log out
+      </button>
     </header>
 
     <!-- Main content -->
-    <main class="main-content">
-      <h1 aria-label="Welcome Sack, XYZ!" class="welcome-title">
-        Welcome Sack, XYZ!
+    <main class="flex flex-col items-center px-6">
+      <h1
+        aria-label="Welcome Back, XYZ!"
+        class="handwriting text-black mt-6 mb-1 select-none"
+      >
+        Welcome Back, XYZ!
       </h1>
-      <time aria-label="Current time" class="current-time">13:45:62</time>
+      <time
+        aria-live="polite"
+        id="current-time"
+        class="current-time"
+        aria-label="Current time"
+      >
+        00:00:00
+      </time>
 
-      <section class="lunch-section" aria-label="Lunch time prompt">
+      <section aria-label="Lunch time prompt" class="lunch-container">
         <p class="lunch-time-text">Lunch time</p>
-        <div class="lunch-content">
+        <div class="flex items-center">
           <button
-            class="edit-button"
             aria-label="Edit what's on your plate today"
+            class="pen-button"
             type="button"
           >
-            <i class="fas fa-pen"></i>
+            <i class="fas fa-pen pen-icon"></i>
           </button>
           <p class="plate-text">What's on Your Plate Today?</p>
         </div>
       </section>
 
-      <section class="friends-meals-section">
-        <h2 class="section-title">Recent friends' meals</h2>
-        <div class="meals-carousel" aria-label="Recent friends meals carousel">
-          <!-- Meal card 1 -->
-          <article class="meal-card">
-            <div class="meal-image-container">
+      <section class="w-full max-w-6xl">
+        <h2 class="recent-friends-title">Recent friends' meals</h2>
+        <div class="recent-friends-cards">
+          <!-- Card 1 -->
+          <article class="max-w-[220px]">
+            <div class="gallery-image-container">
               <img
                 alt="Sandwich cut in half on white plate on a light surface"
-                class="meal-image"
-                src="https://storage.googleapis.com/a1aa/image/f8c8496c-c8a2-4228-cf1d-4c4c8bc595b2.jpg"
+                src="/pictures/pic-hp-gallery-1.jpg"
+                loading="lazy"
               />
-              <div
-                class="carousel-arrow arrow-left"
-                role="button"
-                tabindex="0"
+              <button
                 aria-label="Previous meal"
+                class="gallery-arrow left"
+                type="button"
+                onclick="changeImage(0, -1)"
               >
                 <i class="fas fa-chevron-left"></i>
-              </div>
-              <div
-                class="carousel-arrow arrow-right"
-                role="button"
-                tabindex="0"
+              </button>
+              <button
                 aria-label="Next meal"
+                class="gallery-arrow right"
+                type="button"
+                onclick="changeImage(0, 1)"
               >
                 <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+            <div class="flex items-center mt-2 justify-end">
+              <div class="flex space-x-3 text-[12px] text-black">
+                <button
+                  aria-label="Comment on meal xyz1"
+                  class="comment-btn"
+                  type="button"
+                  onclick="toggleComments(0)"
+                >
+                  <i class="fas fa-comment"></i>
+                  <span class="comment-count">3</span>
+                </button>
+                <button
+                  aria-label="Like meal xyz1"
+                  class="like-btn"
+                  type="button"
+                  onclick="toggleLike(this)"
+                >
+                  <i class="fas fa-heart"></i>
+                  <span class="like-count">12</span>
+                </button>
               </div>
             </div>
-            <div class="meal-info">
+            <div class="avatar-username mt-3">
               <img
                 alt="Avatar image of user xyz1"
-                class="user-avatar"
-                src="https://storage.googleapis.com/a1aa/image/c92bfdbc-50a3-4a66-eed0-024ffbc22fbb.jpg"
+                class="w-5 h-5 object-cover border border-black"
+                height="20"
+                src="/pictures//hp-prof-1.jpg"
+                width="20"
               />
-              <p class="username">xyz1</p>
-              <div class="meal-actions" aria-label="Meal actions">
-                <i class="fas fa-comment" title="Comment"></i>
-                <i class="fas fa-heart" title="Like"></i>
-              </div>
+              <p class="text-[10px] font-sans select-none">funycat123</p>
             </div>
-            <p class="meal-title">Lorem ipsum odor.</p>
-            <p class="meal-description">
-              Lorem ipsum odor amet, consectetur adipiscing elit. Massa inceptos
-              eget eget natoque semper pretium amet viverra.
+            <p
+              class="text-[8px] mt-1 font-sans text-black/70 leading-tight select-none"
+            >
+              my sandwiches look so nice!!! white cheese and cucumbers hihi
             </p>
           </article>
 
-          <!-- Meal card 2 -->
-          <article class="meal-card">
-            <div class="meal-image-container">
+          <!-- Card 2 -->
+          <article class="max-w-[220px]">
+            <div class="gallery-image-container">
               <img
                 alt="Dumplings in a bowl with greens"
-                class="meal-image"
-                src="https://storage.googleapis.com/a1aa/image/cfe2c722-28c9-42d9-3b5b-bea15ceb3706.jpg"
+                src="/pictures/pic-hp-gallery-2.jpg"
+                loading="lazy"
               />
-              <div
-                class="carousel-arrow arrow-left"
-                role="button"
-                tabindex="0"
+              <button
                 aria-label="Previous meal"
+                class="gallery-arrow left"
+                type="button"
+                onclick="changeImage(1, -1)"
               >
                 <i class="fas fa-chevron-left"></i>
-              </div>
-              <div
-                class="carousel-arrow arrow-right"
-                role="button"
-                tabindex="0"
+              </button>
+              <button
                 aria-label="Next meal"
+                class="gallery-arrow right"
+                type="button"
+                onclick="changeImage(1, 1)"
               >
                 <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+            <div class="flex items-center mt-2 justify-end">
+              <div class="flex space-x-3 text-[12px] text-black">
+                <button
+                  aria-label="Comment on meal xyz2"
+                  class="comment-btn"
+                  type="button"
+                  onclick="toggleComments(1)"
+                >
+                  <i class="fas fa-comment"></i>
+                  <span class="comment-count">5</span>
+                </button>
+                <button
+                  aria-label="Like meal xyz2"
+                  class="like-btn"
+                  type="button"
+                  onclick="toggleLike(this)"
+                >
+                  <i class="fas fa-heart"></i>
+                  <span class="like-count">8</span>
+                </button>
               </div>
             </div>
-            <div class="meal-info">
+            <div class="avatar-username mt-3">
               <img
                 alt="Avatar image of user xyz2"
-                class="user-avatar"
-                src="https://storage.googleapis.com/a1aa/image/1858fdcb-1622-4336-3f64-3227b305b14d.jpg"
+                class="w-5 h-5 object-cover border border-black"
+                height="20"
+                src="/pictures/hp-prof-2.jpg"
+                width="20"
               />
-              <p class="username">xyz2</p>
-              <div class="meal-actions" aria-label="Meal actions">
-                <i class="fas fa-comment" title="Comment"></i>
-                <i class="fas fa-heart" title="Like"></i>
-              </div>
+              <p class="text-[10px] font-sans select-none">yumyum8</p>
             </div>
-            <p class="meal-title">Lorem ipsum odor amet.</p>
-            <p class="meal-description">
-              Lorem ipsum odor amet, consectetur adipiscing elit. Massa inceptos
-              eget eget natoque semper pretium amet viverra.
+            <p
+              class="text-[8px] mt-1 font-sans text-black/70 leading-tight select-none"
+            >
+              how do you like my lunch GUYSSSSSS hello
             </p>
           </article>
 
-          <!-- Meal card 3 -->
-          <article class="meal-card">
-            <div class="meal-image-container">
+          <!-- Card 3 -->
+          <article class="max-w-[220px]">
+            <div class="gallery-image-container">
               <img
                 alt="Tofu and greens in a bowl"
-                class="meal-image"
-                src="https://storage.googleapis.com/a1aa/image/e9346f27-f317-4c6f-7e9f-cca453f37b2d.jpg"
+                src="/pictures/pic-hp-gallery-3.jpg"
+                loading="lazy"
               />
-              <div
-                class="carousel-arrow arrow-left"
-                role="button"
-                tabindex="0"
+              <button
                 aria-label="Previous meal"
+                class="gallery-arrow left"
+                type="button"
+                onclick="changeImage(2, -1)"
               >
                 <i class="fas fa-chevron-left"></i>
-              </div>
-              <div
-                class="carousel-arrow arrow-right"
-                role="button"
-                tabindex="0"
+              </button>
+              <button
                 aria-label="Next meal"
+                class="gallery-arrow right"
+                type="button"
+                onclick="changeImage(2, 1)"
               >
                 <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+            <div class="flex items-center mt-2 justify-end">
+              <div class="flex space-x-3 text-[12px] text-black">
+                <button
+                  aria-label="Comment on meal xyz3"
+                  class="comment-btn"
+                  type="button"
+                  onclick="toggleComments(2)"
+                >
+                  <i class="fas fa-comment"></i>
+                  <span class="comment-count">2</span>
+                </button>
+                <button
+                  aria-label="Like meal xyz3"
+                  class="like-btn"
+                  type="button"
+                  onclick="toggleLike(this)"
+                >
+                  <i class="fas fa-heart"></i>
+                  <span class="like-count">15</span>
+                </button>
               </div>
             </div>
-            <div class="meal-info">
+            <div class="avatar-username mt-3">
               <img
                 alt="Avatar image of user xyz3"
-                class="user-avatar"
-                src="https://storage.googleapis.com/a1aa/image/a2dac0ad-d1e1-4d65-7a01-c8f283ab3c34.jpg"
+                class="w-5 h-5 object-cover border border-black"
+                height="20"
+                src="/pictures/hp-prof-1.jpg"
+                width="20"
               />
-              <p class="username">xyz3</p>
-              <div class="meal-actions" aria-label="Meal actions">
-                <i class="fas fa-comment" title="Comment"></i>
-                <i class="fas fa-heart" title="Like"></i>
-              </div>
+              <p class="text-[10px] font-sans select-none">ilikefood1</p>
             </div>
-            <p class="meal-title">Lorem ipsum odor amet.</p>
-            <p class="meal-description">
-              Lorem ipsum odor amet, consectetur adipiscing elit. Massa inceptos
-              eget eget natoque semper pretium amet viverra. Panctibus vel
-              taciti odio mus eros risus. Condimentum pretium tincidunt nec
-              mattis ultricies orci mattis. Ac ultrices fermentum consectetur eu
-              accumsan interdum? Semper pellentesque donec accumsan id
-              condimentum vestibulum praesent dictum.
+            <p
+              class="text-[8px] mt-1 font-sans text-black/70 leading-tight select-none"
+            >
+              i couldnt wait for break! i was so hungry, what did YOU eat for
+              lunch btw? ill enjoy it now
             </p>
           </article>
         </div>
       </section>
     </main>
 
-    <!-- Footer -->
     <footer class="page-footer">
       <a class="footer-link" href="#">ABOUT US</a>
-      <div class="copyright-info">
-        <span>YumUnity ©</span>
+      <div class="copyright">
+        <span>©</span>
+        <span class="footer-yumunity pecita-font">YumUnity</span>
         <span>All right reserved.</span>
       </div>
-      <div class="social-media-links">
-        <a aria-label="Facebook" href="#"><i class="fab fa-facebook-f"></i></a>
-        <a aria-label="Instagram" href="#"><i class="fab fa-instagram"></i></a>
-        <a aria-label="Twitter" href="#"><i class="fab fa-twitter"></i></a>
+      <div class="social-links">
+        <a aria-label="Facebook" class="social-link" href="#"
+          ><i class="fab fa-facebook-f"></i
+        ></a>
+        <a aria-label="Instagram" class="social-link" href="#"
+          ><i class="fab fa-instagram"></i
+        ></a>
+        <a aria-label="Twitter" class="social-link" href="#"
+          ><i class="fab fa-twitter"></i
+        ></a>
       </div>
     </footer>
+
+    <script src="homepage-script.js"></script>
   </body>
 </html>

@@ -1,267 +1,285 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <title>Profile Page</title>
-    <link rel="stylesheet" href="profileStyles.css" />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YumUnity - Profile</title>
+    <link rel="stylesheet" href="main-styles.css" />
     <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
   </head>
-  <body class="profile-page">
-    <!-- Left vertical navigation -->
-    <nav class="side-navigation">
-      <button class="nav-button" aria-label="Home" type="button">
+  <body>
+    <!-- Left Navigation -->
+    <nav class="left-nav">
+      <button class="nav-btn" onclick="goToPage('homepage.html')" title="Home">
         <i class="fas fa-home"></i>
       </button>
-      <button class="nav-button" aria-label="User" type="button">
+      <button
+        class="nav-btn active"
+        onclick="goToPage('profile.html')"
+        title="Profile"
+      >
         <i class="fas fa-user"></i>
       </button>
-      <button class="nav-button" aria-label="Globe" type="button">
+      <button class="nav-btn" onclick="toggleFriendsPanel()" title="Friends">
         <i class="fas fa-globe"></i>
       </button>
-      <button class="nav-button" aria-label="Notifications" type="button">
+      <button
+        class="nav-btn"
+        onclick="toggleNotificationsPanel()"
+        title="Notifications"
+      >
         <i class="fas fa-bell"></i>
       </button>
     </nav>
 
-    <!-- Top right logout button -->
-    <div class="logout-container">
-      <button class="logout-button" type="button">Log out</button>
-    </div>
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-container">
+        <img src="pictures/logo.png" alt="YumUnity Logo" class="logo" />
+      </div>
+      <button class="logout-btn" onclick="logout()">Log out</button>
+    </header>
 
-    <!-- Logo centered top -->
-    <div class="logo-container">
-      <img alt="Yth logo black text" class="logo" src="pictures/logo.png" />
-    </div>
-
-    <!-- Main container -->
-    <main class="main-content">
-      <!-- Profile title section -->
+    <!-- Main Content -->
+    <main class="main-content profile-page">
+      <!-- Profile Title -->
       <div class="profile-title-container">
-        <div class="profile-title handwritten-font">My profile</div>
+        <div class="profile-title-box">My profile</div>
       </div>
 
-      <!-- Profile info and Q&A section -->
-      <section class="profile-section" aria-label="Profile information and Q&A">
-        <!-- Left side: image and text -->
-        <div class="profile-info">
-          <img
-            alt="Cat wearing a green scarf and a green hat, looking at the camera"
-            class="profile-image"
-            src="https://storage.googleapis.com/a1aa/image/426f1e38-5fc2-4d39-c2d3-4eaa3829ce7c.jpg"
-          />
-          <div class="profile-details">
-            <h2 class="profile-name">xyz</h2>
-            <p class="profile-description">
-              Lorem ipsum dolor amet, consectetur adipiscing elit. Massa
-              imperdiet eget eget netusque semper purus amet viverra. Fermentum
-              vel lectus odio euq est nulla. Condimentum penatibus faucibus nec
-              mollis nullam ac mattis, ac ultrices fermentum consectetur eu
-              iaculis. Interdum sit per pellentesque orci accumsan ut
-              condimentum eu bibendum praesent dictum.
-            </p>
+      <!-- Profile Section -->
+      <section class="profile-section">
+        <div class="profile-content">
+          <div class="profile-info">
+            <div class="profile-avatar">
+              <img
+                src="/placeholder.svg?height=120&width=120"
+                alt="Profile Picture"
+                id="profileImage"
+              />
+            </div>
+            <div class="profile-details">
+              <h3 id="profileUsername">xyz</h3>
+              <p id="profileBio">
+                Lorem ipsum dolor amet, consectetur adipiscing elit. Massa
+                imperdiet eget eget netusque semper purus amet viverra.
+                Fermentum vel lectus odio euq est nulla. Condimentum penatibus
+                faucibus nec mollis nullam ac mattis, ac ultrices fermentum
+                consectetur eu iaculis. Interdum sit per pellentesque orci
+                accumsan ut condimentum eu bibendum praesent dictum.
+              </p>
+            </div>
+          </div>
+
+          <div class="qa-section">
+            <h4>Q&A</h4>
+            <div class="qa-content" id="qaContent">
+              <p>
+                Lorem ipsum dolor amet, consectetur adipiscing elit. Massa
+                imperdiet eget eget netusque semper purus amet viverra.
+                Fermentum vel lectus odio euq est nulla. Condimentum penatibus
+                faucibus nec mollis nullam ac mattis, ac ultrices fermentum
+                consectetur eu iaculis. Interdum sit per pellentesque orci
+                accumsan eu bibendum praesent dictum.
+              </p>
+            </div>
           </div>
         </div>
 
-        <!-- Right side: Q&A box -->
-        <aside class="qa-box" aria-label="Q and A">
-          <h3 class="qa-title">Q&A</h3>
-          <p class="qa-content">
-            Lorem ipsum dolor amet, consectetur adipiscing elit. Massa imperdiet
-            eget eget netusque semper purus amet viverra. Fermentum vel lectus
-            odio euq est nulla. Condimentum penatibus faucibus nec mollis nullam
-            ac mattis, ac ultrices fermentum consectetur eu iaculis. Interdum
-            sit per pellentesque orci accumsan eu bibendum praesent dictum.
-          </p>
-        </aside>
+        <button class="settings-btn" onclick="openSettings()">
+          <i class="fas fa-cog"></i>
+        </button>
       </section>
 
-      <!-- Calendar and meal schedule section -->
-      <section class="schedule-container">
-        <div class="calendar-wrapper">
-          <div class="calendar-box" aria-label="Calendar for March 2025">
-            <h4 class="section-header">MARCH '25</h4>
-            <table class="calendar-table">
-              <thead>
-                <tr>
-                  <th>S</th>
-                  <th>M</th>
-                  <th>T</th>
-                  <th>W</th>
-                  <th>T</th>
-                  <th>F</th>
-                  <th>S</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="inactive-day">1</td>
-                  <td>2</td>
-                  <td>3</td>
-                  <td>4</td>
-                  <td>5</td>
-                  <td>6</td>
-                  <td>7</td>
-                </tr>
-                <tr>
-                  <td>8</td>
-                  <td>9</td>
-                  <td>10</td>
-                  <td>11</td>
-                  <td>12</td>
-                  <td>13</td>
-                  <td>14</td>
-                </tr>
-                <tr>
-                  <td>15</td>
-                  <td>16</td>
-                  <td>17</td>
-                  <td>18</td>
-                  <td>19</td>
-                  <td>20</td>
-                  <td>21</td>
-                </tr>
-                <tr>
-                  <td>22</td>
-                  <td>23</td>
-                  <td class="current-day">24</td>
-                  <td>25</td>
-                  <td>26</td>
-                  <td>27</td>
-                  <td>28</td>
-                </tr>
-                <tr>
-                  <td>29</td>
-                  <td>30</td>
-                  <td>31</td>
-                  <td class="inactive-day">1</td>
-                  <td class="inactive-day">2</td>
-                  <td class="inactive-day">3</td>
-                  <td class="inactive-day">4</td>
-                </tr>
-              </tbody>
-            </table>
+      <!-- Calendar and Schedule Section -->
+      <section class="calendar-schedule">
+        <div class="calendar-card">
+          <h3>MARCH '25</h3>
+          <div class="calendar" id="calendar">
+            <!-- Calendar will be generated here -->
           </div>
         </div>
 
-        <div class="schedule-wrapper">
-          <aside class="meal-schedule-box" aria-label="My meal schedule">
-            <h4 class="section-header">MY MEAL SCHEDULE</h4>
-            <ul class="meal-list">
-              <li>× Lorem ipsum</li>
-              <li>× Lorem ipsum</li>
-              <li>× Lorem ipsum</li>
-              <li>× Lorem ipsum</li>
-              <li>× Lorem ipsum</li>
-              <li>× Lorem ipsum</li>
-              <li>× Lorem ipsum</li>
-            </ul>
-          </aside>
+        <div class="schedule-card">
+          <h3>MY MEAL SCHEDULE</h3>
+          <div class="meal-schedule" id="mealSchedule">
+            <div class="schedule-item">
+              <span class="bullet">×</span>
+              <span id="breakfastSchedule">Breakfast - 8:00 AM</span>
+            </div>
+            <div class="schedule-item">
+              <span class="bullet">×</span>
+              <span id="lunchSchedule">Lunch - 12:30 PM</span>
+            </div>
+            <div class="schedule-item">
+              <span class="bullet">×</span>
+              <span id="dinnerSchedule">Dinner - 7:00 PM</span>
+            </div>
+          </div>
         </div>
       </section>
 
-      <!-- Recent meals section -->
-      <h3 class="recent-meals-title">My recent meals</h3>
-
-      <section class="recent-meals" aria-label="Recent meals">
-        <!-- Meal 1 -->
-        <article class="meal-card">
-          <div class="meal-image-container">
-            <img
-              alt="Two small bowls with food on a wooden table"
-              class="meal-image"
-              src="https://storage.googleapis.com/a1aa/image/cdb0ee50-797f-4871-878c-a99b2f6e7c46.jpg"
-            />
-            <button
-              class="carousel-button prev-button"
-              aria-label="Previous meal 1"
-              type="button"
-            >
-              ‹
-            </button>
-            <button
-              class="carousel-button next-button"
-              aria-label="Next meal 1"
-              type="button"
-            >
-              ›
-            </button>
-          </div>
-          <div class="meal-info">
-            <img
-              alt="Small avatar image of a cat"
-              class="user-avatar"
-              src="https://storage.googleapis.com/a1aa/image/3165bfa0-c5c6-4ee7-339c-33256a07a2b7.jpg"
-            />
-            <span class="username">xyz</span>
-            <span class="meal-time">- 40:40</span>
-          </div>
-          <p class="meal-description">
-            Lorem ipsum dolor Lorem ipsum dolor amet, consectetur adipiscing
-            elit. Massa imperdiet eget eget netusque semper purus.
-          </p>
-        </article>
-
-        <!-- Meal 2 -->
-        <article class="meal-card">
-          <div class="meal-image-container">
-            <img
-              alt="Grilled sandwich on a plate with a side cup on a table"
-              class="meal-image"
-              src="https://storage.googleapis.com/a1aa/image/b5ed124f-e833-4a6f-9dee-85124ff2f83a.jpg"
-            />
-            <button
-              class="carousel-button prev-button"
-              aria-label="Previous meal 2"
-              type="button"
-            >
-              ‹
-            </button>
-            <button
-              class="carousel-button next-button"
-              aria-label="Next meal 2"
-              type="button"
-            >
-              ›
-            </button>
-          </div>
-          <div class="meal-info">
-            <img
-              alt="Small avatar image of a cat"
-              class="user-avatar"
-              src="https://storage.googleapis.com/a1aa/image/3165bfa0-c5c6-4ee7-339c-33256a07a2b7.jpg"
-            />
-            <span class="username">xyz</span>
-            <span class="meal-time">- 40:40</span>
-          </div>
-          <p class="meal-description">
-            Lorem ipsum dolor amet, consectetur adipiscing elit. Massa imperdiet
-            eget eget netusque semper purus amet viverra.
-          </p>
-        </article>
+      <!-- My Recent Meals -->
+      <section class="recent-meals">
+        <h2>My recent meals</h2>
+        <div class="meals-scroll" id="myMealsContainer">
+          <!-- User's meals will be loaded here -->
+        </div>
       </section>
     </main>
+
+    <!-- Settings Panel -->
+    <div class="side-panel settings-panel" id="settingsPanel">
+      <div class="panel-header">
+        <h3>Profile Settings</h3>
+        <button class="close-panel" onclick="closeSidePanel('settingsPanel')">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <form class="settings-form" id="settingsForm">
+        <div class="form-group">
+          <label>Profile Picture</label>
+          <input type="file" accept="image/*" id="settingsProfileImage" />
+        </div>
+
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" id="settingsUsername" required />
+        </div>
+
+        <div class="form-group">
+          <label>Bio</label>
+          <textarea
+            id="settingsBio"
+            placeholder="Tell us about yourself..."
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Q&A Responses</label>
+          <div class="qa-inputs">
+            <textarea
+              placeholder="What's your favorite cuisine?"
+              id="qa1"
+            ></textarea>
+            <textarea
+              placeholder="Do you have any dietary restrictions?"
+              id="qa2"
+            ></textarea>
+            <textarea
+              placeholder="What's your cooking style?"
+              id="qa3"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Meal Schedule</label>
+          <div class="meal-times">
+            <div class="time-input">
+              <label>Breakfast</label>
+              <input type="time" id="settingsBreakfastTime" />
+            </div>
+            <div class="time-input">
+              <label>Lunch</label>
+              <input type="time" id="settingsLunchTime" />
+            </div>
+            <div class="time-input">
+              <label>Dinner</label>
+              <input type="time" id="settingsDinnerTime" />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Change Password</label>
+          <input
+            type="password"
+            id="settingsPassword"
+            placeholder="New password"
+          />
+        </div>
+
+        <button type="submit" class="submit-btn">Save Changes</button>
+      </form>
+    </div>
+
+    <!-- Include the same panels as homepage -->
+    <div class="side-panel" id="friendsPanel">
+      <div class="panel-header">
+        <h3>Friends</h3>
+        <button class="close-panel" onclick="closeSidePanel('friendsPanel')">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="search-section">
+        <input
+          type="text"
+          placeholder="Search username or email..."
+          class="search-input"
+          id="friendSearch"
+        />
+        <button class="search-btn" onclick="searchUsers()">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+
+      <div class="panel-section">
+        <h4>Friend Requests</h4>
+        <div class="friend-requests" id="friendRequests"></div>
+      </div>
+
+      <div class="panel-section">
+        <h4>My Friends</h4>
+        <div class="friends-list" id="friendsList"></div>
+      </div>
+    </div>
+
+    <div class="side-panel" id="notificationsPanel">
+      <div class="panel-header">
+        <h3>Notifications</h3>
+        <button
+          class="close-panel"
+          onclick="closeSidePanel('notificationsPanel')"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="notifications-list" id="notificationsList"></div>
+    </div>
 
     <!-- Footer -->
     <footer class="page-footer">
       <a class="footer-link" href="#">ABOUT US</a>
-      <div class="copyright-info">
-        <span>YumUnity ©</span>
+      <div class="copyright">
+        <span>©</span>
+        <span class="footer-yumunity">YumUnity</span>
         <span>All right reserved.</span>
       </div>
-      <div class="social-media-links">
-        <a aria-label="Facebook" href="#"><i class="fab fa-facebook-f"></i></a>
-        <a aria-label="Instagram" href="#"><i class="fab fa-instagram"></i></a>
-        <a aria-label="Twitter" href="#"><i class="fab fa-twitter"></i></a>
+      <div class="social-links">
+        <a aria-label="Facebook" class="social-link" href="#"
+          ><i class="fab fa-facebook-f"></i
+        ></a>
+        <a aria-label="Instagram" class="social-link" href="#"
+          ><i class="fab fa-instagram"></i
+        ></a>
+        <a aria-label="Twitter" class="social-link" href="#"
+          ><i class="fab fa-twitter"></i
+        ></a>
       </div>
     </footer>
+
+    <div class="overlay" id="overlay"></div>
+
+    <script src="main-script.js"></script>
   </body>
 </html>
