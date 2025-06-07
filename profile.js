@@ -100,28 +100,21 @@ const friendRequests = [
   }
 ];
 
-// Comments data for profile posts
-const profilePostComments = {};
-
-// Post likes data for profile
-const profilePostLikes = {};
-
 let currentTab = 'friendsList';
 let searchQuery = '';
-let currentCommentPostId = null;
 
 function toggleNotificationsPanel() {
   const panel = document.getElementById("notificationsPanel");
   const notificationBtn = document.getElementById("nav-notifications");
   const friendsPanel = document.getElementById("friendsPanel");
   const friendsBtn = document.getElementById("nav-friends");
-
+  
   // Close friends panel if open
   if (friendsPanel && friendsPanel.classList.contains("active")) {
     friendsPanel.classList.remove("active");
     friendsBtn.classList.remove("active");
   }
-
+  
   if (panel.classList.contains("active")) {
     panel.classList.remove("active");
     notificationBtn.classList.remove("active");
@@ -137,13 +130,13 @@ function toggleFriendsPanel() {
   const friendsBtn = document.getElementById("nav-friends");
   const notificationsPanel = document.getElementById("notificationsPanel");
   const notificationBtn = document.getElementById("nav-notifications");
-
+  
   // Close notifications panel if open
   if (notificationsPanel && notificationsPanel.classList.contains("active")) {
     notificationsPanel.classList.remove("active");
     notificationBtn.classList.remove("active");
   }
-
+  
   if (panel.classList.contains("active")) {
     panel.classList.remove("active");
     friendsBtn.classList.remove("active");
@@ -163,7 +156,7 @@ function searchFriends() {
 function populateNotifications() {
   const content = document.getElementById("notificationsContent");
   content.innerHTML = "";
-
+  
   notifications.forEach(notification => {
     const notificationElement = document.createElement("div");
     notificationElement.className = "notification-item";
@@ -178,7 +171,7 @@ function populateNotifications() {
 function populateFriendsContent() {
   const content = document.getElementById("friendsContent");
   content.innerHTML = "";
-
+  
   if (currentTab === 'friendsList') {
     // Filter friends based on search query
     const filteredFriends = friends.filter(friend => 
@@ -239,15 +232,15 @@ function populateFriendsContent() {
 
 function switchTab(tabName) {
   currentTab = tabName;
-
+  
   // Update tab buttons
   document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
   document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
-
+  
   // Clear search when switching tabs
   searchQuery = '';
   document.getElementById("friendSearchInput").value = '';
-
+  
   // Update content
   populateFriendsContent();
 }
@@ -285,7 +278,7 @@ function declineFriendRequest(requestId) {
 function updateNotificationBadge() {
   const badge = document.getElementById("notificationBadge");
   const count = notifications.length;
-
+  
   if (count > 0) {
     badge.textContent = count > 9 ? "9+" : count.toString();
     badge.style.display = "flex";
@@ -297,123 +290,19 @@ function updateNotificationBadge() {
 function updateFriendRequestBadge() {
   const badge = document.getElementById("friendRequestBadge");
   const count = friendRequests.length;
-
+  
   if (count > 0) {
     badge.textContent = count > 9 ? "9+" : count.toString();
     badge.style.display = "flex";
   } else {
     badge.style.display = "none";
   }
-
+  
   // Update tab count
   const tabCount = document.querySelector(".request-count");
   if (tabCount) {
     tabCount.textContent = count.toString();
   }
-}
-
-// Comments functionality for profile
-function openCommentsPanel(postId) {
-  currentCommentPostId = postId;
-  const panel = document.getElementById("commentsPanel");
-  panel.classList.add("active");
-
-  // Close other panels
-  closeAllPanels();
-
-  // Populate comments
-  populateComments(postId);
-}
-
-function closeCommentsPanel() {
-  const panel = document.getElementById("commentsPanel");
-  panel.classList.remove("active");
-  currentCommentPostId = null;
-
-  // Clear comment input
-  const commentInput = document.getElementById("commentInput");
-  if (commentInput) {
-    commentInput.value = "";
-  }
-}
-
-function populateComments(postId) {
-  const commentsList = document.getElementById("commentsList");
-  const comments = profilePostComments[postId] || [];
-
-  if (comments.length === 0) {
-    commentsList.innerHTML = '<div class="no-comments">No comments yet. Be the first to comment!</div>';
-    return;
-  }
-
-  commentsList.innerHTML = "";
-  comments.forEach(comment => {
-    const commentElement = document.createElement("div");
-    commentElement.className = "comment-item";
-    commentElement.innerHTML = `
-      <div class="comment-author">${comment.author}</div>
-      <p class="comment-text">${comment.text}</p>
-      <div class="comment-time">${comment.time}</div>
-    `;
-    commentsList.appendChild(commentElement);
-  });
-}
-
-function addComment() {
-  const commentInput = document.getElementById("commentInput");
-  const commentText = commentInput.value.trim();
-
-  if (!commentText) {
-    alert("Please enter a comment.");
-    return;
-  }
-
-  if (currentCommentPostId === null) return;
-
-  // Add new comment
-  if (!profilePostComments[currentCommentPostId]) {
-    profilePostComments[currentCommentPostId] = [];
-  }
-
-  const newComment = {
-    id: Date.now(),
-    author: userData.username, // Current user
-    text: commentText,
-    time: "Just now"
-  };
-
-  profilePostComments[currentCommentPostId].push(newComment);
-
-  // Update comment count in the UI
-  const commentBtn = document.querySelector(`[data-post-id="${currentCommentPostId}"] .comment-count`);
-  if (commentBtn) {
-    const currentCount = parseInt(commentBtn.textContent);
-    commentBtn.textContent = currentCount + 1;
-  }
-
-  // Refresh comments display
-  populateComments(currentCommentPostId);
-
-  // Clear input
-  commentInput.value = "";
-
-  // Show success message
-  alert("Comment added successfully!");
-}
-
-function closeAllPanels() {
-  const panels = ['notificationsPanel', 'friendsPanel'];
-  const buttons = ['nav-notifications', 'nav-friends'];
-
-  panels.forEach(panelId => {
-    const panel = document.getElementById(panelId);
-    if (panel) panel.classList.remove("active");
-  });
-
-  buttons.forEach(btnId => {
-    const btn = document.getElementById(btnId);
-    if (btn) btn.classList.remove("active");
-  });
 }
 
 // Close panels when clicking outside
@@ -422,8 +311,7 @@ document.addEventListener("click", function(event) {
   const notificationBtn = document.getElementById("nav-notifications");
   const friendsPanel = document.getElementById("friendsPanel");
   const friendsBtn = document.getElementById("nav-friends");
-  const commentsPanel = document.getElementById("commentsPanel");
-
+  
   // Close notifications panel
   if (notificationsPanel && notificationsPanel.classList.contains("active") && 
       !notificationsPanel.contains(event.target) && 
@@ -431,19 +319,13 @@ document.addEventListener("click", function(event) {
     notificationsPanel.classList.remove("active");
     notificationBtn.classList.remove("active");
   }
-
+  
   // Close friends panel
   if (friendsPanel && friendsPanel.classList.contains("active") && 
       !friendsPanel.contains(event.target) && 
       !friendsBtn.contains(event.target)) {
     friendsPanel.classList.remove("active");
     friendsBtn.classList.remove("active");
-  }
-
-  // Close comments panel
-  if (commentsPanel && commentsPanel.classList.contains("active") && 
-      !commentsPanel.contains(event.target)) {
-    closeCommentsPanel();
   }
 });
 
@@ -618,7 +500,7 @@ function updateRequirement(id, isValid) {
 }
 
 function resetPasswordRequirements() {
-  ["lengthReq", "numberReq", "uppercaseReq"].forEach((id) => {
+  ;["lengthReq", "numberReq", "uppercaseReq"].forEach((id) => {
     updateRequirement(id, false)
   })
 }
@@ -776,11 +658,11 @@ function updateQADisplay() {
 function navigateGallery(direction, cardIndex) {
   const img = document.querySelector(`[data-index="${cardIndex}"] .gallery-image`)
   const currentIndex = Number.parseInt(img.dataset.current)
-
+  
   // Get user posts from localStorage
   const savedPosts = localStorage.getItem("userPosts");
   const userPosts = savedPosts ? JSON.parse(savedPosts) : [];
-
+  
   let images;
   if (userPosts.length > cardIndex) {
     // Use user post images
@@ -801,47 +683,30 @@ function navigateGallery(direction, cardIndex) {
   img.dataset.current = newIndex
 }
 
-// Like functionality for profile posts
+// Like functionality
 function toggleLike(button) {
-  const article = button.closest("article");
-  const postId = parseInt(article.dataset.index) || 0;
+  button.classList.toggle("active")
+  const likeCount = button.querySelector(".like-count")
+  let count = Number.parseInt(likeCount.textContent)
 
-  if (!profilePostLikes[postId]) {
-    profilePostLikes[postId] = { count: 0, liked: false };
-  }
-
-  const likeData = profilePostLikes[postId];
-  const countSpan = button.querySelector(".like-count");
-
-  if (likeData.liked) {
-    // Unlike
-    button.classList.remove("active");
-    likeData.count--;
-    likeData.liked = false;
+  if (button.classList.contains("active")) {
+    count++
   } else {
-    // Like
-    button.classList.add("active");
-    likeData.count++;
-    likeData.liked = true;
+    count--
   }
 
-  countSpan.textContent = likeData.count;
-}
-
-// Toggle comments for profile posts
-function toggleComments(postId) {
-  openCommentsPanel(postId);
+  likeCount.textContent = count
 }
 
 // Funkcja do wyświetlania postów użytkownika
 function displayUserPosts() {
   const postsContainer = document.querySelector(".recent-friends-cards");
   if (!postsContainer) return;
-
+  
   // Pobierz posty z localStorage
   const savedPosts = localStorage.getItem("userPosts");
   const userPosts = savedPosts ? JSON.parse(savedPosts) : [];
-
+  
   // Jeśli są posty, wyświetl je
   if (userPosts.length > 0) {
     // Wyczyść istniejące posty
@@ -857,14 +722,6 @@ function displayUserPosts() {
       
       // Utwórz galerię zdjęć
       const galleryImages = post.images.length > 0 ? post.images : ["/pictures/pic-hp-gallery-1.jpg"];
-      
-      // Initialize likes and comments for this post
-      if (!profilePostLikes[index]) {
-        profilePostLikes[index] = { count: post.likes || 0, liked: false };
-      }
-      if (!profilePostComments[index]) {
-        profilePostComments[index] = post.comments || [];
-      }
       
       postElement.innerHTML = `
         <div class="gallery-image-container">
@@ -898,10 +755,9 @@ function displayUserPosts() {
               aria-label="Comment on meal"
               class="comment-btn"
               type="button"
-              data-post-id="${index}"
             >
               <i class="fas fa-comment"></i>
-              <span class="comment-count">${profilePostComments[index].length}</span>
+              <span class="comment-count">0</span>
             </button>
             <button
               aria-label="Like meal"
@@ -910,7 +766,7 @@ function displayUserPosts() {
               onclick="toggleLike(this)"
             >
               <i class="fas fa-heart"></i>
-              <span class="like-count">${profilePostLikes[index].count}</span>
+              <span class="like-count">${post.likes || 0}</span>
             </button>
           </div>
         </div>
@@ -934,14 +790,6 @@ function displayUserPosts() {
       `;
       
       postsContainer.appendChild(postElement);
-    });
-    
-    // Add event listeners to comment buttons
-    document.querySelectorAll('.comment-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        const postId = parseInt(this.dataset.postId);
-        toggleComments(postId);
-      });
     });
   }
 }
@@ -983,12 +831,12 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
   // Meal schedule inputs
-  ["breakfastTimeInput", "lunchTimeInput", "dinnerTimeInput", "snackTimeInput"].forEach((id) => {
+  ;["breakfastTimeInput", "lunchTimeInput", "dinnerTimeInput", "snackTimeInput"].forEach((id) => {
     document.getElementById(id).addEventListener("change", updateSaveButton)
   })
 
   // Q&A inputs
-  ["qa1Input", "qa2Input", "qa3Input"].forEach((id) => {
+  ;["qa1Input", "qa2Input", "qa3Input"].forEach((id) => {
     document.getElementById(id).addEventListener("input", updateSaveButton)
   })
 
@@ -1006,8 +854,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const commentButtons = document.querySelectorAll(".comment-btn")
   commentButtons.forEach((button) => {
     button.addEventListener("click", function () {
-      const postId = parseInt(this.dataset.postId);
-      toggleComments(postId);
+      const card = this.closest(".card")
+      const cardIndex = Number.parseInt(card.dataset.index)
+      console.log(`Show comments for card ${cardIndex}`)
     })
   })
 
@@ -1017,7 +866,7 @@ document.addEventListener("DOMContentLoaded", () => {
       switchTab(this.dataset.tab);
     });
   });
-
+  
   // Add search functionality
   const searchInput = document.getElementById("friendSearchInput");
   if (searchInput) {
@@ -1033,27 +882,12 @@ document.addEventListener("DOMContentLoaded", () => {
       populateFriendsContent();
     });
   }
-
+  
   // Add search button functionality
   const searchBtn = document.querySelector(".search-btn");
   if (searchBtn) {
     searchBtn.addEventListener('click', searchFriends);
   }
-
-  // Escape key functionality
-  document.addEventListener("keydown", function(event) {
-    if (event.key === "Escape") {
-      const settingsPanel = document.getElementById("settingsPanel");
-      const commentsPanel = document.getElementById("commentsPanel");
-      
-      if (settingsPanel && settingsPanel.classList.contains("active")) {
-        closeSettings();
-      }
-      if (commentsPanel && commentsPanel.classList.contains("active")) {
-        closeCommentsPanel();
-      }
-    }
-  });
 })
 
 // Close panels when clicking outside

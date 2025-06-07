@@ -364,23 +364,15 @@ button {
   user-select: none;
   transition: color 0.3s ease;
   cursor: pointer;
-  border: none;
-  background: none;
-  padding: 0;
 }
 
 .like-btn i,
 .comment-btn i {
   font-size: 12px;
-  margin-right: 0.25rem;
 }
 
 /* Like button active style */
 .like-btn.active {
-  color: #ef4444;
-}
-
-.like-btn.active i {
   color: #ef4444;
 }
 
@@ -516,7 +508,7 @@ article p.text-\[8px\] {
   }
 }
 
-/* Add Post Panel */
+/* Add Post Panel - podobny do settings panel */
 .add-post-panel {
   position: fixed;
   top: 50%;
@@ -713,151 +705,6 @@ article p.text-\[8px\] {
   background-color: #e5e7eb;
 }
 
-/* Comments Panel */
-.comments-panel {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  border-radius: 1rem;
-  padding: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  max-width: 500px;
-  width: 90%;
-  max-height: 80vh;
-  overflow-y: auto;
-  z-index: 200;
-  display: none;
-  flex-direction: column;
-}
-
-.comments-panel.active {
-  display: flex;
-}
-
-.comments-panel h3 {
-  font-family: "Pecita", cursive;
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  color: #000;
-}
-
-.comments-list {
-  max-height: 300px;
-  overflow-y: auto;
-  margin-bottom: 1.5rem;
-  padding: 0.5rem;
-}
-
-.comment-item {
-  background: #f8f9fa;
-  border-radius: 0.75rem;
-  padding: 0.75rem 1rem;
-  margin-bottom: 0.75rem;
-  border: 1px solid #e9ecef;
-}
-
-.comment-item:last-child {
-  margin-bottom: 0;
-}
-
-.comment-author {
-  font-weight: 600;
-  font-size: 0.875rem;
-  color: var(--highlight-blue);
-  margin-bottom: 0.25rem;
-}
-
-.comment-text {
-  font-size: 0.875rem;
-  color: #000;
-  line-height: 1.4;
-  margin: 0;
-}
-
-.comment-time {
-  font-size: 0.75rem;
-  color: #666;
-  margin-top: 0.25rem;
-}
-
-.add-comment-form {
-  border-top: 1px solid #e9ecef;
-  padding-top: 1.5rem;
-}
-
-.comment-input {
-  width: 100%;
-  padding: 0.875rem 1rem;
-  border: 2px solid #000;
-  border-radius: 2rem;
-  font-size: 0.875rem;
-  outline: none;
-  transition: border-color 0.3s ease;
-  background-color: white;
-  font-family: "Poppins", sans-serif;
-  resize: vertical;
-  min-height: 60px;
-  margin-bottom: 1rem;
-}
-
-.comment-input:focus {
-  border-color: var(--highlight-blue);
-}
-
-.comment-actions {
-  display: flex;
-  gap: 0.75rem;
-  justify-content: flex-end;
-}
-
-.comment-submit-btn {
-  background-color: var(--highlight-blue);
-  color: #000;
-  border: 2px solid #000;
-  border-radius: 2rem;
-  padding: 0.5rem 1.5rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.comment-submit-btn:hover:not(:disabled) {
-  background-color: #84a0d8;
-}
-
-.comment-submit-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.comment-cancel-btn {
-  background-color: #f3f4f6;
-  color: #000;
-  border: 2px solid #000;
-  border-radius: 2rem;
-  padding: 0.5rem 1.5rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.comment-cancel-btn:hover {
-  background-color: #e5e7eb;
-}
-
-.no-comments {
-  text-align: center;
-  color: #666;
-  font-style: italic;
-  padding: 2rem;
-  font-size: 0.9rem;
-}
-
 /* Notification badge */
 .notification-badge {
   position: absolute;
@@ -971,7 +818,7 @@ article p.text-\[8px\] {
   font-weight: 500;
 }
 
-/* Friends Panel */
+/* Friends Panel - identical to notifications panel */
 .friends-panel {
   position: fixed;
   top: 80px;

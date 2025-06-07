@@ -79,32 +79,8 @@ const friendRequests = [
   }
 ];
 
-// Comments data for each post
-const postComments = {
-  0: [
-    { id: 1, author: "yumyum8", text: "Looks delicious! 😋", time: "2 hours ago" },
-    { id: 2, author: "ilikefood1", text: "Recipe please!", time: "1 hour ago" }
-  ],
-  1: [
-    { id: 1, author: "funycat123", text: "Amazing presentation!", time: "3 hours ago" },
-    { id: 2, author: "healthyeats", text: "So healthy! Love it", time: "2 hours ago" },
-    { id: 3, author: "cookmaster", text: "Perfect lunch choice", time: "1 hour ago" }
-  ],
-  2: [
-    { id: 1, author: "yumyum8", text: "Tofu goals! 🌱", time: "4 hours ago" }
-  ]
-};
-
-// Post likes data
-const postLikes = {
-  0: { count: 12, liked: false },
-  1: { count: 8, liked: false },
-  2: { count: 15, liked: false }
-};
-
 let currentTab = 'friendsList';
 let searchQuery = '';
-let currentCommentPostId = null;
 
 // Update current time every second
 function updateTime() {
@@ -329,110 +305,6 @@ function updateFriendRequestBadge() {
   }
 }
 
-// Comments functionality
-function openCommentsPanel(postId) {
-  currentCommentPostId = postId;
-  const panel = document.getElementById("commentsPanel");
-  panel.classList.add("active");
-  
-  // Close other panels
-  closeAllPanels();
-  
-  // Populate comments
-  populateComments(postId);
-}
-
-function closeCommentsPanel() {
-  const panel = document.getElementById("commentsPanel");
-  panel.classList.remove("active");
-  currentCommentPostId = null;
-  
-  // Clear comment input
-  const commentInput = document.getElementById("commentInput");
-  if (commentInput) {
-    commentInput.value = "";
-  }
-}
-
-function populateComments(postId) {
-  const commentsList = document.getElementById("commentsList");
-  const comments = postComments[postId] || [];
-  
-  if (comments.length === 0) {
-    commentsList.innerHTML = '<div class="no-comments">No comments yet. Be the first to comment!</div>';
-    return;
-  }
-  
-  commentsList.innerHTML = "";
-  comments.forEach(comment => {
-    const commentElement = document.createElement("div");
-    commentElement.className = "comment-item";
-    commentElement.innerHTML = `
-      <div class="comment-author">${comment.author}</div>
-      <p class="comment-text">${comment.text}</p>
-      <div class="comment-time">${comment.time}</div>
-    `;
-    commentsList.appendChild(commentElement);
-  });
-}
-
-function addComment() {
-  const commentInput = document.getElementById("commentInput");
-  const commentText = commentInput.value.trim();
-  
-  if (!commentText) {
-    alert("Please enter a comment.");
-    return;
-  }
-  
-  if (currentCommentPostId === null) return;
-  
-  // Add new comment
-  if (!postComments[currentCommentPostId]) {
-    postComments[currentCommentPostId] = [];
-  }
-  
-  const newComment = {
-    id: Date.now(),
-    author: "xyz", // Current user
-    text: commentText,
-    time: "Just now"
-  };
-  
-  postComments[currentCommentPostId].push(newComment);
-  
-  // Update comment count in the UI
-  const commentBtn = document.querySelector(`[data-post-id="${currentCommentPostId}"] .comment-count`);
-  if (commentBtn) {
-    const currentCount = parseInt(commentBtn.textContent);
-    commentBtn.textContent = currentCount + 1;
-  }
-  
-  // Refresh comments display
-  populateComments(currentCommentPostId);
-  
-  // Clear input
-  commentInput.value = "";
-  
-  // Show success message
-  alert("Comment added successfully!");
-}
-
-function closeAllPanels() {
-  const panels = ['notificationsPanel', 'friendsPanel', 'addPostPanel'];
-  const buttons = ['nav-notifications', 'nav-friends'];
-  
-  panels.forEach(panelId => {
-    const panel = document.getElementById(panelId);
-    if (panel) panel.classList.remove("active");
-  });
-  
-  buttons.forEach(btnId => {
-    const btn = document.getElementById(btnId);
-    if (btn) btn.classList.remove("active");
-  });
-}
-
 // Close panels when clicking outside
 document.addEventListener("click", function(event) {
   const notificationsPanel = document.getElementById("notificationsPanel");
@@ -441,7 +313,6 @@ document.addEventListener("click", function(event) {
   const friendsBtn = document.getElementById("nav-friends");
   const addPostPanel = document.getElementById("addPostPanel");
   const penButton = document.querySelector(".pen-button");
-  const commentsPanel = document.getElementById("commentsPanel");
   
   // Close notifications panel
   if (notificationsPanel && notificationsPanel.classList.contains("active") && 
@@ -464,12 +335,6 @@ document.addEventListener("click", function(event) {
       !addPostPanel.contains(event.target) && 
       !penButton.contains(event.target)) {
     closeAddPostPanel();
-  }
-  
-  // Close comments panel
-  if (commentsPanel && commentsPanel.classList.contains("active") && 
-      !commentsPanel.contains(event.target)) {
-    closeCommentsPanel();
   }
 });
 
@@ -503,36 +368,23 @@ function changeImage(cardIndex, direction) {
   img.src = images[currentImageIndex[cardIndex]]
 }
 
-// Toggle like button active state and update count
-function toggleLike(button) {
-  const article = button.closest("article");
-  const postId = parseInt(article.dataset.index) || 0;
-  
-  if (!postLikes[postId]) {
-    postLikes[postId] = { count: 0, liked: false };
-  }
-  
-  const likeData = postLikes[postId];
-  const countSpan = button.querySelector(".like-count");
-  
-  if (likeData.liked) {
-    // Unlike
-    button.classList.remove("active");
-    likeData.count--;
-    likeData.liked = false;
-  } else {
-    // Like
-    button.classList.add("active");
-    likeData.count++;
-    likeData.liked = true;
-  }
-  
-  countSpan.textContent = likeData.count;
+// Toggle comments visibility (removed since comments are removed from HTML)
+function toggleComments(cardIndex) {
+  // Comments functionality removed
 }
 
-// Toggle comments for a specific post
-function toggleComments(postId) {
-  openCommentsPanel(postId);
+// Toggle like button active state and update count
+function toggleLike(button) {
+  const countSpan = button.querySelector(".like-count")
+  let count = Number.parseInt(countSpan.textContent, 10)
+  if (button.classList.contains("active")) {
+    button.classList.remove("active")
+    count--
+  } else {
+    button.classList.add("active")
+    count++
+  }
+  countSpan.textContent = count
 }
 
 // Highlight nav icon based on current page
@@ -558,7 +410,20 @@ function openAddPostPanel() {
   panel.classList.add("active");
   
   // Zamknij inne panele jeśli są otwarte
-  closeAllPanels();
+  const notificationsPanel = document.getElementById("notificationsPanel");
+  const notificationBtn = document.getElementById("nav-notifications");
+  const friendsPanel = document.getElementById("friendsPanel");
+  const friendsBtn = document.getElementById("nav-friends");
+  
+  if (notificationsPanel && notificationsPanel.classList.contains("active")) {
+    notificationsPanel.classList.remove("active");
+    notificationBtn.classList.remove("active");
+  }
+  
+  if (friendsPanel && friendsPanel.classList.contains("active")) {
+    friendsPanel.classList.remove("active");
+    friendsBtn.classList.remove("active");
+  }
   
   // Ustaw domyślny typ posiłku na podstawie aktualnej godziny
   setDefaultMealType();
@@ -787,43 +652,10 @@ document.addEventListener("DOMContentLoaded", function() {
   // Zamykanie panelu po naciśnięciu Escape
   document.addEventListener("keydown", function(event) {
     if (event.key === "Escape") {
-      const addPanel = document.getElementById("addPostPanel");
-      const commentsPanel = document.getElementById("commentsPanel");
-      
-      if (addPanel && addPanel.classList.contains("active")) {
+      const panel = document.getElementById("addPostPanel");
+      if (panel && panel.classList.contains("active")) {
         closeAddPostPanel();
       }
-      if (commentsPanel && commentsPanel.classList.contains("active")) {
-        closeCommentsPanel();
-      }
-    }
-  });
-
-  // Initialize like buttons with proper data attributes
-  const articles = document.querySelectorAll("article");
-  articles.forEach((article, index) => {
-    article.dataset.index = index;
-    
-    // Initialize like button state
-    const likeBtn = article.querySelector(".like-btn");
-    if (likeBtn && postLikes[index]) {
-      const likeCount = likeBtn.querySelector(".like-count");
-      if (likeCount) {
-        likeCount.textContent = postLikes[index].count;
-      }
-      if (postLikes[index].liked) {
-        likeBtn.classList.add("active");
-      }
-    }
-    
-    // Add comment button functionality
-    const commentBtn = article.querySelector(".comment-btn");
-    if (commentBtn) {
-      commentBtn.dataset.postId = index;
-      commentBtn.addEventListener("click", function() {
-        const postId = parseInt(this.dataset.postId);
-        toggleComments(postId);
-      });
     }
   });
 });
