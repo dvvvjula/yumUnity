@@ -1,3 +1,452 @@
+// Sample notifications data
+const notifications = [
+  {
+    id: 1,
+    text: "Lorem ipsum dolor amet, consectetur adipiscing elit.",
+    time: "13:46"
+  },
+  {
+    id: 2,
+    text: "Lorem ipsum dolor amet, consectetur adipiscing elit.",
+    time: "13:46"
+  },
+  {
+    id: 3,
+    text: "Lorem ipsum dolor amet, consectetur adipiscing elit.",
+    time: "13:46"
+  },
+  {
+    id: 4,
+    text: "Lorem ipsum dolor amet, consectetur adipiscing elit.",
+    time: "13:46"
+  },
+  {
+    id: 5,
+    text: "Lorem ipsum dolor amet, consectetur adipiscing elit.",
+    time: "13:46"
+  },
+  {
+    id: 6,
+    text: "Lorem ipsum dolor amet, consectetur adipiscing elit.",
+    time: "13:46"
+  }
+];
+
+// Sample friends data
+const friends = [
+  {
+    id: 1,
+    name: "funycat123",
+    avatar: "/pictures/hp-prof-1.jpg",
+    status: "Active now",
+    isActive: true
+  },
+  {
+    id: 2,
+    name: "yumyum8",
+    avatar: "/pictures/hp-prof-2.jpg",
+    status: "Last seen 2h ago",
+    isActive: false
+  },
+  {
+    id: 3,
+    name: "ilikefood1",
+    avatar: "/pictures/hp-prof-1.jpg",
+    status: "Active now",
+    isActive: true
+  },
+  {
+    id: 4,
+    name: "foodlover22",
+    avatar: "/pictures/hp-prof-2.jpg",
+    status: "Last seen 1h ago",
+    isActive: false
+  },
+  {
+    id: 5,
+    name: "cookmaster",
+    avatar: "/pictures/hp-prof-1.jpg",
+    status: "Active now",
+    isActive: true
+  },
+  {
+    id: 6,
+    name: "healthyeats",
+    avatar: "/pictures/hp-prof-2.jpg",
+    status: "Last seen 30m ago",
+    isActive: false
+  }
+];
+
+// Sample friend requests data
+const friendRequests = [
+  {
+    id: 1,
+    name: "foodlover22",
+    avatar: "/pictures/hp-prof-2.jpg",
+    status: "Wants to be friends"
+  },
+  {
+    id: 2,
+    name: "cookmaster",
+    avatar: "/pictures/hp-prof-1.jpg",
+    status: "Wants to be friends"
+  },
+  {
+    id: 3,
+    name: "healthyeats",
+    avatar: "/pictures/hp-prof-2.jpg",
+    status: "Wants to be friends"
+  }
+];
+
+// Comments data for profile posts
+const profilePostComments = {};
+
+// Post likes data for profile
+const profilePostLikes = {};
+
+let currentTab = 'friendsList';
+let searchQuery = '';
+let currentCommentPostId = null;
+
+function toggleNotificationsPanel() {
+  const panel = document.getElementById("notificationsPanel");
+  const notificationBtn = document.getElementById("nav-notifications");
+  const friendsPanel = document.getElementById("friendsPanel");
+  const friendsBtn = document.getElementById("nav-friends");
+
+  // Close friends panel if open
+  if (friendsPanel && friendsPanel.classList.contains("active")) {
+    friendsPanel.classList.remove("active");
+    friendsBtn.classList.remove("active");
+  }
+
+  if (panel.classList.contains("active")) {
+    panel.classList.remove("active");
+    notificationBtn.classList.remove("active");
+  } else {
+    panel.classList.add("active");
+    notificationBtn.classList.add("active");
+    populateNotifications();
+  }
+}
+
+function toggleFriendsPanel() {
+  const panel = document.getElementById("friendsPanel");
+  const friendsBtn = document.getElementById("nav-friends");
+  const notificationsPanel = document.getElementById("notificationsPanel");
+  const notificationBtn = document.getElementById("nav-notifications");
+
+  // Close notifications panel if open
+  if (notificationsPanel && notificationsPanel.classList.contains("active")) {
+    notificationsPanel.classList.remove("active");
+    notificationBtn.classList.remove("active");
+  }
+
+  if (panel.classList.contains("active")) {
+    panel.classList.remove("active");
+    friendsBtn.classList.remove("active");
+  } else {
+    panel.classList.add("active");
+    friendsBtn.classList.add("active");
+    populateFriendsContent();
+  }
+}
+
+function searchFriends() {
+  const searchInput = document.getElementById("friendSearchInput");
+  searchQuery = searchInput.value.toLowerCase().trim();
+  populateFriendsContent();
+}
+
+function populateNotifications() {
+  const content = document.getElementById("notificationsContent");
+  content.innerHTML = "";
+
+  notifications.forEach(notification => {
+    const notificationElement = document.createElement("div");
+    notificationElement.className = "notification-item";
+    notificationElement.innerHTML = `
+      <p class="notification-text">${notification.text}</p>
+      <span class="notification-time">${notification.time}</span>
+    `;
+    content.appendChild(notificationElement);
+  });
+}
+
+function populateFriendsContent() {
+  const content = document.getElementById("friendsContent");
+  content.innerHTML = "";
+
+  if (currentTab === 'friendsList') {
+    // Filter friends based on search query
+    const filteredFriends = friends.filter(friend => 
+      friend.name.toLowerCase().includes(searchQuery)
+    );
+    
+    if (filteredFriends.length === 0 && searchQuery) {
+      content.innerHTML = '<div class="friend-item"><p class="friend-name">No friends found</p></div>';
+      return;
+    }
+    
+    filteredFriends.forEach(friend => {
+      const friendElement = document.createElement("div");
+      friendElement.className = "friend-item";
+      friendElement.innerHTML = `
+        <img src="${friend.avatar}" alt="Friend avatar" class="friend-avatar">
+        <div class="friend-info">
+          <p class="friend-name">${friend.name}</p>
+          <p class="friend-status">${friend.status}</p>
+        </div>
+        ${friend.isActive ? '<span class="active-indicator"></span>' : ''}
+      `;
+      content.appendChild(friendElement);
+    });
+  } else {
+    // Filter friend requests based on search query
+    const filteredRequests = friendRequests.filter(request => 
+      request.name.toLowerCase().includes(searchQuery)
+    );
+    
+    if (filteredRequests.length === 0 && searchQuery) {
+      content.innerHTML = '<div class="friend-item"><p class="friend-name">No requests found</p></div>';
+      return;
+    }
+    
+    filteredRequests.forEach(request => {
+      const requestElement = document.createElement("div");
+      requestElement.className = "friend-request";
+      requestElement.innerHTML = `
+        <img src="${request.avatar}" alt="Friend request avatar" class="friend-avatar">
+        <div class="friend-info">
+          <p class="friend-name">${request.name}</p>
+          <p class="friend-status">${request.status}</p>
+        </div>
+        <div class="request-actions">
+          <button class="accept-btn" title="Accept" onclick="acceptFriendRequest(${request.id})">
+            <i class="fas fa-check"></i>
+          </button>
+          <button class="decline-btn" title="Decline" onclick="declineFriendRequest(${request.id})">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      `;
+      content.appendChild(requestElement);
+    });
+  }
+}
+
+function switchTab(tabName) {
+  currentTab = tabName;
+
+  // Update tab buttons
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+
+  // Clear search when switching tabs
+  searchQuery = '';
+  document.getElementById("friendSearchInput").value = '';
+
+  // Update content
+  populateFriendsContent();
+}
+
+function acceptFriendRequest(requestId) {
+  const requestIndex = friendRequests.findIndex(req => req.id === requestId);
+  if (requestIndex !== -1) {
+    const request = friendRequests[requestIndex];
+    // Add to friends list
+    friends.push({
+      id: Date.now(),
+      name: request.name,
+      avatar: request.avatar,
+      status: "Active now",
+      isActive: true
+    });
+    // Remove from requests
+    friendRequests.splice(requestIndex, 1);
+    
+    // Update displays
+    populateFriendsContent();
+    updateFriendRequestBadge();
+  }
+}
+
+function declineFriendRequest(requestId) {
+  const requestIndex = friendRequests.findIndex(req => req.id === requestId);
+  if (requestIndex !== -1) {
+    friendRequests.splice(requestIndex, 1);
+    populateFriendsContent();
+    updateFriendRequestBadge();
+  }
+}
+
+function updateNotificationBadge() {
+  const badge = document.getElementById("notificationBadge");
+  const count = notifications.length;
+
+  if (count > 0) {
+    badge.textContent = count > 9 ? "9+" : count.toString();
+    badge.style.display = "flex";
+  } else {
+    badge.style.display = "none";
+  }
+}
+
+function updateFriendRequestBadge() {
+  const badge = document.getElementById("friendRequestBadge");
+  const count = friendRequests.length;
+
+  if (count > 0) {
+    badge.textContent = count > 9 ? "9+" : count.toString();
+    badge.style.display = "flex";
+  } else {
+    badge.style.display = "none";
+  }
+
+  // Update tab count
+  const tabCount = document.querySelector(".request-count");
+  if (tabCount) {
+    tabCount.textContent = count.toString();
+  }
+}
+
+// Comments functionality for profile
+function openCommentsPanel(postId) {
+  currentCommentPostId = postId;
+  const panel = document.getElementById("commentsPanel");
+  panel.classList.add("active");
+
+  // Close other panels
+  closeAllPanels();
+
+  // Populate comments
+  populateComments(postId);
+}
+
+function closeCommentsPanel() {
+  const panel = document.getElementById("commentsPanel");
+  panel.classList.remove("active");
+  currentCommentPostId = null;
+
+  // Clear comment input
+  const commentInput = document.getElementById("commentInput");
+  if (commentInput) {
+    commentInput.value = "";
+  }
+}
+
+function populateComments(postId) {
+  const commentsList = document.getElementById("commentsList");
+  const comments = profilePostComments[postId] || [];
+
+  if (comments.length === 0) {
+    commentsList.innerHTML = '<div class="no-comments">No comments yet. Be the first to comment!</div>';
+    return;
+  }
+
+  commentsList.innerHTML = "";
+  comments.forEach(comment => {
+    const commentElement = document.createElement("div");
+    commentElement.className = "comment-item";
+    commentElement.innerHTML = `
+      <div class="comment-author">${comment.author}</div>
+      <p class="comment-text">${comment.text}</p>
+      <div class="comment-time">${comment.time}</div>
+    `;
+    commentsList.appendChild(commentElement);
+  });
+}
+
+function addComment() {
+  const commentInput = document.getElementById("commentInput");
+  const commentText = commentInput.value.trim();
+
+  if (!commentText) {
+    alert("Please enter a comment.");
+    return;
+  }
+
+  if (currentCommentPostId === null) return;
+
+  // Add new comment
+  if (!profilePostComments[currentCommentPostId]) {
+    profilePostComments[currentCommentPostId] = [];
+  }
+
+  const newComment = {
+    id: Date.now(),
+    author: userData.username, // Current user
+    text: commentText,
+    time: "Just now"
+  };
+
+  profilePostComments[currentCommentPostId].push(newComment);
+
+  // Update comment count in the UI
+  const commentBtn = document.querySelector(`[data-post-id="${currentCommentPostId}"] .comment-count`);
+  if (commentBtn) {
+    const currentCount = parseInt(commentBtn.textContent);
+    commentBtn.textContent = currentCount + 1;
+  }
+
+  // Refresh comments display
+  populateComments(currentCommentPostId);
+
+  // Clear input
+  commentInput.value = "";
+
+  // Show success message
+  alert("Comment added successfully!");
+}
+
+function closeAllPanels() {
+  const panels = ['notificationsPanel', 'friendsPanel'];
+  const buttons = ['nav-notifications', 'nav-friends'];
+
+  panels.forEach(panelId => {
+    const panel = document.getElementById(panelId);
+    if (panel) panel.classList.remove("active");
+  });
+
+  buttons.forEach(btnId => {
+    const btn = document.getElementById(btnId);
+    if (btn) btn.classList.remove("active");
+  });
+}
+
+// Close panels when clicking outside
+document.addEventListener("click", function(event) {
+  const notificationsPanel = document.getElementById("notificationsPanel");
+  const notificationBtn = document.getElementById("nav-notifications");
+  const friendsPanel = document.getElementById("friendsPanel");
+  const friendsBtn = document.getElementById("nav-friends");
+  const commentsPanel = document.getElementById("commentsPanel");
+
+  // Close notifications panel
+  if (notificationsPanel && notificationsPanel.classList.contains("active") && 
+      !notificationsPanel.contains(event.target) && 
+      !notificationBtn.contains(event.target)) {
+    notificationsPanel.classList.remove("active");
+    notificationBtn.classList.remove("active");
+  }
+
+  // Close friends panel
+  if (friendsPanel && friendsPanel.classList.contains("active") && 
+      !friendsPanel.contains(event.target) && 
+      !friendsBtn.contains(event.target)) {
+    friendsPanel.classList.remove("active");
+    friendsBtn.classList.remove("active");
+  }
+
+  // Close comments panel
+  if (commentsPanel && commentsPanel.classList.contains("active") && 
+      !commentsPanel.contains(event.target)) {
+    closeCommentsPanel();
+  }
+});
+
 // Gallery images data
 const galleryImages = [
   ["/pictures/pic-hp-gallery-1.jpg", "/pictures/pic-hp-gallery-1-alt.jpg"],
@@ -100,14 +549,6 @@ function goToPage(page) {
   window.location.href = page
 }
 
-function toggleFriendsPanel() {
-  console.log("Toggle friends panel")
-}
-
-function toggleNotificationsPanel() {
-  console.log("Toggle notifications panel")
-}
-
 // Settings panel functions
 function openSettings() {
   const settingsPanel = document.getElementById("settingsPanel")
@@ -177,7 +618,7 @@ function updateRequirement(id, isValid) {
 }
 
 function resetPasswordRequirements() {
-  ;["lengthReq", "numberReq", "uppercaseReq"].forEach((id) => {
+  ["lengthReq", "numberReq", "uppercaseReq"].forEach((id) => {
     updateRequirement(id, false)
   })
 }
@@ -335,7 +776,19 @@ function updateQADisplay() {
 function navigateGallery(direction, cardIndex) {
   const img = document.querySelector(`[data-index="${cardIndex}"] .gallery-image`)
   const currentIndex = Number.parseInt(img.dataset.current)
-  const images = galleryImages[cardIndex]
+
+  // Get user posts from localStorage
+  const savedPosts = localStorage.getItem("userPosts");
+  const userPosts = savedPosts ? JSON.parse(savedPosts) : [];
+
+  let images;
+  if (userPosts.length > cardIndex) {
+    // Use user post images
+    images = userPosts[cardIndex].images;
+  } else {
+    // Use default gallery images
+    images = galleryImages[cardIndex] || ["/pictures/pic-hp-gallery-1.jpg"];
+  }
 
   let newIndex
   if (direction === "left") {
@@ -348,19 +801,149 @@ function navigateGallery(direction, cardIndex) {
   img.dataset.current = newIndex
 }
 
-// Like functionality
+// Like functionality for profile posts
 function toggleLike(button) {
-  button.classList.toggle("active")
-  const likeCount = button.querySelector(".like-count")
-  let count = Number.parseInt(likeCount.textContent)
+  const article = button.closest("article");
+  const postId = parseInt(article.dataset.index) || 0;
 
-  if (button.classList.contains("active")) {
-    count++
-  } else {
-    count--
+  if (!profilePostLikes[postId]) {
+    profilePostLikes[postId] = { count: 0, liked: false };
   }
 
-  likeCount.textContent = count
+  const likeData = profilePostLikes[postId];
+  const countSpan = button.querySelector(".like-count");
+
+  if (likeData.liked) {
+    // Unlike
+    button.classList.remove("active");
+    likeData.count--;
+    likeData.liked = false;
+  } else {
+    // Like
+    button.classList.add("active");
+    likeData.count++;
+    likeData.liked = true;
+  }
+
+  countSpan.textContent = likeData.count;
+}
+
+// Toggle comments for profile posts
+function toggleComments(postId) {
+  openCommentsPanel(postId);
+}
+
+// Funkcja do wyświetlania postów użytkownika
+function displayUserPosts() {
+  const postsContainer = document.querySelector(".recent-friends-cards");
+  if (!postsContainer) return;
+
+  // Pobierz posty z localStorage
+  const savedPosts = localStorage.getItem("userPosts");
+  const userPosts = savedPosts ? JSON.parse(savedPosts) : [];
+
+  // Jeśli są posty, wyświetl je
+  if (userPosts.length > 0) {
+    // Wyczyść istniejące posty
+    postsContainer.innerHTML = "";
+    
+    // Wyświetl maksymalnie 3 najnowsze posty
+    const recentPosts = userPosts.slice(0, 3);
+    
+    recentPosts.forEach((post, index) => {
+      const postElement = document.createElement("article");
+      postElement.className = "card";
+      postElement.dataset.index = index;
+      
+      // Utwórz galerię zdjęć
+      const galleryImages = post.images.length > 0 ? post.images : ["/pictures/pic-hp-gallery-1.jpg"];
+      
+      // Initialize likes and comments for this post
+      if (!profilePostLikes[index]) {
+        profilePostLikes[index] = { count: post.likes || 0, liked: false };
+      }
+      if (!profilePostComments[index]) {
+        profilePostComments[index] = post.comments || [];
+      }
+      
+      postElement.innerHTML = `
+        <div class="gallery-image-container">
+          <img
+            alt="User meal"
+            src="${galleryImages[0]}"
+            loading="lazy"
+            class="gallery-image"
+            data-current="0"
+          />
+          <button
+            aria-label="Previous meal"
+            class="gallery-arrow left"
+            type="button"
+            onclick="navigateGallery('left', ${index})"
+          >
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button
+            aria-label="Next meal"
+            class="gallery-arrow right"
+            type="button"
+            onclick="navigateGallery('right', ${index})"
+          >
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+        <div class="flex items-center mt-3 justify-end">
+          <div class="flex space-x-3 text-[12px] text-black">
+            <button
+              aria-label="Comment on meal"
+              class="comment-btn"
+              type="button"
+              data-post-id="${index}"
+            >
+              <i class="fas fa-comment"></i>
+              <span class="comment-count">${profilePostComments[index].length}</span>
+            </button>
+            <button
+              aria-label="Like meal"
+              class="like-btn"
+              type="button"
+              onclick="toggleLike(this)"
+            >
+              <i class="fas fa-heart"></i>
+              <span class="like-count">${profilePostLikes[index].count}</span>
+            </button>
+          </div>
+        </div>
+        <div class="avatar-username mt-3">
+          <img
+            alt="Your avatar"
+            class="w-5 h-5 object-cover border border-black"
+            height="20"
+            src="/pictures/hp-prof-1.jpg"
+            width="20"
+          />
+          <p class="text-[10px] font-sans select-none">${userData.username}</p>
+        </div>
+        <p class="text-[8px] mt-1 font-sans text-black/70 leading-tight select-none card-description">
+          ${post.description}
+        </p>
+        <p class="text-[8px] mt-1 font-sans text-black/70 leading-tight select-none">
+          <strong>Type:</strong> ${post.type.charAt(0).toUpperCase() + post.type.slice(1)}
+          ${post.calories !== "Not specified" ? ` • <strong>Calories:</strong> ${post.calories}` : ''}
+        </p>
+      `;
+      
+      postsContainer.appendChild(postElement);
+    });
+    
+    // Add event listeners to comment buttons
+    document.querySelectorAll('.comment-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const postId = parseInt(this.dataset.postId);
+        toggleComments(postId);
+      });
+    });
+  }
 }
 
 // Initialize page
@@ -368,6 +951,9 @@ document.addEventListener("DOMContentLoaded", () => {
   generateCalendar()
   updateMealScheduleDisplay()
   updateQADisplay()
+  updateNotificationBadge()
+  updateFriendRequestBadge()
+  displayUserPosts()
 
   // Settings icon click handler
   const settingsIcon = document.getElementById("settingsIcon")
@@ -397,12 +983,12 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
   // Meal schedule inputs
-  ;["breakfastTimeInput", "lunchTimeInput", "dinnerTimeInput", "snackTimeInput"].forEach((id) => {
+  ["breakfastTimeInput", "lunchTimeInput", "dinnerTimeInput", "snackTimeInput"].forEach((id) => {
     document.getElementById(id).addEventListener("change", updateSaveButton)
   })
 
   // Q&A inputs
-  ;["qa1Input", "qa2Input", "qa3Input"].forEach((id) => {
+  ["qa1Input", "qa2Input", "qa3Input"].forEach((id) => {
     document.getElementById(id).addEventListener("input", updateSaveButton)
   })
 
@@ -420,18 +1006,62 @@ document.addEventListener("DOMContentLoaded", () => {
   const commentButtons = document.querySelectorAll(".comment-btn")
   commentButtons.forEach((button) => {
     button.addEventListener("click", function () {
-      const card = this.closest(".card")
-      const cardIndex = Number.parseInt(card.dataset.index)
-      console.log(`Show comments for card ${cardIndex}`)
+      const postId = parseInt(this.dataset.postId);
+      toggleComments(postId);
     })
   })
+
+  // Add tab click listeners
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      switchTab(this.dataset.tab);
+    });
+  });
+
+  // Add search functionality
+  const searchInput = document.getElementById("friendSearchInput");
+  if (searchInput) {
+    searchInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        searchFriends();
+      }
+    });
+    
+    // Real-time search as user types
+    searchInput.addEventListener('input', function() {
+      searchQuery = this.value.toLowerCase().trim();
+      populateFriendsContent();
+    });
+  }
+
+  // Add search button functionality
+  const searchBtn = document.querySelector(".search-btn");
+  if (searchBtn) {
+    searchBtn.addEventListener('click', searchFriends);
+  }
+
+  // Escape key functionality
+  document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+      const settingsPanel = document.getElementById("settingsPanel");
+      const commentsPanel = document.getElementById("commentsPanel");
+      
+      if (settingsPanel && settingsPanel.classList.contains("active")) {
+        closeSettings();
+      }
+      if (commentsPanel && commentsPanel.classList.contains("active")) {
+        closeCommentsPanel();
+      }
+    }
+  });
 })
 
-// Close settings panel when clicking outside
+// Close panels when clicking outside
 document.addEventListener("click", (event) => {
   const settingsPanel = document.getElementById("settingsPanel")
   const settingsIcon = document.getElementById("settingsIcon")
 
+  // Close settings panel
   if (
     settingsPanel.classList.contains("active") &&
     !settingsPanel.contains(event.target) &&
@@ -444,8 +1074,20 @@ document.addEventListener("click", (event) => {
 // Keyboard navigation
 document.addEventListener("keydown", (event) => {
   const settingsPanel = document.getElementById("settingsPanel")
+  const notificationsPanel = document.getElementById("notificationsPanel")
+  const friendsPanel = document.getElementById("friendsPanel")
 
-  if (event.key === "Escape" && settingsPanel.classList.contains("active")) {
-    closeSettings()
+  if (event.key === "Escape") {
+    if (settingsPanel.classList.contains("active")) {
+      closeSettings()
+    }
+    if (notificationsPanel && notificationsPanel.classList.contains("active")) {
+      notificationsPanel.classList.remove("active")
+      document.getElementById("nav-notifications").classList.remove("active")
+    }
+    if (friendsPanel && friendsPanel.classList.contains("active")) {
+      friendsPanel.classList.remove("active")
+      document.getElementById("nav-friends").classList.remove("active")
+    }
   }
 })

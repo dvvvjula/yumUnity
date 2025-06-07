@@ -822,6 +822,350 @@ article.card {
   color: #4b5563;
 }
 
+/* Notification badge */
+.notification-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background-color: #ef4444;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 10px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+  z-index: 10;
+}
+
+/* Friend request badge */
+.friend-request-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background-color: #ef4444;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 10px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+  z-index: 10;
+}
+
+/* Notifications Panel */
+.notifications-panel {
+  position: fixed;
+  top: 80px;
+  left: 80px;
+  background: white;
+  border-radius: 12px;
+  padding: 0;
+  width: 350px;
+  max-height: 400px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 250; /* Wyższy z-index niż settings panel */
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.notifications-panel.active {
+  display: flex;
+}
+
+.notifications-header {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  background: white;
+}
+
+.notifications-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #000;
+  text-align: center;
+}
+
+.notifications-content {
+  padding: 0.5rem;
+  overflow-y: auto;
+  max-height: 320px;
+}
+
+.notification-item {
+  background: #e5e1da;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+
+.notification-item:hover {
+  background: #ddd6c7;
+}
+
+.notification-item:last-child {
+  margin-bottom: 0;
+}
+
+.notification-text {
+  font-size: 0.9rem;
+  color: #000;
+  line-height: 1.4;
+  margin: 0;
+  padding-right: 3rem;
+}
+
+.notification-time {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--highlight-blue);
+  font-weight: 500;
+}
+
+/* Friends Panel - identical to notifications panel */
+.friends-panel {
+  position: fixed;
+  top: 80px;
+  left: 80px;
+  background: white;
+  border-radius: 12px;
+  padding: 0;
+  width: 350px;
+  max-height: 450px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 150;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.friends-panel.active {
+  display: flex;
+}
+
+.friends-header {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  background: white;
+}
+
+.friends-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #000;
+  text-align: center;
+}
+
+.friends-search {
+  padding: 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.friends-search input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.friends-search input:focus {
+  border-color: var(--highlight-blue);
+}
+
+.search-btn {
+  background: var(--highlight-blue);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.search-btn:hover {
+  background-color: #7f9ed9;
+}
+
+.friends-tabs {
+  display: flex;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 0.75rem;
+  text-align: center;
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.tab-btn.active {
+  color: var(--highlight-blue);
+  font-weight: 600;
+}
+
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--highlight-blue);
+}
+
+.request-count {
+  background-color: #ef4444;
+  color: white;
+  border-radius: 10px;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.7rem;
+  margin-left: 0.25rem;
+}
+
+.friends-content {
+  overflow-y: auto;
+  max-height: 280px;
+  padding: 0.5rem;
+}
+
+.friend-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+
+.friend-item:hover {
+  background-color: #f3f4f6;
+}
+
+.friend-item:last-child {
+  margin-bottom: 0;
+}
+
+.friend-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #e5e7eb;
+  position: relative;
+}
+
+.friend-info {
+  margin-left: 0.75rem;
+  flex: 1;
+}
+
+.friend-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin: 0;
+  color: #000;
+}
+
+.friend-status {
+  font-size: 0.75rem;
+  color: #666;
+  margin: 0;
+}
+
+.active-indicator {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--highlight-blue);
+  border: 2px solid white;
+}
+
+.friend-request {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  margin-bottom: 0.5rem;
+}
+
+.friend-request:hover {
+  background-color: #f3f4f6;
+}
+
+.friend-request:last-child {
+  margin-bottom: 0;
+}
+
+.request-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.accept-btn, .decline-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.accept-btn {
+  background-color: var(--highlight-blue);
+  color: white;
+}
+
+.accept-btn:hover {
+  background-color: #7f9ed9;
+}
+
+.decline-btn {
+  background-color: #f3f4f6;
+  color: #666;
+}
+
+.decline-btn:hover {
+  background-color: #e5e7eb;
+}
+
 /* Responsive Design */
 @media (max-width: 1200px) {
   .recent-friends-cards {
@@ -862,6 +1206,12 @@ article.card {
 
   .bottom-boxes {
     gap: 5rem;
+  }
+
+  .notifications-panel,
+  .friends-panel {
+    left: 70px;
+    width: 320px;
   }
 }
 
@@ -939,6 +1289,23 @@ article.card {
 
   .main-content {
     padding: 0 0.5rem;
+  }
+
+  .notifications-panel,
+  .friends-panel {
+    left: 60px;
+    width: 300px;
+    top: 70px;
+  }
+}
+
+@media (max-width: 640px) {
+  .notifications-panel,
+  .friends-panel {
+    left: 10px;
+    right: 10px;
+    width: auto;
+    top: 60px;
   }
 }
 

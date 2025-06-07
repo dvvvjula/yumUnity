@@ -62,18 +62,57 @@
         onclick="toggleFriendsPanel()"
         title="Friends"
         type="button"
+        id="nav-friends"
       >
         <i class="fas fa-globe"></i>
+        <span class="friend-request-badge" id="friendRequestBadge">3</span>
       </button>
       <button
         class="nav-btn"
         onclick="toggleNotificationsPanel()"
         title="Notifications"
         type="button"
+        id="nav-notifications"
       >
         <i class="fas fa-bell"></i>
+        <span class="notification-badge" id="notificationBadge">6</span>
       </button>
     </nav>
+
+    <!-- Friends Panel -->
+    <div class="friends-panel" id="friendsPanel">
+      <div class="friends-header">
+        <h3>Friends</h3>
+      </div>
+      <div class="friends-search">
+        <input
+          type="text"
+          placeholder="Search friends..."
+          id="friendSearchInput"
+        />
+        <button class="search-btn" onclick="searchFriends()">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+      <div class="friends-tabs">
+        <button class="tab-btn active" data-tab="friendsList">Friends</button>
+        <button class="tab-btn" data-tab="friendRequests">
+          Requests <span class="request-count">3</span>
+        </button>
+      </div>
+      <div class="friends-content" id="friendsContent">
+        <!-- Content will be populated by JavaScript -->
+      </div>
+    </div>
+
+    <div class="notifications-panel" id="notificationsPanel">
+      <div class="notifications-header">
+        <h3>Notifications</h3>
+      </div>
+      <div class="notifications-content" id="notificationsContent">
+        <!-- Powiadomienia będą dodawane przez JavaScript -->
+      </div>
+    </div>
 
     <main class="main-content">
       <!-- Profile label container -->
