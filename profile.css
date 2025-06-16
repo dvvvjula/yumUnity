@@ -1,8 +1,18 @@
+/* Ulepszona definicja @font-face z wieloma formatami i ścieżkami */
 @font-face {
   font-family: "Pecita";
-  src: url("/fonts/Pecita.otf") format("opentype");
+  src:
+    url("./fonts/Pecita.woff2") format("woff2"),
+    url("./fonts/pecita.woff2") format("woff2"),
+    url("fonts/Pecita.woff2") format("woff2"),
+    url("fonts/pecita.woff2") format("woff2"),
+    url("./fonts/Pecita.otf") format("opentype"),
+    url("./fonts/pecita.otf") format("opentype"),
+    url("fonts/Pecita.otf") format("opentype"),
+    url("fonts/pecita.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 :root {
@@ -24,8 +34,33 @@ body {
   flex-direction: column;
 }
 
+/* Ulepszona definicja handwritten z Pecita */
 .handwritten {
-  font-family: "Pecita", cursive;
+  font-family: "Pecita", "Indie Flower", "Brush Script MT", "Lucida Handwriting", cursive !important;
+  font-weight: normal !important;
+  font-style: normal !important;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Force Pecita loading classes */
+.force-pecita {
+  font-family: "Pecita", "Indie Flower", cursive !important;
+  font-weight: normal !important;
+  font-style: normal !important;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.pecita-font {
+  font-family: "Pecita", "Indie Flower", "Brush Script MT", "Lucida Handwriting", cursive !important;
+  font-weight: normal !important;
+  font-style: normal !important;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Logo hover effect - SAME AS HOMEPAGE */
@@ -268,10 +303,14 @@ header.flex {
 }
 
 .settings-panel h3 {
-  font-family: "Pecita", cursive;
+  font-family: "Pecita", "Indie Flower", "Brush Script MT", "Lucida Handwriting", cursive !important;
   font-size: 2rem;
   margin-bottom: 1.5rem;
   text-align: center;
+  font-weight: normal !important;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Formularz */
@@ -499,7 +538,7 @@ header.flex {
   background-color: var(--background-beige);
   border-radius: 9999px;
   padding: 0.4rem 4rem;
-  font-family: "Pecita", cursive;
+  font-family: "Pecita", "Indie Flower", "Brush Script MT", "Lucida Handwriting", cursive !important;
   font-size: 1.6rem;
   color: black;
   user-select: none;
@@ -507,6 +546,10 @@ header.flex {
   letter-spacing: 0.05em;
   width: fit-content;
   white-space: nowrap;
+  font-weight: normal !important;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Bottom white boxes container - jeszcze większy gap */
@@ -576,7 +619,7 @@ header.flex {
 
 .calendar-box td.today {
   font-weight: 700;
-  color: #fff; /* Zmienione z #000 na #fff żeby tekst był widoczny na niebieskim tle */
+  color: #fff;
   position: relative;
   z-index: 2;
 }
@@ -591,7 +634,7 @@ header.flex {
   background-color: var(--highlight-blue);
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  z-index: -1; /* Zmienione z 1 na -1 żeby tekst był nad kółkiem */
+  z-index: -1;
 }
 
 .calendar-box td.outside {
@@ -768,6 +811,85 @@ article.card {
   font-family: "Poppins", sans-serif;
 }
 
+/* Comments container */
+.comments-container {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #333;
+  max-height: 120px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  background: #f9f9f9;
+  display: none;
+}
+
+.comments-container.active {
+  display: block;
+}
+
+.comment-item {
+  margin-bottom: 0.5rem;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.comment-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.comment-author {
+  font-weight: bold;
+  font-size: 0.8rem;
+  color: #333;
+}
+
+.comment-text {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.1rem;
+}
+
+.comment-time {
+  font-size: 0.7rem;
+  color: #999;
+  margin-top: 0.1rem;
+}
+
+/* Comment input styles */
+.comment-input-container {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  background: white;
+  border-radius: 0.25rem;
+}
+
+.comment-input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  font-size: 0.8rem;
+}
+
+.comment-submit-btn {
+  background: var(--highlight-blue);
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.comment-submit-btn:hover {
+  background: #7f9ed9;
+}
+
 /* Footer */
 .page-footer {
   display: flex;
@@ -802,8 +924,12 @@ article.card {
 }
 
 .footer-yumunity {
-  font-family: "Pecita", cursive;
+  font-family: "Pecita", "Indie Flower", "Brush Script MT", "Lucida Handwriting", cursive !important;
   font-size: 1rem;
+  font-weight: normal !important;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .social-links {
@@ -871,7 +997,7 @@ article.card {
   width: 350px;
   max-height: 400px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  z-index: 250; /* Wyższy z-index niż settings panel */
+  z-index: 250;
   display: none;
   flex-direction: column;
   overflow: hidden;
@@ -1034,7 +1160,7 @@ article.card {
 }
 
 .tab-btn.active::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -1px;
   left: 0;
@@ -1136,7 +1262,8 @@ article.card {
   gap: 0.5rem;
 }
 
-.accept-btn, .decline-btn {
+.accept-btn,
+.decline-btn {
   width: 28px;
   height: 28px;
   border-radius: 50%;
@@ -1164,6 +1291,26 @@ article.card {
 
 .decline-btn:hover {
   background-color: #e5e7eb;
+}
+
+.send-request-btn {
+  background-color: var(--highlight-blue);
+  color: white;
+  border: none;
+  border-radius: 15px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.send-request-btn:hover {
+  background-color: #7f9ed9;
+}
+
+.send-request-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 /* Responsive Design */

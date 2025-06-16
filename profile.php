@@ -1,3 +1,8 @@
+<?php
+require_once 'check_session.php';
+requireLogin();
+$user = getCurrentUser();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -13,24 +18,65 @@
       href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
       rel="stylesheet"
     />
+    <!-- Backup Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap"
+      rel="stylesheet"
+    />
+    
+    <!-- Preload Pecita font files -->
+    <link rel="preload" href="fonts/Pecita.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/Pecita.otf" as="font" type="font/otf" crossorigin>
+    
     <link rel="stylesheet" href="profile.css" />
+    
+    <style>
+      /* Inline Pecita font loading for extra security */
+      @font-face {
+        font-family: 'PecitaInline';
+        src: url('./fonts/Pecita.woff2') format('woff2'),
+             url('./fonts/pecita.woff2') format('woff2'),
+             url('fonts/Pecita.woff2') format('woff2'),
+             url('fonts/pecita.woff2') format('woff2'),
+             url('./fonts/Pecita.otf') format('opentype'),
+             url('./fonts/pecita.otf') format('opentype'),
+             url('fonts/Pecita.otf') format('opentype'),
+             url('fonts/pecita.otf') format('opentype');
+        font-display: swap;
+        font-weight: normal;
+        font-style: normal;
+      }
+      
+      /* Force Pecita loading classes */
+      .force-pecita {
+        font-family: 'PecitaInline', 'Pecita', 'Indie Flower', cursive !important;
+        font-weight: normal !important;
+        font-style: normal !important;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    </style>
   </head>
   <body>
-    <!-- Top bar with logo and logout - SAME AS HOMEPAGE -->
+    <!-- Font loading test element (invisible) -->
+    <div style="position: absolute; left: -9999px; font-family: 'PecitaInline', 'Pecita', 'Indie Flower', cursive;">Font test</div>
+    
+    <!-- Top bar with logo and logout -->
     <header class="flex justify-center relative py-4">
       <img
-        src="/pictures/logo.png"
+        src="pictures/logo.png"
         alt="YM University logo black text on transparent background"
         class="logo-img"
         role="img"
         aria-label="YM University logo"
         tabindex="0"
-        onclick="goToPage('homepage.html')"
+        onclick="goToPage('homepage.php')"
       />
       <button
         class="logout-btn"
         type="button"
-        onclick="goToPage('info.html')"
+        onclick="window.location.href='authentication/logout.php'"
         aria-label="Log out"
       >
         Log out
@@ -41,7 +87,7 @@
     <nav class="left-nav" role="navigation" aria-label="Main navigation">
       <button
         class="nav-btn"
-        onclick="goToPage('homepage.html')"
+        onclick="goToPage('homepage.php')"
         title="Home"
         type="button"
         id="nav-home"
@@ -50,7 +96,7 @@
       </button>
       <button
         class="nav-btn active"
-        onclick="goToPage('profile.html')"
+        onclick="goToPage('profile.php')"
         title="Profile"
         type="button"
         id="nav-profile"
@@ -117,7 +163,7 @@
     <main class="main-content">
       <!-- Profile label container -->
       <div class="profile-label-container">
-        <div class="profile-label">My profile</div>
+        <div class="profile-label force-pecita">My profile</div>
       </div>
 
       <!-- Profile and Q&A container -->
@@ -126,16 +172,23 @@
         aria-label="Profile information and Q&A"
       >
         <img
-          alt="Cat wearing a green scarf and a green hat, looking at the camera"
+          alt="Profile picture"
           class="profile-image"
-          src="/pictures/hp-prof-1.jpg"
+          src="pictures/hp-prof-1.jpg"
           width="140"
           height="140"
           id="profileImg"
         />
         <div class="profile-text">
-          <h2 id="profileUsername">julie</h2>
-          <p id="profileBio">new food this, new food that... i love pasta.</p>
+          <h2 id="profileUsername"><?php echo htmlspecialchars($user['username']); ?></h2>
+          <p id="profileBio"><?php 
+require_once 'config.php';
+$pdo = getDBConnection();
+$stmt = $pdo->prepare("SELECT bio FROM users WHERE id = ?");
+$stmt->execute([$user['id']]);
+$profile = $stmt->fetch();
+echo htmlspecialchars($profile['bio'] ?? 'new food this, new food that... i love pasta.');
+?></p>
         </div>
         <aside class="qa-box" aria-label="Q and A">
           <h3>Q&amp;A</h3>
@@ -223,7 +276,7 @@
           <div class="gallery-image-container">
             <img
               alt="Sandwich cut in half on white plate on a light surface"
-              src="/pictures/pic-prof-gallery-1.jpg"
+              src="pictures/pic-prof-gallery-1.jpg"
               loading="lazy"
               class="gallery-image"
               data-current="0"
@@ -259,6 +312,7 @@
                 aria-label="Like meal xyz1"
                 class="like-btn"
                 type="button"
+                onclick="toggleLike(this)"
               >
                 <i class="fas fa-heart"></i>
                 <span class="like-count">12</span>
@@ -267,13 +321,13 @@
           </div>
           <div class="avatar-username mt-3">
             <img
-              alt="Avatar image of user xyz1"
+              alt="Avatar image of user"
               class="w-5 h-5 object-cover border border-black"
               height="20"
-              src="/pictures/hp-prof-1.jpg"
+              src="pictures/hp-prof-1.jpg"
               width="20"
             />
-            <p class="text-[10px] font-sans select-none">funycat123</p>
+            <p class="text-[10px] font-sans select-none"><?php echo htmlspecialchars($user['username']); ?></p>
           </div>
           <p
             class="text-[8px] mt-1 font-sans text-black/70 leading-tight select-none card-description"
@@ -287,7 +341,7 @@
           <div class="gallery-image-container">
             <img
               alt="Dumplings in a bowl with greens"
-              src="/pictures/pic-prof-gallery-2.jpg"
+              src="pictures/pic-prof-gallery-2.jpg"
               loading="lazy"
               class="gallery-image"
               data-current="0"
@@ -323,6 +377,7 @@
                 aria-label="Like meal xyz2"
                 class="like-btn"
                 type="button"
+                onclick="toggleLike(this)"
               >
                 <i class="fas fa-heart"></i>
                 <span class="like-count">8</span>
@@ -331,13 +386,13 @@
           </div>
           <div class="avatar-username mt-3">
             <img
-              alt="Avatar image of user xyz2"
+              alt="Avatar image of user"
               class="w-5 h-5 object-cover border border-black"
               height="20"
-              src="/pictures/hp-prof-1.jpg"
+              src="pictures/hp-prof-1.jpg"
               width="20"
             />
-            <p class="text-[10px] font-sans select-none">yumyum8</p>
+            <p class="text-[10px] font-sans select-none"><?php echo htmlspecialchars($user['username']); ?></p>
           </div>
           <p
             class="text-[8px] mt-1 font-sans text-black/70 leading-tight select-none card-description"
@@ -350,7 +405,7 @@
 
     <!-- Settings Panel -->
     <div class="settings-panel" id="settingsPanel">
-      <h3>Settings</h3>
+      <h3 class="force-pecita">Settings</h3>
       <form class="auth-form" id="settingsForm">
         <div class="form-group">
           <input
@@ -358,7 +413,7 @@
             id="usernameInput"
             name="username"
             placeholder="Username"
-            value="xyz"
+            value="<?php echo htmlspecialchars($user['username']); ?>"
           />
           <div id="usernameError" class="error-message"></div>
         </div>
@@ -491,7 +546,7 @@
       <a class="footer-link" href="#">ABOUT US</a>
       <div class="copyright">
         <span>©</span>
-        <span class="footer-yumunity pecita-font">YumUnity</span>
+        <span class="footer-yumunity pecita-font force-pecita">YumUnity</span>
         <span>All right reserved.</span>
       </div>
       <div class="social-links">
@@ -507,6 +562,47 @@
       </div>
     </footer>
 
+    <script>
+      // Pass user data to JavaScript
+      window.currentUser = {
+        username: "<?php echo htmlspecialchars($user['username']); ?>",
+        email: "<?php echo htmlspecialchars($user['email']); ?>"
+      };
+    </script>
     <script src="profile.js"></script>
+    
+    <!-- Font debugging script -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Check font loading
+        const testElements = document.querySelectorAll('.force-pecita');
+        if (testElements.length > 0) {
+          const computedStyle = getComputedStyle(testElements[0]);
+          console.log('Pecita font family applied:', computedStyle.fontFamily);
+          console.log('Font weight:', computedStyle.fontWeight);
+          console.log('Font style:', computedStyle.fontStyle);
+        }
+        
+        // Force font loading check
+        if (document.fonts) {
+          document.fonts.ready.then(function() {
+            console.log('All fonts loaded successfully');
+            document.fonts.forEach(function(font) {
+              if (font.family.includes('Pecita')) {
+                console.log('Pecita font loaded:', font.family, font.style, font.weight);
+              }
+            });
+          });
+        }
+        
+        // Test font loading after 2 seconds
+        setTimeout(function() {
+          const profileLabel = document.querySelector('.profile-label.force-pecita');
+          if (profileLabel) {
+            console.log('Profile label Pecita font after 2s:', getComputedStyle(profileLabel).fontFamily);
+          }
+        }, 2000);
+      });
+    </script>
   </body>
 </html>

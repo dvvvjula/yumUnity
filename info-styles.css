@@ -1,12 +1,12 @@
 @font-face {
     font-family: 'Pecita';
-    src: url('fonts/pecita.otf') format('opentype');
+    src: url('fonts/Pecita.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 
-/* Global styles */
+/* base styles */
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -17,7 +17,6 @@ body {
     line-height: 1.5;
 }
 
-/* Special font classes */
 .handwriting {
     font-family: 'Indie Flower', cursive;
 }
@@ -31,14 +30,14 @@ body {
     font-weight: 600;
 }
 
-/* Layout */
+/* layout */
 .page-container {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-/* Header */
+/* header */
 .page-header {
     display: flex;
     align-items: center;
@@ -48,24 +47,6 @@ body {
     border-bottom: 1px solid #e5e1da;
     height: 6rem;
     position: relative;
-}
-
-.account-prompt {
-    font-size: 0.875rem;
-    color: #4b5563;
-    z-index: 11;
-}
-
-.signup-link {
-    color: #94ade2;
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
-    font-weight: 500;
-    transition: color 0.2s ease;
-}
-
-.signup-link:hover {
-    color: #7a92c4;
 }
 
 .logo-container {
@@ -88,6 +69,24 @@ body {
 
 .logo-container:hover {
     transform: translate(-50%, -50%) scale(1.15);
+}
+
+.account-prompt {
+    font-size: 0.875rem;
+    color: #4b5563;
+    z-index: 11;
+}
+
+.signup-link {
+    color: #94ade2;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.signup-link:hover {
+    color: #7a92c4;
 }
 
 .login-button {
@@ -114,7 +113,7 @@ body {
     background-color: #1f2937;
 }
 
-/* Hero section */
+/* hero section */
 .hero-section {
     position: relative;
     display: flex;
@@ -167,18 +166,18 @@ body {
     font-weight: 600;
 }
 
-/* Main content */
+/* main content */
 .main-content {
     display: flex;
     flex-direction: column;
-    gap: 5rem; /* Zwiększony odstęp */
+    gap: 5rem;
     padding: 3rem 1rem;
     max-width: 80rem;
     margin-left: auto;
     margin-right: auto;
 }
 
-/* Feed section */
+/* feed section */
 .feed-section {
     flex: 1;
     max-width: 32rem;
@@ -196,7 +195,7 @@ body {
 
 .carousel-container {
     position: relative;
-    border: 1px solid #000; /* Czarna ramka */
+    border: 1px solid #000; 
     padding: 3rem 1.5rem;
     display: flex;
     align-items: center;
@@ -205,7 +204,7 @@ body {
 }
 
 .carousel-button {
-    border: 1px solid #000; /* Czarna ramka */
+    border: 1px solid #000; 
     background-color: #fff;
     width: 4.5rem;
     height: 4.5rem;
@@ -238,23 +237,13 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Join section */
+/* join section */
 .join-section {
     flex: 1;
     max-width: 32rem;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-}
-
-.yumunity-link {
-    color: #94ade2;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.yumunity-link:hover {
-    text-decoration: underline;
 }
 
 .join-content {
@@ -268,6 +257,16 @@ body {
     margin-right: auto;
     text-align: center;
     line-height: 1.6;
+}
+
+.yumunity-link {
+    color: #94ade2;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.yumunity-link:hover {
+    text-decoration: underline;
 }
 
 .signup-button {
@@ -294,7 +293,7 @@ body {
     background-color: #1f2937;
 }
 
-/* Footer */
+/* footer */
 .page-footer {
     display: flex;
     flex-direction: column;
@@ -346,92 +345,7 @@ body {
     color: #4b5563;
 }
 
-/* Responsive styles */
-@media (min-width: 768px) {
-    .main-content {
-        flex-direction: row;
-        align-items: flex-start;
-        gap: 6rem; /* Większy odstęp na desktop */
-    }
-    
-    .feed-section,
-    .join-section {
-        margin-left: 0;
-        margin-right: 0;
-        width: calc(50% - 3rem); /* Nowy podział szerokości */
-    }
-    
-    .feed-section {
-        margin-right: 3rem; /* Dodatkowy odstęp między kolumnami */
-    }
-    
-    .join-section {
-        text-align: left;
-    }
-    
-    .page-footer {
-        flex-direction: row;
-        padding: 1.5rem 2rem;
-    }
-    
-    .footer-link,
-    .copyright {
-        margin-bottom: 0;
-    }
-
-    .hero-section {
-        min-height: 50vh;
-    }
-
-    .carousel-container {
-        min-height: 22rem;
-    }
-
-    .carousel-image {
-        width: 16rem;
-        height: 16rem;
-    }
-    
-    .hero-title {
-        font-size: 2.5rem;
-    }
-    
-    .hero-text {
-        font-size: 0.875rem;
-    }
-    
-    .section-title {
-        font-size: 1.75rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .page-header {
-        height: 5rem;
-    }
-    
-    .logo {
-        height: 4rem;
-    }
-    
-    .logo-container:hover {
-        transform: translate(-50%, -50%) scale(1.1);
-    }
-    
-    .login-button,
-    .signup-button,
-    .auth-button {
-        padding: 0.6rem 2.5rem;
-        min-width: 150px;
-    }
-    
-    .account-prompt,
-    .login-button {
-        font-size: 0.75rem;
-    }
-}
-
-/* Auth pages styles */
+/* auth forms */
 .auth-container {
     flex: 1;
     display: flex;
@@ -553,4 +467,89 @@ body {
 
 .auth-switch a:hover {
     text-decoration: underline;
+}
+
+/* responsive styles */
+@media (min-width: 768px) {
+    .main-content {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 6rem;
+    }
+    
+    .feed-section,
+    .join-section {
+        margin-left: 0;
+        margin-right: 0;
+        width: calc(50% - 3rem);
+    }
+    
+    .feed-section {
+        margin-right: 3rem;
+    }
+    
+    .join-section {
+        text-align: left;
+    }
+    
+    .page-footer {
+        flex-direction: row;
+        padding: 1.5rem 2rem;
+    }
+    
+    .footer-link,
+    .copyright {
+        margin-bottom: 0;
+    }
+
+    .hero-section {
+        min-height: 50vh;
+    }
+
+    .carousel-container {
+        min-height: 22rem;
+    }
+
+    .carousel-image {
+        width: 16rem;
+        height: 16rem;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-text {
+        font-size: 0.875rem;
+    }
+    
+    .section-title {
+        font-size: 1.75rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-header {
+        height: 5rem;
+    }
+    
+    .logo {
+        height: 4rem;
+    }
+    
+    .logo-container:hover {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+    
+    .login-button,
+    .signup-button,
+    .auth-button {
+        padding: 0.6rem 2.5rem;
+        min-width: 150px;
+    }
+    
+    .account-prompt,
+    .login-button {
+        font-size: 0.75rem;
+    }
 }

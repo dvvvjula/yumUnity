@@ -1,4 +1,4 @@
-// Toggle password visibility
+// password visibility
 function togglePassword(inputId, button) {
     const input = document.getElementById(inputId);
     const icon = button.querySelector('i');
@@ -14,7 +14,7 @@ function togglePassword(inputId, button) {
     }
 }
 
-// Password validation for register page
+// password validation (REGISTER)
 if (document.getElementById('registerPassword')) {
     const passwordInput = document.getElementById('registerPassword');
     const requirements = {
@@ -26,28 +26,28 @@ if (document.getElementById('registerPassword')) {
     passwordInput.addEventListener('input', function() {
         const password = this.value;
         
-        // Check length (min 8 characters)
+        // min. 8 characters
+        // min. 1 number
+        // min. 1 uppercase letter
+
         if (password.length >= 8) {
             updateRequirement(requirements.length, true);
         } else {
             updateRequirement(requirements.length, false);
         }
         
-        // Check for number
         if (/\d/.test(password)) {
             updateRequirement(requirements.number, true);
         } else {
             updateRequirement(requirements.number, false);
         }
         
-        // Check for uppercase letter
         if (/[A-Z]/.test(password)) {
             updateRequirement(requirements.uppercase, true);
         } else {
             updateRequirement(requirements.uppercase, false);
         }
         
-        // Enable/disable submit button
         const allValid = password.length >= 8 && /\d/.test(password) && /[A-Z]/.test(password);
         const submitButton = document.querySelector('.auth-button');
         submitButton.disabled = !allValid;
@@ -63,20 +63,19 @@ function updateRequirement(element, isValid) {
         element.classList.add('valid');
         icon.classList.remove('fa-times');
         icon.classList.add('fa-check');
-        span.style.color = '#94ADE2';      // Ustawienie koloru tekstu
-        icon.style.color = '#94ADE2';      // Ustawienie koloru ikony
+        span.style.color = '#94ADE2';      
+        icon.style.color = '#94ADE2';      
     } else {
         element.classList.remove('valid');
         element.classList.add('invalid');
         icon.classList.remove('fa-check');
         icon.classList.add('fa-times');
-        span.style.color = 'black';        // Kolor domyślny tekstu
-        icon.style.color = 'black';        // Kolor domyślny ikony
+        span.style.color = 'black';     
+        icon.style.color = 'black';      
     }
 }
 
-
-// Form submission handling
+// submission handling
 document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
@@ -87,14 +86,14 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const formData = new FormData(this);
             
-            fetch('login.php', {
+            fetch('login.php', {  // No path change needed - same directory
                 method: 'POST',
                 body: formData
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    window.location.href = 'homepage.html';
+                    window.location.href = '../homepage.php'; // Assuming homepage is in parent directory
                 } else {
                     showMessage(data.message, 'error');
                 }
@@ -111,14 +110,14 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const formData = new FormData(this);
             
-            fetch('register.php', {
+            fetch('register.php', {  // No path change needed - same directory
                 method: 'POST',
                 body: formData
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    window.location.href = 'homepage.html';
+                    window.location.href = 'login.html'; // No path change needed - same directory
                 } else {
                     showMessage(data.message, 'error');
                 }
@@ -131,18 +130,18 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function showMessage(message, type) {
-    // Remove existing messages
+    // remove existing messages
     const existingMessage = document.querySelector('.error-message, .success-message');
     if (existingMessage) {
         existingMessage.remove();
     }
     
-    // Create new message
+    // create new message
     const messageDiv = document.createElement('div');
     messageDiv.className = type === 'error' ? 'error-message' : 'success-message';
     messageDiv.textContent = message;
     
-    // Insert before form
+    // insert before form
     const form = document.querySelector('.auth-form');
     form.parentNode.insertBefore(messageDiv, form);
 }
