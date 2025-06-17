@@ -56,6 +56,7 @@ $user = getCurrentUser();
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }
+<<<<<<< HEAD
       
       /* NOWY STYL dla opisów postów */
       .post-description {
@@ -66,6 +67,8 @@ $user = getCurrentUser();
         line-height: 1.4;
         font-weight: normal;
       }
+=======
+>>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
     </style>
   </head>
   <body>
@@ -604,6 +607,40 @@ echo htmlspecialchars($profile['bio'] ?? 'new food this, new food that... i love
       };
     </script>
     <script src="profile.js"></script>
+    
+    <!-- Font debugging script -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Check font loading
+        const testElements = document.querySelectorAll('.force-pecita');
+        if (testElements.length > 0) {
+          const computedStyle = getComputedStyle(testElements[0]);
+          console.log('Pecita font family applied:', computedStyle.fontFamily);
+          console.log('Font weight:', computedStyle.fontWeight);
+          console.log('Font style:', computedStyle.fontStyle);
+        }
+        
+        // Force font loading check
+        if (document.fonts) {
+          document.fonts.ready.then(function() {
+            console.log('All fonts loaded successfully');
+            document.fonts.forEach(function(font) {
+              if (font.family.includes('Pecita')) {
+                console.log('Pecita font loaded:', font.family, font.style, font.weight);
+              }
+            });
+          });
+        }
+        
+        // Test font loading after 2 seconds
+        setTimeout(function() {
+          const profileLabel = document.querySelector('.profile-label.force-pecita');
+          if (profileLabel) {
+            console.log('Profile label Pecita font after 2s:', getComputedStyle(profileLabel).fontFamily);
+          }
+        }, 2000);
+      });
+    </script>
   </body>
 </html>
 profile.php

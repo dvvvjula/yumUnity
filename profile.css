@@ -911,6 +911,85 @@ article .text-\[8px\] {
   background: #7f9ed9;
 }
 
+/* Comments container */
+.comments-container {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #333;
+  max-height: 120px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  background: #f9f9f9;
+  display: none;
+}
+
+.comments-container.active {
+  display: block;
+}
+
+.comment-item {
+  margin-bottom: 0.5rem;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.comment-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.comment-author {
+  font-weight: bold;
+  font-size: 0.8rem;
+  color: #333;
+}
+
+.comment-text {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.1rem;
+}
+
+.comment-time {
+  font-size: 0.7rem;
+  color: #999;
+  margin-top: 0.1rem;
+}
+
+/* Comment input styles */
+.comment-input-container {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  background: white;
+  border-radius: 0.25rem;
+}
+
+.comment-input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  font-size: 0.8rem;
+}
+
+.comment-submit-btn {
+  background: var(--highlight-blue);
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.comment-submit-btn:hover {
+  background: #7f9ed9;
+}
+
 /* Footer */
 .page-footer {
   display: flex;

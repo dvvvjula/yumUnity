@@ -2,32 +2,56 @@
 const notifications = [
   {
     id: 1,
+<<<<<<< HEAD
     text: "Sarah liked your breakfast post",
+=======
+    text: "Sarah liked your breakfast post with avocado toast",
+>>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
     time: "2 min ago",
   },
   {
     id: 2,
+<<<<<<< HEAD
     text: "New friend request from Mike",
+=======
+    text: "New friend request from Mike_FoodLover",
+>>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
     time: "15 min ago",
   },
   {
     id: 3,
+<<<<<<< HEAD
     text: "Your lunch got 5 new likes!",
+=======
+    text: "Your lunch photo got 5 new likes!",
+>>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
     time: "1 hour ago",
   },
   {
     id: 4,
+<<<<<<< HEAD
     text: "Emma commented on your post",
+=======
+    text: "Emma commented: 'This looks delicious! Recipe please?'",
+>>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
     time: "2 hours ago",
   },
   {
     id: 5,
+<<<<<<< HEAD
     text: "New follower: ChefMaster2024",
+=======
+    text: "You have a new follower: ChefMaster2024",
+>>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
     time: "3 hours ago",
   },
   {
     id: 6,
+<<<<<<< HEAD
     text: "Weekly meal summary ready",
+=======
+    text: "Weekly meal summary is ready to view",
+>>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
     time: "1 day ago",
   },
 ]
@@ -184,7 +208,10 @@ function populateNotifications() {
     notificationElement.className = "notification-item"
     notificationElement.innerHTML = `
       <p class="notification-text">${notification.text}</p>
+<<<<<<< HEAD
       <br>
+=======
+>>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
       <span class="notification-time">${notification.time}</span>
     `
     content.appendChild(notificationElement)
@@ -703,9 +730,13 @@ function updateQADisplay() {
 // Gallery navigation
 function navigateGallery(direction, cardIndex) {
   const img = document.querySelector(`[data-index="${cardIndex}"] .gallery-image`)
+<<<<<<< HEAD
   if (!img) return
 
   const currentIndex = Number.parseInt(img.dataset.current) || 0
+=======
+  const currentIndex = Number.parseInt(img.dataset.current)
+>>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
 
   // Get user posts from localStorage
   const savedPosts = localStorage.getItem("userPosts")
@@ -714,6 +745,7 @@ function navigateGallery(direction, cardIndex) {
   let images
   if (userPosts.length > cardIndex) {
     // Use user post images
+<<<<<<< HEAD
     images = userPosts[cardIndex].images || ["pictures/pic-prof-gallery-1.jpg"]
   } else {
     // Use default gallery images - ADD MORE IMAGES HERE FOR GALLERY
@@ -730,6 +762,12 @@ function navigateGallery(direction, cardIndex) {
       ], // Card 1 images
     ]
     images = defaultGalleries[cardIndex] || ["pictures/pic-prof-gallery-1.jpg"]
+=======
+    images = userPosts[cardIndex].images
+  } else {
+    // Use default gallery images
+    images = galleryImages[cardIndex] || ["pictures/pic-hp-gallery-1.jpg"]
+>>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
   }
 
   let newIndex
@@ -743,7 +781,11 @@ function navigateGallery(direction, cardIndex) {
   img.dataset.current = newIndex
 }
 
+<<<<<<< HEAD
 // POPRAWIONA FUNKCJA toggleLike dla profilu
+=======
+// Like functionality - FIXED FOR PROFILE PAGE
+>>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
 function toggleLike(button) {
   button.classList.toggle("active")
   const likeCount = button.querySelector(".like-count")
@@ -758,6 +800,7 @@ function toggleLike(button) {
   likeCount.textContent = count
 }
 
+<<<<<<< HEAD
 // NOWA FUNKCJA toggleComments dla profilu (podobna do homepage)
 function toggleComments(postId) {
   const commentsContainer = document.getElementById(`comments-${postId}`)
@@ -901,21 +944,62 @@ function displayUserPosts() {
         </div>
         <div class="flex items-center mt-3 justify-end">
           <div class="flex space-x-3 text-[12px] text-black">
+=======
+// Funkcja do wyświetlania postów użytkownika z API
+async function displayUserPosts() {
+  const postsContainer = document.querySelector(".recent-friends-cards")
+  if (!postsContainer) return
+
+  try {
+    // Pobierz posty użytkownika z API
+    const response = await fetch(`api/posts.php?user_id=${window.currentUser?.id || 1}`)
+    const data = await response.json()
+
+    if (data.success && data.posts.length > 0) {
+      // Wyczyść istniejące posty
+      postsContainer.innerHTML = ""
+
+      // Wyświetl maksymalnie 3 najnowsze posty
+      const recentPosts = data.posts.slice(0, 3)
+
+      recentPosts.forEach((post, index) => {
+        const postElement = document.createElement("article")
+        postElement.className = "card"
+        postElement.dataset.index = index
+        postElement.dataset.postId = post.id
+
+        // Utwórz galerię zdjęć
+        const galleryImages = post.images && post.images.length > 0 ? post.images : ["pictures/pic-hp-gallery-1.jpg"]
+
+        postElement.innerHTML = `
+          <div class="gallery-image-container">
+            <img
+              alt="User meal"
+              src="${galleryImages[0]}"
+              loading="lazy"
+              class="gallery-image"
+              data-current="0"
+            />
+>>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
             <button
-              aria-label="Comment on meal"
-              class="comment-btn"
+              aria-label="Previous meal"
+              class="gallery-arrow left"
               type="button"
+<<<<<<< HEAD
               onclick="toggleComments(${post.id})"
+=======
+              onclick="navigateGallery('left', ${index})"
+>>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
             >
-              <i class="fas fa-comment"></i>
-              <span class="comment-count">0</span>
+              <i class="fas fa-chevron-left"></i>
             </button>
             <button
-              aria-label="Like meal"
-              class="like-btn"
+              aria-label="Next meal"
+              class="gallery-arrow right"
               type="button"
-              onclick="toggleLike(this)"
+              onclick="navigateGallery('right', ${index})"
             >
+<<<<<<< HEAD
               <i class="fas fa-heart"></i>
               <span class="like-count">0</span>
             </button>
@@ -963,6 +1047,141 @@ function deletePost(cardIndex) {
         }
       }
     }
+=======
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+          <div class="flex items-center mt-3 justify-end">
+            <div class="flex space-x-3 text-[12px] text-black">
+              <button
+                aria-label="Comment on meal"
+                class="comment-btn"
+                type="button"
+                onclick="toggleComments(${post.id})"
+              >
+                <i class="fas fa-comment"></i>
+                <span class="comment-count">${post.comments_count || 0}</span>
+              </button>
+              <button
+                aria-label="Like meal"
+                class="like-btn"
+                type="button"
+                onclick="toggleLike(this)"
+              >
+                <i class="fas fa-heart"></i>
+                <span class="like-count">${post.likes_count || 0}</span>
+              </button>
+            </div>
+          </div>
+          <div class="avatar-username mt-3">
+            <img
+              alt="Your avatar"
+              class="w-5 h-5 object-cover border border-black"
+              height="20"
+              src="${post.profile_image || "pictures/hp-prof-1.jpg"}"
+              width="20"
+            />
+            <p class="text-[10px] font-sans select-none">${post.username}</p>
+          </div>
+          <p class="text-[8px] mt-1 font-sans text-black/70 leading-tight select-none card-description">
+            ${post.description}
+          </p>
+          <p class="text-[8px] mt-1 font-sans text-black/70 leading-tight select-none">
+            <strong>Type:</strong> ${post.meal_type.charAt(0).toUpperCase() + post.meal_type.slice(1)}
+            ${post.calories ? ` • <strong>Calories:</strong> ${post.calories}` : ""}
+          </p>
+          <div class="comments-container" id="comments-${post.id}"></div>
+        `
+
+        postsContainer.appendChild(postElement)
+      })
+    }
+  } catch (error) {
+    console.error("Error loading user posts:", error)
+  }
+}
+
+// Dodaj funkcje do obsługi komentarzy w profilu
+async function toggleComments(postId) {
+  const commentsContainer = document.getElementById(`comments-${postId}`)
+
+  if (commentsContainer.classList.contains("active")) {
+    commentsContainer.classList.remove("active")
+    return
+  }
+
+  try {
+    const response = await fetch(`api/comments.php?post_id=${postId}`)
+    const data = await response.json()
+
+    if (data.success) {
+      displayComments(commentsContainer, data.comments, postId)
+      commentsContainer.classList.add("active")
+    }
+  } catch (error) {
+    console.error("Error loading comments:", error)
+  }
+}
+
+function displayComments(container, comments, postId) {
+  container.innerHTML = ""
+
+  // Add comment input
+  const inputDiv = document.createElement("div")
+  inputDiv.className = "comment-input-container"
+  inputDiv.innerHTML = `
+    <input type="text" placeholder="Add a comment..." class="comment-input" id="comment-input-${postId}">
+    <button onclick="addComment(${postId})" class="comment-submit-btn">Post</button>
+  `
+  container.appendChild(inputDiv)
+
+  // Add existing comments
+  comments.forEach((comment) => {
+    const commentDiv = document.createElement("div")
+    commentDiv.className = "comment-item"
+    commentDiv.innerHTML = `
+      <div class="comment-author">${comment.username}</div>
+      <div class="comment-text">${comment.content}</div>
+      <div class="comment-time">${new Date(comment.created_at).toLocaleTimeString()}</div>
+    `
+    container.appendChild(commentDiv)
+  })
+}
+
+async function addComment(postId) {
+  const input = document.getElementById(`comment-input-${postId}`)
+  const content = input.value.trim()
+
+  if (!content) return
+
+  try {
+    const formData = new FormData()
+    formData.append("post_id", postId)
+    formData.append("content", content)
+
+    const response = await fetch("api/comments.php", {
+      method: "POST",
+      body: formData,
+    })
+
+    const data = await response.json()
+
+    if (data.success) {
+      input.value = ""
+      // Reload comments
+      toggleComments(postId)
+      toggleComments(postId)
+
+      // Update comment count
+      const commentBtn = document.querySelector(`[onclick="toggleComments(${postId})"]`)
+      const countSpan = commentBtn.querySelector(".comment-count")
+      countSpan.textContent = Number.parseInt(countSpan.textContent) + 1
+    } else {
+      alert(data.message)
+    }
+  } catch (error) {
+    console.error("Error adding comment:", error)
+>>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
   }
 }
 
@@ -1026,6 +1245,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   settingsForm.addEventListener("submit", saveSettings)
 
+<<<<<<< HEAD
+=======
+  // FIXED: Add like button click handlers for profile page
+  const likeButtons = document.querySelectorAll(".like-btn")
+  likeButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      toggleLike(this)
+    })
+  })
+
+  // Comment button click handlers
+  const commentButtons = document.querySelectorAll(".comment-btn")
+  commentButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      const card = this.closest(".card")
+      const postId = card.dataset.postId
+      if (postId) {
+        toggleComments(postId)
+      }
+    })
+  })
+
+>>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
   // Add tab click listeners
   document.querySelectorAll(".tab-btn").forEach((btn) => {
     btn.addEventListener("click", function () {
