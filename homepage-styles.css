@@ -1,8 +1,17 @@
 @font-face {
   font-family: "Pecita";
-  src: url("/fonts/Pecita.otf") format("opentype");
+  src:
+    url("./fonts/Pecita.woff2") format("woff2"),
+    url("./fonts/pecita.woff2") format("woff2"),
+    url("fonts/Pecita.woff2") format("woff2"),
+    url("fonts/pecita.woff2") format("woff2"),
+    url("./fonts/Pecita.otf") format("opentype"),
+    url("./fonts/pecita.otf") format("opentype"),
+    url("fonts/Pecita.otf") format("opentype"),
+    url("fonts/pecita.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 body {
@@ -42,7 +51,7 @@ button {
 }
 
 .handwriting {
-  font-family: "Pecita", cursive;
+  font-family: "Pecita", "Indie Flower", cursive !important;
   font-size: 2.5rem;
 }
 
@@ -277,6 +286,7 @@ button {
 }
 
 .footer-yumunity {
+  font-family: "Pecita", "Indie Flower", cursive !important;
   font-size: 1rem;
 }
 
@@ -297,7 +307,7 @@ button {
 }
 
 .pecita-font {
-  font-family: "Pecita", cursive;
+  font-family: "Pecita", "Indie Flower", cursive !important;
 }
 
 /* Gallery container with thinner border and bigger gap */
@@ -364,6 +374,9 @@ button {
   user-select: none;
   transition: color 0.3s ease;
   cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0.25rem;
 }
 
 .like-btn i,
@@ -376,18 +389,18 @@ button {
   color: #ef4444;
 }
 
-/* Comments container */
+/* NOWE STYLE DLA KOMENTARZY */
 .comments-container {
   margin-top: 0.5rem;
-  font-size: 0.9rem;
-  color: #333;
-  max-height: 120px;
-  overflow-y: auto;
-  border: 1px solid #ccc;
-  border-radius: 0.25rem;
-  padding: 0.5rem;
-  background: #f9f9f9;
-  display: none;
+  width: 100%;
+}
+
+.comments-container[style*="display: block"] {
+  display: block !important;
+}
+
+.comments-container[style*="display: none"] {
+  display: none !important;
 }
 
 /* Recent friends meals cards container in row with bigger gap */
@@ -467,47 +480,6 @@ article p.text-\[8px\] {
   line-height: 1.4;
 }
 
-/* Responsive adjustments */
-@media (max-width: 1024px) {
-  .recent-friends-cards {
-    gap: 4rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .recent-friends-cards {
-    gap: 2rem;
-  }
-
-  .gallery-image-container {
-    width: 200px;
-    height: 150px;
-  }
-}
-
-@media (max-width: 640px) {
-  .lunch-container {
-    max-width: 90vw;
-  }
-
-  .recent-friends-cards {
-    flex-direction: column;
-    gap: 2rem;
-    margin-bottom: 2rem;
-    align-items: center;
-  }
-
-  .gallery-image-container {
-    width: 280px;
-    height: 210px;
-  }
-
-  .recent-friends-cards article {
-    min-width: 280px;
-    max-width: 280px;
-  }
-}
-
 /* Add Post Panel - podobny do settings panel */
 .add-post-panel {
   position: fixed;
@@ -532,7 +504,7 @@ article p.text-\[8px\] {
 }
 
 .add-post-panel h3 {
-  font-family: "Pecita", cursive;
+  font-family: "Pecita", "Indie Flower", cursive !important;
   font-size: 2rem;
   margin-bottom: 1.5rem;
   text-align: center;
@@ -806,16 +778,16 @@ article p.text-\[8px\] {
   color: #000;
   line-height: 1.4;
   margin: 0;
-  padding-right: 3rem;
+  margin-bottom: 0.5rem;
 }
 
 .notification-time {
-  position: absolute;
-  bottom: 0.5rem;
-  right: 0.75rem;
+  position: static;
   font-size: 0.75rem;
   color: var(--highlight-blue);
   font-weight: 500;
+  display: block;
+  text-align: right;
 }
 
 /* Friends Panel - identical to notifications panel */
@@ -917,7 +889,7 @@ article p.text-\[8px\] {
 }
 
 .tab-btn.active::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -1px;
   left: 0;
@@ -1019,7 +991,8 @@ article p.text-\[8px\] {
   gap: 0.5rem;
 }
 
-.accept-btn, .decline-btn {
+.accept-btn,
+.decline-btn {
   width: 28px;
   height: 28px;
   border-radius: 50%;
@@ -1049,8 +1022,32 @@ article p.text-\[8px\] {
   background-color: #e5e7eb;
 }
 
+.send-request-btn {
+  background-color: var(--highlight-blue);
+  color: white;
+  border: none;
+  border-radius: 15px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.send-request-btn:hover {
+  background-color: #7f9ed9;
+}
+
+.send-request-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
 /* Responsive adjustments */
 @media (max-width: 1024px) {
+  .recent-friends-cards {
+    gap: 4rem;
+  }
+
   .notifications-panel,
   .friends-panel {
     left: 70px;
@@ -1059,6 +1056,15 @@ article p.text-\[8px\] {
 }
 
 @media (max-width: 768px) {
+  .recent-friends-cards {
+    gap: 2rem;
+  }
+
+  .gallery-image-container {
+    width: 200px;
+    height: 150px;
+  }
+
   .notifications-panel,
   .friends-panel {
     left: 60px;
@@ -1068,6 +1074,27 @@ article p.text-\[8px\] {
 }
 
 @media (max-width: 640px) {
+  .lunch-container {
+    max-width: 90vw;
+  }
+
+  .recent-friends-cards {
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    align-items: center;
+  }
+
+  .gallery-image-container {
+    width: 280px;
+    height: 210px;
+  }
+
+  .recent-friends-cards article {
+    min-width: 280px;
+    max-width: 280px;
+  }
+
   .notifications-panel,
   .friends-panel {
     left: 10px;

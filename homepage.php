@@ -1,3 +1,8 @@
+<?php
+require_once 'check_session.php';
+requireLogin();
+$user = getCurrentUser();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -13,14 +18,65 @@
       href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
       rel="stylesheet"
     />
+    <!-- Backup Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap"
+      rel="stylesheet"
+    />
+    
+    <!-- Preload Pecita font files -->
+    <link rel="preload" href="fonts/Pecita.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/Pecita.otf" as="font" type="font/otf" crossorigin>
+    
     <link rel="stylesheet" href="homepage-styles.css" />
+    
+    <style>
+      /* Inline Pecita font loading for extra security */
+      @font-face {
+        font-family: 'PecitaInline';
+        src: url('./fonts/Pecita.woff2') format('woff2'),
+             url('./fonts/pecita.woff2') format('woff2'),
+             url('fonts/Pecita.woff2') format('woff2'),
+             url('fonts/pecita.woff2') format('woff2'),
+             url('./fonts/Pecita.otf') format('opentype'),
+             url('./fonts/pecita.otf') format('opentype'),
+             url('fonts/Pecita.otf') format('opentype'),
+             url('fonts/pecita.otf') format('opentype');
+        font-display: swap;
+        font-weight: normal;
+        font-style: normal;
+      }
+      
+      /* Force Pecita loading classes */
+      .force-pecita {
+        font-family: 'PecitaInline', 'Pecita', 'Indie Flower', cursive !important;
+        font-weight: normal !important;
+        font-style: normal !important;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      
+      .handwriting-pecita {
+        font-family: 'PecitaInline', 'Pecita', 'Indie Flower', 'Brush Script MT', 'Lucida Handwriting', cursive !important;
+        font-size: 2.5rem;
+        font-weight: normal !important;
+        font-style: normal !important;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    </style>
   </head>
   <body>
+    <!-- Font loading test element (invisible) -->
+    <div style="position: absolute; left: -9999px; font-family: 'PecitaInline', 'Pecita', 'Indie Flower', cursive;">Font test</div>
+    
     <!-- Left Navigation -->
     <nav class="left-nav" role="navigation" aria-label="Main navigation">
       <button
         class="nav-btn active"
-        onclick="goToPage('homepage.html')"
+        onclick="goToPage('homepage.php')"
         title="Home"
         type="button"
         id="nav-home"
@@ -29,7 +85,7 @@
       </button>
       <button
         class="nav-btn"
-        onclick="goToPage('profile.html')"
+        onclick="goToPage('profile.php')"
         title="Profile"
         type="button"
         id="nav-profile"
@@ -97,18 +153,18 @@
     <!-- Top bar with logo and logout -->
     <header class="flex justify-center relative py-4">
       <img
-        src="/pictures/logo.png"
+        src="pictures/logo.png"
         alt="YM University logo black text on transparent background"
         class="logo-img"
         role="img"
         aria-label="YM University logo"
         tabindex="0"
-        onclick="goToPage('homepage.html')"
+        onclick="goToPage('homepage.php')"
       />
       <button
         class="logout-btn"
         type="button"
-        onclick="goToPage('info.html')"
+        onclick="window.location.href='logout.php'"
         aria-label="Log out"
       >
         Log out
@@ -118,10 +174,10 @@
     <!-- Main content -->
     <main class="flex flex-col items-center px-6">
       <h1
-        aria-label="Welcome Back, XYZ!"
-        class="handwriting text-black mt-6 mb-1 select-none"
+        aria-label="Welcome Back, <?php echo htmlspecialchars($user['username']); ?>!"
+        class="handwriting handwriting-pecita force-pecita text-black mt-6 mb-1 select-none"
       >
-        Welcome Back, XYZ!
+        Welcome Back, <?php echo htmlspecialchars($user['username']); ?>!
       </h1>
       <time
         aria-live="polite"
@@ -155,7 +211,7 @@
             <div class="gallery-image-container">
               <img
                 alt="Sandwich cut in half on white plate on a light surface"
-                src="/pictures/pic-hp-gallery-1.jpg"
+                src="pictures/pic-hp-gallery-1.jpg"
                 loading="lazy"
               />
               <button
@@ -181,7 +237,7 @@
                   aria-label="Comment on meal xyz1"
                   class="comment-btn"
                   type="button"
-                  onclick="toggleComments(0)"
+                  onclick="addQuickComment(${postId})"
                 >
                   <i class="fas fa-comment"></i>
                   <span class="comment-count">3</span>
@@ -202,7 +258,7 @@
                 alt="Avatar image of user xyz1"
                 class="w-5 h-5 object-cover border border-black"
                 height="20"
-                src="/pictures//hp-prof-1.jpg"
+                src="pictures/hp-prof-1.jpg"
                 width="20"
               />
               <p class="text-[10px] font-sans select-none">funycat123</p>
@@ -219,7 +275,7 @@
             <div class="gallery-image-container">
               <img
                 alt="Dumplings in a bowl with greens"
-                src="/pictures/pic-hp-gallery-2.jpg"
+                src="pictures/pic-hp-gallery-2.jpg"
                 loading="lazy"
               />
               <button
@@ -266,7 +322,7 @@
                 alt="Avatar image of user xyz2"
                 class="w-5 h-5 object-cover border border-black"
                 height="20"
-                src="/pictures/hp-prof-2.jpg"
+                src="pictures/hp-prof-2.jpg"
                 width="20"
               />
               <p class="text-[10px] font-sans select-none">yumyum8</p>
@@ -283,7 +339,7 @@
             <div class="gallery-image-container">
               <img
                 alt="Tofu and greens in a bowl"
-                src="/pictures/pic-hp-gallery-3.jpg"
+                src="pictures/pic-hp-gallery-3.jpg"
                 loading="lazy"
               />
               <button
@@ -330,7 +386,7 @@
                 alt="Avatar image of user xyz3"
                 class="w-5 h-5 object-cover border border-black"
                 height="20"
-                src="/pictures/hp-prof-1.jpg"
+                src="pictures/hp-prof-1.jpg"
                 width="20"
               />
               <p class="text-[10px] font-sans select-none">ilikefood1</p>
@@ -350,7 +406,7 @@
       <a class="footer-link" href="#">ABOUT US</a>
       <div class="copyright">
         <span>©</span>
-        <span class="footer-yumunity pecita-font">YumUnity</span>
+        <span class="footer-yumunity pecita-font force-pecita">YumUnity</span>
         <span>All right reserved.</span>
       </div>
       <div class="social-links">
@@ -368,7 +424,7 @@
 
     <!-- Add New Meal Panel -->
     <div class="add-post-panel" id="addPostPanel">
-      <h3>Add New Meal</h3>
+      <h3 class="force-pecita">Add New Meal</h3>
       <form class="auth-form" id="addPostForm">
         <div class="form-group">
           <label for="mealTypeSelect">Meal Type:</label>
@@ -436,5 +492,45 @@
     </div>
 
     <script src="homepage-script.js"></script>
+    
+    <!-- Font debugging script -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Check font loading
+        const testElements = document.querySelectorAll('.force-pecita');
+        if (testElements.length > 0) {
+          const computedStyle = getComputedStyle(testElements[0]);
+          console.log('Pecita font family applied:', computedStyle.fontFamily);
+          console.log('Font weight:', computedStyle.fontWeight);
+          console.log('Font style:', computedStyle.fontStyle);
+        }
+        
+        // Force font loading check
+        if (document.fonts) {
+          document.fonts.ready.then(function() {
+            console.log('All fonts loaded successfully');
+            document.fonts.forEach(function(font) {
+              if (font.family.includes('Pecita')) {
+                console.log('Pecita font loaded:', font.family, font.style, font.weight);
+              }
+            });
+          });
+        }
+        
+        // Test font loading after 2 seconds
+        setTimeout(function() {
+          const h1 = document.querySelector('h1.handwriting-pecita');
+          if (h1) {
+            console.log('H1 Pecita font after 2s:', getComputedStyle(h1).fontFamily);
+          }
+        }, 2000);
+      });
+
+      // Pass user data to JavaScript
+      window.currentUser = {
+        username: "<?php echo htmlspecialchars($user['username']); ?>",
+        email: "<?php echo htmlspecialchars($user['email']); ?>"
+      };
+    </script>
   </body>
 </html>
