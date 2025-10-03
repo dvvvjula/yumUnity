@@ -1,11 +1,10 @@
 <?php
-// Konfiguracja bazy danych
+// db configuration
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'yumunity');
 define('DB_USER', 'root');
-define('DB_PASS', ''); // Domyślnie XAMPP ma puste hasło dla root
+define('DB_PASS', '');
 
-// Funkcja do połączenia z bazą danych
 function getDBConnection() {
     try {
         $pdo = new PDO(
@@ -25,7 +24,7 @@ function getDBConnection() {
     }
 }
 
-// Funkcja do walidacji hasła
+// password validation
 function validatePassword($password) {
     $errors = [];
     
@@ -44,7 +43,7 @@ function validatePassword($password) {
     return $errors;
 }
 
-// Funkcja do walidacji username
+// username validation
 function validateUsername($username) {
     $errors = [];
     
@@ -63,7 +62,7 @@ function validateUsername($username) {
     return $errors;
 }
 
-// Funkcja do walidacji email
+// email validation
 function validateEmail($email) {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         return ["Invalid email format"];
@@ -71,14 +70,12 @@ function validateEmail($email) {
     return [];
 }
 
-// Funkcja do sprawdzenia czy username już istnieje
 function isUsernameExists($pdo, $username) {
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE username = ?");
     $stmt->execute([$username]);
     return $stmt->fetchColumn() > 0;
 }
 
-// Funkcja do sprawdzenia czy email już istnieje
 function isEmailExists($pdo, $email) {
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE email = ?");
     $stmt->execute([$email]);

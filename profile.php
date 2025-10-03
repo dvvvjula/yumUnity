@@ -2,143 +2,104 @@
 require_once 'check_session.php';
 requireLogin();
 $user = getCurrentUser();
+
+require_once 'config.php';
+$pdo = getDBConnection();
+$stmt = $pdo->prepare("SELECT bio FROM users WHERE id = ?");
+$stmt->execute([$user['id']]);
+$profile = $stmt->fetch();
+$bio = $profile['bio'] ?? 'new food this, new food that... i love pasta.';
 ?>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <title>Profile Page</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
-      rel="stylesheet"
-    />
-    <!-- Backup Google Font -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap"
-      rel="stylesheet"
-    />
-    
-    <!-- Preload Pecita font files -->
-    <link rel="preload" href="fonts/Pecita.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="fonts/Pecita.otf" as="font" type="font/otf" crossorigin>
-    
-    <link rel="stylesheet" href="profile.css" />
-    
-    <style>
-      /* Inline Pecita font loading for extra security */
-      @font-face {
-        font-family: 'PecitaInline';
-        src: url('./fonts/Pecita.woff2') format('woff2'),
-             url('./fonts/pecita.woff2') format('woff2'),
-             url('fonts/Pecita.woff2') format('woff2'),
-             url('fonts/pecita.woff2') format('woff2'),
-             url('./fonts/Pecita.otf') format('opentype'),
-             url('./fonts/pecita.otf') format('opentype'),
-             url('fonts/Pecita.otf') format('opentype'),
-             url('fonts/pecita.otf') format('opentype');
-        font-display: swap;
-        font-weight: normal;
-        font-style: normal;
-      }
-      
-      /* Force Pecita loading classes */
-      .force-pecita {
-        font-family: 'PecitaInline', 'Pecita', 'Indie Flower', cursive !important;
-        font-weight: normal !important;
-        font-style: normal !important;
-        text-rendering: optimizeLegibility;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-<<<<<<< HEAD
-      
-      /* NOWY STYL dla opisów postów */
-      .post-description {
-        font-family: 'Poppins', sans-serif !important;
-        font-size: 12px !important;
-        color: black !important;
-        margin-top: 0.25rem;
-        line-height: 1.4;
-        font-weight: normal;
-      }
-=======
->>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
-    </style>
-  </head>
-  <body>
-    <!-- Font loading test element (invisible) -->
-    <div style="position: absolute; left: -9999px; font-family: 'PecitaInline', 'Pecita', 'Indie Flower', cursive;">Font test</div>
-    
-    <!-- Top bar with logo and logout -->
-    <header class="flex justify-center relative py-4">
-      <img
-        src="pictures/logo.png"
-        alt="YM University logo black text on transparent background"
-        class="logo-img"
-        role="img"
-        aria-label="YM University logo"
-        tabindex="0"
-        onclick="goToPage('homepage.php')"
-      />
-      <button
-        class="logout-btn"
-        type="button"
-        onclick="window.location.href='authentication/logout.php'"
-        aria-label="Log out"
-      >
-        Log out
-      </button>
-    </header>
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Profile Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet" />
 
-    <!-- Left Navigation -->
-    <nav class="left-nav" role="navigation" aria-label="Main navigation">
-      <button
-        class="nav-btn"
-        onclick="goToPage('homepage.php')"
-        title="Home"
-        type="button"
-        id="nav-home"
-      >
-        <i class="fas fa-home"></i>
-      </button>
-      <button
-        class="nav-btn active"
-        onclick="goToPage('profile.php')"
-        title="Profile"
-        type="button"
-        id="nav-profile"
-      >
-        <i class="fas fa-user"></i>
-      </button>
-      <button
-        class="nav-btn"
-        onclick="toggleFriendsPanel()"
-        title="Friends"
-        type="button"
-        id="nav-friends"
-      >
-        <i class="fas fa-globe"></i>
-        <span class="friend-request-badge" id="friendRequestBadge">3</span>
-      </button>
-      <button
-        class="nav-btn"
-        onclick="toggleNotificationsPanel()"
-        title="Notifications"
-        type="button"
-        id="nav-notifications"
-      >
-        <i class="fas fa-bell"></i>
-        <span class="notification-badge" id="notificationBadge">6</span>
-      </button>
-    </nav>
+  <link rel="preload" href="fonts/Pecita.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/Pecita.otf" as="font" type="font/otf" crossorigin>
 
-    <!-- Friends Panel -->
+  <link rel="stylesheet" href="profile.css" />
+
+  <style>
+    @font-face {
+      font-family: 'PecitaInline';
+      src:
+        url('./fonts/Pecita.woff2') format('woff2'),
+        url('fonts/Pecita.woff2') format('woff2'),
+        url('./fonts/Pecita.otf') format('opentype'),
+        url('fonts/Pecita.otf') format('opentype');
+      font-display: swap;
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    .force-pecita {
+      font-family: 'PecitaInline', 'Pecita', 'Indie Flower', cursive !important;
+      font-weight: normal !important;
+      font-style: normal !important;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .post-description {
+      font-family: 'Poppins', sans-serif !important;
+      font-size: 12px !important;
+      color: black !important;
+      margin-top: 0.25rem;
+      line-height: 1.4;
+      font-weight: normal;
+    }
+  </style>
+</head>
+<body>
+  <div style="position: absolute; left: -9999px; font-family: 'PecitaInline', 'Pecita', 'Indie Flower', cursive;">Font test</div>
+
+  <header class="flex justify-center relative py-4">
+    <img
+      src="pictures/logo.png"
+      alt="YM University logo black text on transparent background"
+      class="logo-img"
+      role="img"
+      aria-label="YM University logo"
+      tabindex="0"
+      onclick="goToPage('homepage.php')"
+    />
+    <button
+      class="logout-btn"
+      type="button"
+      onclick="window.location.href='authentication/logout.php'"
+      aria-label="Log out"
+    >
+      Log out
+    </button>
+  </header>
+
+  <!-- left navigation -->
+  <nav class="left-nav" role="navigation" aria-label="Main navigation">
+    <button class="nav-btn" onclick="goToPage('homepage.php')" title="Home" type="button" id="nav-home">
+      <i class="fas fa-home"></i>
+    </button>
+    <button class="nav-btn active" onclick="goToPage('profile.php')" title="Profile" type="button" id="nav-profile">
+      <i class="fas fa-user"></i>
+    </button>
+    <button class="nav-btn" onclick="toggleFriendsPanel()" title="Friends" type="button" id="nav-friends">
+      <i class="fas fa-globe"></i>
+      <span class="friend-request-badge" id="friendRequestBadge">3</span>
+    </button>
+    <button class="nav-btn" onclick="toggleNotificationsPanel()" title="Notifications" type="button" id="nav-notifications">
+      <i class="fas fa-bell"></i>
+      <span class="notification-badge" id="notificationBadge">6</span>
+    </button>
+  </nav>
+
+    <!-- friends panel (same as homepage.php) -->
     <div class="friends-panel" id="friendsPanel">
       <div class="friends-header">
         <h3>Friends</h3>
@@ -160,7 +121,6 @@ $user = getCurrentUser();
         </button>
       </div>
       <div class="friends-content" id="friendsContent">
-        <!-- Content will be populated by JavaScript -->
       </div>
     </div>
 
@@ -169,17 +129,16 @@ $user = getCurrentUser();
         <h3>Notifications</h3>
       </div>
       <div class="notifications-content" id="notificationsContent">
-        <!-- Powiadomienia będą dodawane przez JavaScript -->
       </div>
     </div>
 
     <main class="main-content">
-      <!-- Profile label container -->
+      <!-- profile label container -->
       <div class="profile-label-container">
         <div class="profile-label force-pecita">My profile</div>
       </div>
 
-      <!-- Profile and Q&A container -->
+      <!-- profile and q&a container -->
       <section
         class="profile-main-container"
         aria-label="Profile information and Q&A"
@@ -195,13 +154,13 @@ $user = getCurrentUser();
         <div class="profile-text">
           <h2 id="profileUsername"><?php echo htmlspecialchars($user['username']); ?></h2>
           <p id="profileBio"><?php 
-require_once 'config.php';
-$pdo = getDBConnection();
-$stmt = $pdo->prepare("SELECT bio FROM users WHERE id = ?");
-$stmt->execute([$user['id']]);
-$profile = $stmt->fetch();
-echo htmlspecialchars($profile['bio'] ?? 'new food this, new food that... i love pasta.');
-?></p>
+            require_once 'config.php';
+            $pdo = getDBConnection();
+            $stmt = $pdo->prepare("SELECT bio FROM users WHERE id = ?");
+            $stmt->execute([$user['id']]);
+            $profile = $stmt->fetch();
+            echo htmlspecialchars($profile['bio'] ?? 'new food this, new food that... i love pasta.');
+            ?></p>
         </div>
         <aside class="qa-box" aria-label="Q and A">
           <h3>Q&amp;A</h3>
@@ -230,7 +189,7 @@ echo htmlspecialchars($profile['bio'] ?? 'new food this, new food that... i love
         ></i>
       </section>
 
-      <!-- Bottom white boxes: calendar and meal schedule -->
+      <!-- bottom white boxes: calendar and meal schedule -->
       <section class="bottom-boxes" aria-label="Calendar and meal schedule">
         <div
           class="calendar-box"
@@ -279,168 +238,93 @@ echo htmlspecialchars($profile['bio'] ?? 'new food this, new food that... i love
         </aside>
       </section>
 
-      <!-- My recent meals heading -->
-      <h3 class="recent-meals-title">My recent meals</h3>
+    <!-- gallery -->
+    <section aria-label="Recent friends' meals" class="recent-friends-cards">
+      <!-- card 1 -->
+      <article class="card" data-index="0">
+        <div class="gallery-image-container" style="position: relative;">
+          <button 
+            class="delete-post-btn" 
+            onclick="deletePost(0)"
+            style="position: absolute; top: 8px; right: 8px; background: rgba(255,255,255,0.9); border: 1px solid #000; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10;"
+            title="Delete post">
+            <i class="fas fa-trash" style="font-size: 10px;"></i>
+          </button>
+          <img
+            alt="Sandwich cut in half on white plate on a light surface"
+            src="pictures/pic-prof-gallery-1.jpg"
+            loading="lazy"
+            class="gallery-image"
+            data-current="0"
+          />
+          <button aria-label="Previous meal" class="gallery-arrow left" type="button" onclick="navigateGallery('left', 0)">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button aria-label="Next meal" class="gallery-arrow right" type="button" onclick="navigateGallery('right', 0)">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+        <div class="flex items-center mt-3 justify-end">
+          <div class="flex space-x-3 text-[12px] text-black">
+            <button aria-label="Comment on meal xyz1" class="comment-btn" type="button" onclick="toggleComments(0)">
+              <i class="fas fa-comment"></i>
+              <span class="comment-count">0</span>
+            </button>
+            <button aria-label="Like meal xyz1" class="like-btn" type="button" onclick="toggleLike(0)">
+              <i class="fas fa-heart"></i>
+              <span class="like-count">3</span>
+            </button>
+          </div>
+        </div>
+        <p class="post-description force-pecita" id="desc-0">
+          sandwich with ham and cheese on white bread, light and tasty
+        </p>
+      </article>
 
-      <!-- Gallery -->
-      <section aria-label="Recent friends' meals" class="recent-friends-cards">
-        <!-- Card 1 -->
-        <article class="card" data-index="0">
-          <div class="gallery-image-container" style="position: relative;">
-            <button 
-              class="delete-post-btn" 
-              onclick="deletePost(0)"
-              style="position: absolute; top: 8px; right: 8px; background: rgba(255,255,255,0.9); border: 1px solid #000; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10;"
-              title="Delete post">
-              <i class="fas fa-trash" style="font-size: 10px;"></i>
+      <!-- card 2 -->
+      <article class="card" data-index="1">
+        <div class="gallery-image-container" style="position: relative;">
+          <button 
+            class="delete-post-btn" 
+            onclick="deletePost(1)"
+            style="position: absolute; top: 8px; right: 8px; background: rgba(255,255,255,0.9); border: 1px solid #000; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10;"
+            title="Delete post">
+            <i class="fas fa-trash" style="font-size: 10px;"></i>
+          </button>
+          <img
+            alt="Caprese salad with tomatoes and mozzarella on a white plate"
+            src="pictures/pic-prof-gallery-2.jpg"
+            loading="lazy"
+            class="gallery-image"
+            data-current="0"
+          />
+          <button aria-label="Previous meal" class="gallery-arrow left" type="button" onclick="navigateGallery('left', 1)">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button aria-label="Next meal" class="gallery-arrow right" type="button" onclick="navigateGallery('right', 1)">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+        <div class="flex items-center mt-3 justify-end">
+          <div class="flex space-x-3 text-[12px] text-black">
+            <button aria-label="Comment on meal xyz2" class="comment-btn" type="button" onclick="toggleComments(1)">
+              <i class="fas fa-comment"></i>
+              <span class="comment-count">2</span>
             </button>
-            <img
-              alt="Sandwich cut in half on white plate on a light surface"
-              src="pictures/pic-prof-gallery-1.jpg"
-              loading="lazy"
-              class="gallery-image"
-              data-current="0"
-            />
-            <button
-              aria-label="Previous meal"
-              class="gallery-arrow left"
-              type="button"
-              onclick="navigateGallery('left', 0)"
-            >
-              <i class="fas fa-chevron-left"></i>
-            </button>
-            <button
-              aria-label="Next meal"
-              class="gallery-arrow right"
-              type="button"
-              onclick="navigateGallery('right', 0)"
-            >
-              <i class="fas fa-chevron-right"></i>
+            <button aria-label="Like meal xyz2" class="like-btn" type="button" onclick="toggleLike(1)">
+              <i class="fas fa-heart"></i>
+              <span class="like-count">4</span>
             </button>
           </div>
-          <div class="flex items-center mt-3 justify-end">
-            <div class="flex space-x-3 text-[12px] text-black">
-              <button
-                aria-label="Comment on meal xyz1"
-                class="comment-btn"
-                type="button"
-                onclick="toggleComments(0)"
-              >
-                <i class="fas fa-comment"></i>
-                <span class="comment-count">0</span>
-              </button>
-              <button
-                aria-label="Like meal xyz1"
-                class="like-btn"
-                type="button"
-                onclick="toggleLike(this)"
-              >
-                <i class="fas fa-heart"></i>
-                <span class="like-count">0</span>
-              </button>
-            </div>
-          </div>
-          <div class="avatar-username mt-3">
-            <img
-              alt="Avatar image of user"
-              class="w-5 h-5 object-cover border border-black"
-              height="20"
-              src="pictures/hp-prof-1.jpg"
-              width="20"
-            />
-            <p class="text-[10px] font-sans select-none"><?php echo htmlspecialchars($user['username']); ?></p>
-          </div>
-          <p class="post-description">
-            yummy apple and some granola!
-          </p>
-          <p
-            class="text-[12px] mt-1 font-sans leading-tight select-none" style="color: #94ade2; font-weight: 500;"
-          >
-            <strong>Type:</strong> Lunch • <strong>Calories:</strong> 450
-          </p>
-          <div class="comments-container" id="comments-0" style="display: none;"></div>
-        </article>
+        </div>
+        <p class="post-description force-pecita" id="desc-1">
+          caprese salad with fresh mozzarella and tomatoes, perfect for summer
+        </p>
+      </article>
+    </section>
+  </main>
 
-        <!-- Card 2 -->
-        <article class="card" data-index="1">
-          <div class="gallery-image-container" style="position: relative;">
-            <button 
-              class="delete-post-btn" 
-              onclick="deletePost(1)"
-              style="position: absolute; top: 8px; right: 8px; background: rgba(255,255,255,0.9); border: 1px solid #000; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10;"
-              title="Delete post">
-              <i class="fas fa-trash" style="font-size: 10px;"></i>
-            </button>
-            <img
-              alt="Dumplings in a bowl with greens"
-              src="pictures/pic-prof-gallery-2.jpg"
-              loading="lazy"
-              class="gallery-image"
-              data-current="0"
-            />
-            <button
-              aria-label="Previous meal"
-              class="gallery-arrow left"
-              type="button"
-              onclick="navigateGallery('left', 1)"
-            >
-              <i class="fas fa-chevron-left"></i>
-            </button>
-            <button
-              aria-label="Next meal"
-              class="gallery-arrow right"
-              type="button"
-              onclick="navigateGallery('right', 1)"
-            >
-              <i class="fas fa-chevron-right"></i>
-            </button>
-          </div>
-          <div class="flex items-center mt-3 justify-end">
-            <div class="flex space-x-3 text-[12px] text-black">
-              <button
-                aria-label="Comment on meal xyz2"
-                class="comment-btn"
-                type="button"
-                onclick="toggleComments(1)"
-              >
-                <i class="fas fa-comment"></i>
-                <span class="comment-count">5</span>
-              </button>
-              <button
-                aria-label="Like meal xyz2"
-                class="like-btn"
-                type="button"
-                onclick="toggleLike(this)"
-              >
-                <i class="fas fa-heart"></i>
-                <span class="like-count">8</span>
-              </button>
-            </div>
-          </div>
-          <div class="avatar-username mt-3">
-            <img
-              alt="Avatar image of user"
-              class="w-5 h-5 object-cover border border-black"
-              height="20"
-              src="pictures/hp-prof-1.jpg"
-              width="20"
-            />
-            <p class="text-[10px] font-sans select-none"><?php echo htmlspecialchars($user['username']); ?></p>
-          </div>
-          <p class="post-description">
-            how do you like my lunch GUYSSSSSS hello
-          </p>
-          <p
-            class="text-[12px] mt-1 font-sans leading-tight select-none" style="color: #94ade2; font-weight: 500;"
-          >
-            <strong>Type:</strong> Dinner • <strong>Calories:</strong> 520
-          </p>
-          <div class="comments-container" id="comments-1" style="display: none;"></div>
-        </article>
-      </section>
-    </main>
-
-    <!-- Settings Panel -->
+  <!-- settings panel -->
     <div class="settings-panel" id="settingsPanel">
       <h3 class="force-pecita">Settings</h3>
       <form class="auth-form" id="settingsForm">
@@ -513,7 +397,7 @@ echo htmlspecialchars($profile['bio'] ?? 'new food this, new food that... i love
           <div id="imagePreview" class="image-preview"></div>
         </div>
 
-        <!-- Meal Schedule Settings -->
+        <!-- meal schedule settings -->
         <div class="meal-schedule-settings">
           <h4>Meal Schedule</h4>
           <div class="meal-time-inputs">
@@ -536,7 +420,7 @@ echo htmlspecialchars($profile['bio'] ?? 'new food this, new food that... i love
           </div>
         </div>
 
-        <!-- Q&A Settings -->
+        <!-- q&a Settings -->
         <div class="qa-settings">
           <h4>Q&A</h4>
           <div class="form-group">
@@ -578,7 +462,7 @@ echo htmlspecialchars($profile['bio'] ?? 'new food this, new food that... i love
       </button>
     </div>
 
-    <!-- Footer -->
+    <!-- footer -->
     <footer class="page-footer">
       <a class="footer-link" href="#">ABOUT US</a>
       <div class="copyright">
@@ -600,48 +484,14 @@ echo htmlspecialchars($profile['bio'] ?? 'new food this, new food that... i love
     </footer>
 
     <script>
-      // Pass user data to JavaScript
+      // pass user data to js
       window.currentUser = {
         username: "<?php echo htmlspecialchars($user['username']); ?>",
         email: "<?php echo htmlspecialchars($user['email']); ?>"
       };
     </script>
     <script src="profile.js"></script>
-    
-    <!-- Font debugging script -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // Check font loading
-        const testElements = document.querySelectorAll('.force-pecita');
-        if (testElements.length > 0) {
-          const computedStyle = getComputedStyle(testElements[0]);
-          console.log('Pecita font family applied:', computedStyle.fontFamily);
-          console.log('Font weight:', computedStyle.fontWeight);
-          console.log('Font style:', computedStyle.fontStyle);
-        }
-        
-        // Force font loading check
-        if (document.fonts) {
-          document.fonts.ready.then(function() {
-            console.log('All fonts loaded successfully');
-            document.fonts.forEach(function(font) {
-              if (font.family.includes('Pecita')) {
-                console.log('Pecita font loaded:', font.family, font.style, font.weight);
-              }
-            });
-          });
-        }
-        
-        // Test font loading after 2 seconds
-        setTimeout(function() {
-          const profileLabel = document.querySelector('.profile-label.force-pecita');
-          if (profileLabel) {
-            console.log('Profile label Pecita font after 2s:', getComputedStyle(profileLabel).fontFamily);
-          }
-        }, 2000);
-      });
-    </script>
-  </body>
+
+  <script src="profile.js"></script>
+</body>
 </html>
-profile.php
-21 KB

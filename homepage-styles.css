@@ -55,12 +55,12 @@ button {
   font-size: 2.5rem;
 }
 
-/* Blue highlight color */
+/* blue highlight color */
 :root {
   --highlight-blue: #94ade2;
 }
 
-/* Left Navigation */
+/* left navigation */
 .left-nav {
   position: fixed;
   top: 16px;
@@ -97,7 +97,6 @@ button {
   background-color: #f3f4f6;
 }
 
-/* Highlight circle around active icon */
 .nav-btn.active::before {
   content: "";
   position: absolute;
@@ -110,7 +109,6 @@ button {
   z-index: -1;
 }
 
-/* Logo hover effect */
 .logo-img {
   height: auto;
   width: 120px;
@@ -121,7 +119,6 @@ button {
   transform: scale(1.1);
 }
 
-/* Logo container with hover animation */
 .logo-container {
   position: absolute;
   left: 50%;
@@ -145,7 +142,6 @@ button {
   transform: translate(-50%, -50%) scale(1.15);
 }
 
-/* Logout button wider but same height, text centered */
 .logout-btn {
   background-color: #000;
   color: #fff;
@@ -174,7 +170,6 @@ button {
   background-color: #1f2937;
 }
 
-/* Lunch time container smaller width */
 .lunch-container {
   max-width: 320px;
   width: 100%;
@@ -204,7 +199,6 @@ button {
   margin-left: 0.5rem;
 }
 
-/* Pen icon slightly bigger circle and icon */
 .pen-icon {
   font-size: 1.5rem !important;
   line-height: 1;
@@ -229,7 +223,6 @@ button {
   background-color: #7f9ed9;
 }
 
-/* Time below welcome back bigger and blue */
 .current-time {
   font-size: 1.2rem;
   color: var(--highlight-blue);
@@ -237,7 +230,7 @@ button {
   user-select: none;
 }
 
-/* Recent friends meals heading slightly bigger but not bold */
+/* recent friends meals */
 .recent-friends-title {
   font-weight: 500;
   font-size: 1.5rem;
@@ -246,7 +239,7 @@ button {
   user-select: none;
 }
 
-/* Footer */
+/* footer */
 .page-footer {
   display: flex;
   flex-direction: row;
@@ -310,7 +303,6 @@ button {
   font-family: "Pecita", "Indie Flower", cursive !important;
 }
 
-/* Gallery container with thinner border and bigger gap */
 .gallery-image-container {
   position: relative;
   width: 100%;
@@ -332,7 +324,6 @@ button {
   z-index: 1;
 }
 
-/* Arrows positioned half inside border and half outside, above image */
 .gallery-arrow {
   position: absolute;
   top: 50%;
@@ -363,7 +354,7 @@ button {
   right: -18px;
 }
 
-/* Like and comment icons smaller */
+/* like and comment icons smaller */
 .like-btn,
 .comment-btn {
   font-size: 11px;
@@ -384,13 +375,10 @@ button {
   font-size: 12px;
 }
 
-/* Like button active style */
 .like-btn.active {
   color: #ef4444;
 }
 
-<<<<<<< HEAD
-/* NOWE STYLE DLA KOMENTARZY */
 .comments-container {
   margin-top: 0.5rem;
   width: 100%;
@@ -402,312 +390,8 @@ button {
 
 .comments-container[style*="display: none"] {
   display: none !important;
-=======
-/* Existing styles... keep all previous styles and add these: */
-
-/* Comment form styles - smaller and inline */
-.comments-container {
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  color: #333;
-  max-height: 200px;
-  overflow-y: auto;
-  border: 1px solid #ccc;
-  border-radius: 0.5rem;
-  padding: 0.75rem;
-  background: #f9f9f9;
-  display: none;
->>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
 }
 
-.comments-container.active {
-  display: block;
-}
-
-.comment-form-container {
-  margin-bottom: 1rem;
-  padding: 0.75rem;
-  background: white;
-  border-radius: 0.5rem;
-  border: 2px solid var(--highlight-blue);
-}
-
-.comment-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.comment-textarea {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ddd;
-  border-radius: 0.5rem;
-  font-size: 0.8rem;
-  outline: none;
-  transition: border-color 0.3s ease;
-  background-color: white;
-  font-family: "Poppins", sans-serif;
-  resize: vertical;
-  min-height: 60px;
-}
-
-.comment-textarea:focus {
-  border-color: var(--highlight-blue);
-}
-
-.comment-form-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.75rem;
-}
-
-.comment-char-count {
-  color: #666;
-  font-weight: 500;
-}
-
-.comment-form-actions {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.comment-cancel-btn,
-.comment-submit-btn {
-  padding: 0.4rem 0.8rem;
-  border-radius: 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: 1px solid #ddd;
-}
-
-.comment-cancel-btn {
-  background-color: #f3f4f6;
-  color: #000;
-}
-
-.comment-cancel-btn:hover {
-  background-color: #e5e7eb;
-}
-
-.comment-submit-btn {
-  background-color: var(--highlight-blue);
-  color: #000;
-  border-color: var(--highlight-blue);
-}
-
-.comment-submit-btn:hover:not(:disabled) {
-  background-color: #84a0d8;
-}
-
-.comment-submit-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* Comment display styles */
-.comment-item {
-  margin-bottom: 0.75rem;
-  padding: 0.5rem;
-  border-bottom: 1px solid #eee;
-  background: white;
-  border-radius: 0.25rem;
-}
-
-.comment-item:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
-}
-
-.comment-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.25rem;
-}
-
-.comment-author {
-  font-weight: bold;
-  font-size: 0.75rem;
-  color: #333;
-}
-
-.comment-delete-btn {
-  background: none;
-  border: none;
-  color: #ef4444;
-  cursor: pointer;
-  padding: 0.2rem;
-  border-radius: 0.25rem;
-  transition: background-color 0.2s ease;
-  font-size: 0.7rem;
-}
-
-.comment-delete-btn:hover {
-  background-color: #fee2e2;
-}
-
-.comment-text {
-  font-size: 0.75rem;
-  color: #666;
-  margin-bottom: 0.25rem;
-  line-height: 1.3;
-}
-
-.comment-time {
-  font-size: 0.65rem;
-  color: #999;
-}
-
-/* Friends panel fixes */
-.friend-avatar {
-  width: 40px !important;
-  height: 40px !important;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 1px solid #e5e7eb;
-  flex-shrink: 0;
-}
-
-.friend-item {
-  display: flex;
-  align-items: center;
-  padding: 0.75rem;
-  border-radius: 8px;
-  transition: background-color 0.2s ease;
-  position: relative;
-  margin-bottom: 0.5rem;
-  gap: 0.75rem;
-}
-
-.friend-item:hover {
-  background-color: #f3f4f6;
-}
-
-.friend-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.friend-name {
-  font-size: 0.9rem;
-  font-weight: 500;
-  margin: 0;
-  color: #000;
-  word-break: break-word;
-}
-
-.friend-status {
-  font-size: 0.75rem;
-  color: #666;
-  margin: 0;
-  word-break: break-word;
-}
-
-.send-request-btn {
-  background-color: var(--highlight-blue);
-  color: #000;
-  border: 2px solid #000;
-  border-radius: 15px;
-  padding: 0.4rem 0.8rem;
-  font-size: 0.75rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.send-request-btn:hover {
-  background-color: #84a0d8;
-}
-
-.send-request-btn:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-/* Make sure comment buttons work */
-.comment-form-simple {
-  background: white;
-  border-radius: 8px;
-  padding: 1rem;
-  margin-top: 0.5rem;
-  border: 1px solid #e5e7eb;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.existing-comments {
-  max-height: 120px;
-  overflow-y: auto;
-  margin-bottom: 1rem;
-}
-
-.comment-item {
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #f3f4f6;
-  font-size: 0.8rem;
-  line-height: 1.4;
-}
-
-.comment-item:last-child {
-  border-bottom: none;
-}
-
-.comment-item strong {
-  color: #1f2937;
-  font-weight: 600;
-}
-
-.comment-time {
-  color: #94ade2;
-  font-size: 0.7rem;
-  float: right;
-  font-weight: 500;
-}
-
-.add-comment-form {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.comment-input-simple {
-  flex: 1;
-  padding: 0.5rem 0.75rem;
-  border: 2px solid #e5e7eb;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  outline: none;
-  transition: border-color 0.3s ease;
-  font-family: "Poppins", sans-serif;
-}
-
-.comment-input-simple:focus {
-  border-color: #94ade2;
-}
-
-.comment-post-btn {
-  background-color: #94ade2;
-  color: #000;
-  border: 2px solid #000;
-  border-radius: 15px;
-  padding: 0.5rem 1rem;
-  font-size: 0.75rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  white-space: nowrap;
-}
-
-.comment-post-btn:hover {
-  background-color: #84a0d8;
-}
-
-/* Recent friends meals cards container in row with bigger gap */
 .recent-friends-cards {
   display: flex;
   justify-content: center;
@@ -716,7 +400,6 @@ button {
   margin-bottom: 3rem;
 }
 
-/* Flex container for avatar and username to prevent overlap */
 .avatar-username {
   display: flex;
   align-items: center;
@@ -741,7 +424,7 @@ button {
   color: black !important;
 }
 
-/* Card content styling */
+/* card content styling */
 .card-content {
   margin-top: 0.75rem;
   flex-grow: 1;
@@ -767,7 +450,6 @@ button {
   margin-bottom: 0.5rem;
 }
 
-/* Zwiększenie rozmiaru tekstu w kartach */
 article p.text-\[10px\] {
   font-size: 16px !important;
   color: black !important;
@@ -784,7 +466,7 @@ article p.text-\[8px\] {
   line-height: 1.4;
 }
 
-/* Add Post Panel - podobny do settings panel */
+/* add post panel */
 .add-post-panel {
   position: fixed;
   top: 50%;
@@ -981,7 +663,7 @@ article p.text-\[8px\] {
   background-color: #e5e7eb;
 }
 
-/* Notification badge */
+/* notification badge */
 .notification-badge {
   position: absolute;
   top: -2px;
@@ -1000,7 +682,7 @@ article p.text-\[8px\] {
   z-index: 10;
 }
 
-/* Friend request badge */
+/* friend request badge */
 .friend-request-badge {
   position: absolute;
   top: -2px;
@@ -1019,7 +701,7 @@ article p.text-\[8px\] {
   z-index: 10;
 }
 
-/* Notifications Panel */
+/* notifications panel */
 .notifications-panel {
   position: fixed;
   top: 80px;
@@ -1094,7 +776,7 @@ article p.text-\[8px\] {
   text-align: right;
 }
 
-/* Friends Panel - identical to notifications panel */
+/* friends panel */
 .friends-panel {
   position: fixed;
   top: 80px;
@@ -1346,42 +1028,7 @@ article p.text-\[8px\] {
   cursor: not-allowed;
 }
 
-<<<<<<< HEAD
-=======
-/* Comment input styles */
-.comment-input-container {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-  padding: 0.5rem;
-  background: white;
-  border-radius: 0.25rem;
-}
-
-.comment-input {
-  flex: 1;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 0.25rem;
-  font-size: 0.8rem;
-}
-
-.comment-submit-btn {
-  background: var(--highlight-blue);
-  color: white;
-  border: none;
-  border-radius: 0.25rem;
-  padding: 0.5rem 1rem;
-  font-size: 0.8rem;
-  cursor: pointer;
-}
-
-.comment-submit-btn:hover {
-  background: #7f9ed9;
-}
-
->>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
-/* Responsive adjustments */
+/* responsive style */
 @media (max-width: 1024px) {
   .recent-friends-cards {
     gap: 4rem;
@@ -1441,25 +1088,4 @@ article p.text-\[8px\] {
     width: auto;
     top: 60px;
   }
-<<<<<<< HEAD
 }
-=======
-
-  .comment-form-simple {
-    padding: 0.75rem;
-  }
-
-  .add-comment-form {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .comment-input-simple {
-    width: 100%;
-  }
-
-  .comment-post-btn {
-    width: 100%;
-  }
-}
->>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38

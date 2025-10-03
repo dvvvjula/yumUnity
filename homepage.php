@@ -18,20 +18,20 @@ $user = getCurrentUser();
       href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
       rel="stylesheet"
     />
-    <!-- Backup Google Font -->
+    <!-- backup google font (since it wasn't working earlier...) -->
     <link
       href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap"
       rel="stylesheet"
     />
     
-    <!-- Preload Pecita font files -->
+    <!-- preload pecita font files -->
     <link rel="preload" href="fonts/Pecita.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/Pecita.otf" as="font" type="font/otf" crossorigin>
     
     <link rel="stylesheet" href="homepage-styles.css" />
     
     <style>
-      /* Inline Pecita font loading for extra security */
+      /* inline pecita font loading for extra security */
       @font-face {
         font-family: 'PecitaInline';
         src: url('./fonts/Pecita.woff2') format('woff2'),
@@ -47,7 +47,7 @@ $user = getCurrentUser();
         font-style: normal;
       }
       
-      /* Force Pecita loading classes */
+      /* force pecita loading classes */
       .force-pecita {
         font-family: 'PecitaInline', 'Pecita', 'Indie Flower', cursive !important;
         font-weight: normal !important;
@@ -69,10 +69,10 @@ $user = getCurrentUser();
     </style>
   </head>
   <body>
-    <!-- Font loading test element (invisible) -->
+    <!-- font loading test element (invisible) -->
     <div style="position: absolute; left: -9999px; font-family: 'PecitaInline', 'Pecita', 'Indie Flower', cursive;">Font test</div>
     
-    <!-- Left Navigation -->
+    <!-- left navigation -->
     <nav class="left-nav" role="navigation" aria-label="Main navigation">
       <button
         class="nav-btn active"
@@ -114,7 +114,7 @@ $user = getCurrentUser();
       </button>
     </nav>
 
-    <!-- Friends Panel -->
+    <!-- friends panel -->
     <div class="friends-panel" id="friendsPanel">
       <div class="friends-header">
         <h3>Friends</h3>
@@ -136,21 +136,19 @@ $user = getCurrentUser();
         </button>
       </div>
       <div class="friends-content" id="friendsContent">
-        <!-- Content will be populated by JavaScript -->
       </div>
     </div>
 
-    <!-- Notifications Panel -->
+    <!-- notifications panel -->
     <div class="notifications-panel" id="notificationsPanel">
       <div class="notifications-header">
         <h3>Notifications</h3>
       </div>
       <div class="notifications-content" id="notificationsContent">
-        <!-- Powiadomienia będą dodawane przez JavaScript -->
       </div>
     </div>
 
-    <!-- Top bar with logo and logout -->
+    <!-- top bar with logo and logout -->
     <header class="flex justify-center relative py-4">
       <img
         src="pictures/logo.png"
@@ -171,7 +169,7 @@ $user = getCurrentUser();
       </button>
     </header>
 
-    <!-- Main content -->
+    <!-- main content -->
     <main class="flex flex-col items-center px-6">
       <h1
         aria-label="Welcome Back, <?php echo htmlspecialchars($user['username']); ?>!"
@@ -206,7 +204,7 @@ $user = getCurrentUser();
       <section class="w-full max-w-6xl">
         <h2 class="recent-friends-title">Recent friends' meals</h2>
         <div class="recent-friends-cards">
-          <!-- Card 1 -->
+          <!-- card 1 -->
           <article class="max-w-[220px]">
             <div class="gallery-image-container">
               <img
@@ -270,7 +268,7 @@ $user = getCurrentUser();
             </p>
           </article>
 
-          <!-- Card 2 -->
+          <!-- card 2 -->
           <article class="max-w-[220px]">
             <div class="gallery-image-container">
               <img
@@ -334,7 +332,7 @@ $user = getCurrentUser();
             </p>
           </article>
 
-          <!-- Card 3 -->
+          <!-- card 3 -->
           <article class="max-w-[220px]">
             <div class="gallery-image-container">
               <img
@@ -422,7 +420,7 @@ $user = getCurrentUser();
       </div>
     </footer>
 
-    <!-- Add New Meal Panel -->
+    <!-- add new neal panel -->
     <div class="add-post-panel" id="addPostPanel">
       <h3 class="force-pecita">Add New Meal</h3>
       <form class="auth-form" id="addPostForm">
@@ -493,10 +491,9 @@ $user = getCurrentUser();
 
     <script src="homepage-script.js"></script>
     
-    <!-- Font debugging script -->
+    <!-- font debugging script -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        // Check font loading
         const testElements = document.querySelectorAll('.force-pecita');
         if (testElements.length > 0) {
           const computedStyle = getComputedStyle(testElements[0]);
@@ -505,7 +502,6 @@ $user = getCurrentUser();
           console.log('Font style:', computedStyle.fontStyle);
         }
         
-        // Force font loading check
         if (document.fonts) {
           document.fonts.ready.then(function() {
             console.log('All fonts loaded successfully');
@@ -517,7 +513,6 @@ $user = getCurrentUser();
           });
         }
         
-        // Test font loading after 2 seconds
         setTimeout(function() {
           const h1 = document.querySelector('h1.handwriting-pecita');
           if (h1) {
@@ -526,7 +521,7 @@ $user = getCurrentUser();
         }, 2000);
       });
 
-      // Pass user data to JavaScript
+      // pass user data to js
       window.currentUser = {
         username: "<?php echo htmlspecialchars($user['username']); ?>",
         email: "<?php echo htmlspecialchars($user['email']); ?>"

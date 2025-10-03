@@ -1,133 +1,4 @@
-// Sample notifications data - Updated with English text and different times
-const notifications = [
-  {
-    id: 1,
-<<<<<<< HEAD
-    text: "Sarah liked your breakfast post",
-=======
-    text: "Sarah liked your breakfast post with avocado toast",
->>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
-    time: "2 min ago",
-  },
-  {
-    id: 2,
-<<<<<<< HEAD
-    text: "New friend request from Mike",
-=======
-    text: "New friend request from Mike_FoodLover",
->>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
-    time: "15 min ago",
-  },
-  {
-    id: 3,
-<<<<<<< HEAD
-    text: "Your lunch got 5 new likes!",
-=======
-    text: "Your lunch photo got 5 new likes!",
->>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
-    time: "1 hour ago",
-  },
-  {
-    id: 4,
-<<<<<<< HEAD
-    text: "Emma commented on your post",
-=======
-    text: "Emma commented: 'This looks delicious! Recipe please?'",
->>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
-    time: "2 hours ago",
-  },
-  {
-    id: 5,
-<<<<<<< HEAD
-    text: "New follower: ChefMaster2024",
-=======
-    text: "You have a new follower: ChefMaster2024",
->>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
-    time: "3 hours ago",
-  },
-  {
-    id: 6,
-<<<<<<< HEAD
-    text: "Weekly meal summary ready",
-=======
-    text: "Weekly meal summary is ready to view",
->>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
-    time: "1 day ago",
-  },
-]
-
-// Sample friends data
-const friends = [
-  {
-    id: 1,
-    name: "funycat123",
-    avatar: "pictures/hp-prof-1.jpg",
-    status: "Active now",
-    isActive: true,
-  },
-  {
-    id: 2,
-    name: "yumyum8",
-    avatar: "pictures/hp-prof-2.jpg",
-    status: "Last seen 2h ago",
-    isActive: false,
-  },
-  {
-    id: 3,
-    name: "ilikefood1",
-    avatar: "pictures/hp-prof-1.jpg",
-    status: "Active now",
-    isActive: true,
-  },
-  {
-    id: 4,
-    name: "foodlover22",
-    avatar: "pictures/hp-prof-2.jpg",
-    status: "Last seen 1h ago",
-    isActive: false,
-  },
-  {
-    id: 5,
-    name: "cookmaster",
-    avatar: "pictures/hp-prof-1.jpg",
-    status: "Active now",
-    isActive: true,
-  },
-  {
-    id: 6,
-    name: "healthyeats",
-    avatar: "pictures/hp-prof-2.jpg",
-    status: "Last seen 30m ago",
-    isActive: false,
-  },
-]
-
-// Sample friend requests data
-const friendRequests = [
-  {
-    id: 1,
-    name: "foodlover22",
-    avatar: "pictures/hp-prof-2.jpg",
-    status: "Wants to be friends",
-  },
-  {
-    id: 2,
-    name: "cookmaster",
-    avatar: "pictures/hp-prof-1.jpg",
-    status: "Wants to be friends",
-  },
-  {
-    id: 3,
-    name: "healthyeats",
-    avatar: "pictures/hp-prof-2.jpg",
-    status: "Wants to be friends",
-  },
-]
-
-let currentTab = "friendsList"
-let searchQuery = ""
-
-// User data storage - użyj danych z PHP jeśli dostępne
+// user data storage - use php data if available
 const userData = {
   username: window.currentUser ? window.currentUser.username : "user",
   email: window.currentUser ? window.currentUser.email : "user@example.com",
@@ -146,7 +17,7 @@ const userData = {
   },
 }
 
-// Used usernames (simulated database)
+// used usernames (simulated database) for validation tests
 const usedUsernames = ["admin", "user", "test", "demo"]
 
 function toggleNotificationsPanel() {
@@ -155,7 +26,6 @@ function toggleNotificationsPanel() {
   const friendsPanel = document.getElementById("friendsPanel")
   const friendsBtn = document.getElementById("nav-friends")
 
-  // Close friends panel if open
   if (friendsPanel && friendsPanel.classList.contains("active")) {
     friendsPanel.classList.remove("active")
     friendsBtn.classList.remove("active")
@@ -177,7 +47,6 @@ function toggleFriendsPanel() {
   const notificationsPanel = document.getElementById("notificationsPanel")
   const notificationBtn = document.getElementById("nav-notifications")
 
-  // Close notifications panel if open
   if (notificationsPanel && notificationsPanel.classList.contains("active")) {
     notificationsPanel.classList.remove("active")
     notificationBtn.classList.remove("active")
@@ -199,31 +68,35 @@ function searchFriends() {
   populateFriendsContent()
 }
 
+// for every notif in php table, display it
 function populateNotifications() {
   const content = document.getElementById("notificationsContent")
   content.innerHTML = ""
 
-  notifications.forEach((notification) => {
+  if (!window.notifications || window.notifications.length === 0) {
+    content.innerHTML = "<p class='notification-empty'>Brak powiadomień.</p>"
+    return
+  }
+
+  window.notifications.forEach((notification) => {
     const notificationElement = document.createElement("div")
     notificationElement.className = "notification-item"
     notificationElement.innerHTML = `
-      <p class="notification-text">${notification.text}</p>
-<<<<<<< HEAD
+      <p class="notification-text">${notification.message}</p>
       <br>
-=======
->>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
-      <span class="notification-time">${notification.time}</span>
+      <span class="notification-time">${new Date(notification.created_at).toLocaleString()}</span>
     `
     content.appendChild(notificationElement)
   })
 }
+
 
 function populateFriendsContent() {
   const content = document.getElementById("friendsContent")
   content.innerHTML = ""
 
   if (currentTab === "friendsList") {
-    // Filter friends based on search query
+    // filter friends based on search query
     const filteredFriends = friends.filter((friend) => friend.name.toLowerCase().includes(searchQuery))
 
     if (filteredFriends.length === 0 && searchQuery) {
@@ -245,7 +118,7 @@ function populateFriendsContent() {
       content.appendChild(friendElement)
     })
   } else {
-    // Filter friend requests based on search query
+    // filter friend requests based on search query
     const filteredRequests = friendRequests.filter((request) => request.name.toLowerCase().includes(searchQuery))
 
     if (filteredRequests.length === 0 && searchQuery) {
@@ -279,15 +152,15 @@ function populateFriendsContent() {
 function switchTab(tabName) {
   currentTab = tabName
 
-  // Update tab buttons
+  // update tab buttons
   document.querySelectorAll(".tab-btn").forEach((btn) => btn.classList.remove("active"))
   document.querySelector(`[data-tab="${tabName}"]`).classList.add("active")
 
-  // Clear search when switching tabs
+  // clear search when switching tabs
   searchQuery = ""
   document.getElementById("friendSearchInput").value = ""
 
-  // Update content
+  // update content
   populateFriendsContent()
 }
 
@@ -295,7 +168,6 @@ function acceptFriendRequest(requestId) {
   const requestIndex = friendRequests.findIndex((req) => req.id === requestId)
   if (requestIndex !== -1) {
     const request = friendRequests[requestIndex]
-    // Add to friends list
     friends.push({
       id: Date.now(),
       name: request.name,
@@ -303,10 +175,8 @@ function acceptFriendRequest(requestId) {
       status: "Active now",
       isActive: true,
     })
-    // Remove from requests
     friendRequests.splice(requestIndex, 1)
 
-    // Update displays
     populateFriendsContent()
     updateFriendRequestBadge()
   }
@@ -344,14 +214,12 @@ function updateFriendRequestBadge() {
     badge.style.display = "none"
   }
 
-  // Update tab count
   const tabCount = document.querySelector(".request-count")
   if (tabCount) {
     tabCount.textContent = count.toString()
   }
 }
 
-// Close panels when clicking outside
 document.addEventListener("click", (event) => {
   const notificationsPanel = document.getElementById("notificationsPanel")
   const notificationBtn = document.getElementById("nav-notifications")
@@ -360,7 +228,6 @@ document.addEventListener("click", (event) => {
   const settingsPanel = document.getElementById("settingsPanel")
   const settingsIcon = document.getElementById("settingsIcon")
 
-  // Close notifications panel
   if (
     notificationsPanel &&
     notificationsPanel.classList.contains("active") &&
@@ -371,7 +238,6 @@ document.addEventListener("click", (event) => {
     notificationBtn.classList.remove("active")
   }
 
-  // Close friends panel
   if (
     friendsPanel &&
     friendsPanel.classList.contains("active") &&
@@ -382,7 +248,6 @@ document.addEventListener("click", (event) => {
     friendsBtn.classList.remove("active")
   }
 
-  // Close settings panel
   if (
     settingsPanel.classList.contains("active") &&
     !settingsPanel.contains(event.target) &&
@@ -392,13 +257,13 @@ document.addEventListener("click", (event) => {
   }
 })
 
-// Gallery images data
+// gallery images data
 const galleryImages = [
   ["pictures/pic-hp-gallery-1.jpg", "pictures/pic-hp-gallery-1-alt.jpg"],
   ["pictures/pic-hp-gallery-2.jpg", "pictures/pic-hp-gallery-2-alt.jpg"],
 ]
 
-// Calendar generation
+// calendar
 function generateCalendar() {
   const calendarBody = document.getElementById("calendarBody")
   const calendarTitle = document.getElementById("calendarTitle")
@@ -467,13 +332,13 @@ function generateCalendar() {
   }
 }
 
-// Navigation functions
+// navigation functions
 function goToPage(page) {
   console.log(`Navigating to ${page}`)
   window.location.href = page
 }
 
-// Settings panel functions
+// settings panel functions
 async function openSettings() {
   const settingsPanel = document.getElementById("settingsPanel")
   settingsPanel.classList.add("active")
@@ -485,22 +350,22 @@ async function openSettings() {
     if (data.success) {
       const profile = data.profile
 
-      // Load current values
+      // load current values
       document.getElementById("usernameInput").value = profile.username || ""
       document.getElementById("bioInput").value = profile.bio || ""
 
-      // Update userData object
+      // update userData object
       userData.username = profile.username || ""
       userData.bio = profile.bio || ""
     }
   } catch (error) {
     console.error("Error loading profile data:", error)
-    // Fallback to current values
+    // fallback to current values
     document.getElementById("usernameInput").value = userData.username
     document.getElementById("bioInput").value = userData.bio
   }
 
-  // Load other settings...
+  // load other settings...
   document.getElementById("breakfastTimeInput").value = userData.mealSchedule.breakfast
   document.getElementById("lunchTimeInput").value = userData.mealSchedule.lunch
   document.getElementById("dinnerTimeInput").value = userData.mealSchedule.dinner
@@ -515,14 +380,13 @@ function closeSettings() {
   const settingsPanel = document.getElementById("settingsPanel")
   settingsPanel.classList.remove("active")
 
-  // Reset form
   document.getElementById("settingsForm").reset()
   document.getElementById("imagePreview").innerHTML = ""
   resetPasswordRequirements()
   updateSaveButton()
 }
 
-// Password validation
+// password validation
 function validatePassword(password) {
   const requirements = {
     length: password.length >= 8,
@@ -530,7 +394,6 @@ function validatePassword(password) {
     uppercase: /[A-Z]/.test(password),
   }
 
-  // Update UI
   updateRequirement("lengthReq", requirements.length)
   updateRequirement("numberReq", requirements.number)
   updateRequirement("uppercaseReq", requirements.uppercase)
@@ -566,7 +429,7 @@ function resetPasswordRequirements() {
   })
 }
 
-// Username validation
+// username validation
 function validateUsername(username) {
   const trimmed = username.trim()
   const errorDiv = document.getElementById("usernameError")
@@ -585,7 +448,7 @@ function validateUsername(username) {
   return true
 }
 
-// Toggle password visibility
+// toggle password visibility
 function togglePassword(inputId) {
   const input = document.getElementById(inputId)
   const icon = document.getElementById("passwordToggleIcon")
@@ -599,7 +462,6 @@ function togglePassword(inputId) {
   }
 }
 
-// Update save button state
 function updateSaveButton() {
   const username = document.getElementById("usernameInput").value
   const password = document.getElementById("passwordInput").value
@@ -624,7 +486,6 @@ function updateSaveButton() {
   saveButton.disabled = !(isUsernameValid && isPasswordValid && hasChanges)
 }
 
-// Handle image preview
 function handleImagePreview(file) {
   const preview = document.getElementById("imagePreview")
 
@@ -639,7 +500,6 @@ function handleImagePreview(file) {
   }
 }
 
-// Save settings
 async function saveSettings(event) {
   event.preventDefault()
 
@@ -667,11 +527,11 @@ async function saveSettings(event) {
     const data = await response.json()
 
     if (data.success) {
-      // Update local data
+      // update local data
       userData.username = username
       userData.bio = bio
 
-      // Update display
+      // update display
       document.getElementById("profileUsername").textContent = username
       document.getElementById("profileBio").textContent = bio
 
@@ -683,7 +543,7 @@ async function saveSettings(event) {
         reader.readAsDataURL(imageFile)
       }
 
-      // Update meal schedule
+      // update meal schedule
       userData.mealSchedule = {
         breakfast: document.getElementById("breakfastTimeInput").value,
         lunch: document.getElementById("lunchTimeInput").value,
@@ -691,7 +551,7 @@ async function saveSettings(event) {
         snack: document.getElementById("snackTimeInput").value,
       }
 
-      // Update Q&A answers
+      // update q&a answers
       userData.qaAnswers = {
         qa1: document.getElementById("qa1Input").value,
         qa2: document.getElementById("qa2Input").value,
@@ -712,7 +572,7 @@ async function saveSettings(event) {
   }
 }
 
-// Update meal schedule display
+// update meal schedule display
 function updateMealScheduleDisplay() {
   document.getElementById("breakfastTime").textContent = userData.mealSchedule.breakfast
   document.getElementById("lunchTime").textContent = userData.mealSchedule.lunch
@@ -720,54 +580,42 @@ function updateMealScheduleDisplay() {
   document.getElementById("snackTime").textContent = userData.mealSchedule.snack
 }
 
-// Update Q&A display
+// update q&a display
 function updateQADisplay() {
   document.getElementById("qa1").textContent = userData.qaAnswers.qa1
   document.getElementById("qa2").textContent = userData.qaAnswers.qa2
   document.getElementById("qa3").textContent = userData.qaAnswers.qa3
 }
 
-// Gallery navigation
 function navigateGallery(direction, cardIndex) {
   const img = document.querySelector(`[data-index="${cardIndex}"] .gallery-image`)
-<<<<<<< HEAD
   if (!img) return
 
   const currentIndex = Number.parseInt(img.dataset.current) || 0
-=======
-  const currentIndex = Number.parseInt(img.dataset.current)
->>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
 
-  // Get user posts from localStorage
+  // get user posts from localStorage
   const savedPosts = localStorage.getItem("userPosts")
   const userPosts = savedPosts ? JSON.parse(savedPosts) : []
 
   let images
   if (userPosts.length > cardIndex) {
-    // Use user post images
-<<<<<<< HEAD
+    // use user post images
     images = userPosts[cardIndex].images || ["pictures/pic-prof-gallery-1.jpg"]
   } else {
-    // Use default gallery images - ADD MORE IMAGES HERE FOR GALLERY
+    // use default gallery images if needed (only for tests)
     const defaultGalleries = [
       [
         "pictures/pic-prof-gallery-1.jpg",
         "pictures/pic-prof-gallery-1-alt.jpg",
         "pictures/pic-prof-gallery-1-alt2.jpg",
-      ], // Card 0 images
+      ], 
       [
         "pictures/pic-prof-gallery-2.jpg",
         "pictures/pic-prof-gallery-2-alt.jpg",
         "pictures/pic-prof-gallery-2-alt2.jpg",
-      ], // Card 1 images
+      ],
     ]
     images = defaultGalleries[cardIndex] || ["pictures/pic-prof-gallery-1.jpg"]
-=======
-    images = userPosts[cardIndex].images
-  } else {
-    // Use default gallery images
-    images = galleryImages[cardIndex] || ["pictures/pic-hp-gallery-1.jpg"]
->>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
   }
 
   let newIndex
@@ -781,11 +629,6 @@ function navigateGallery(direction, cardIndex) {
   img.dataset.current = newIndex
 }
 
-<<<<<<< HEAD
-// POPRAWIONA FUNKCJA toggleLike dla profilu
-=======
-// Like functionality - FIXED FOR PROFILE PAGE
->>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
 function toggleLike(button) {
   button.classList.toggle("active")
   const likeCount = button.querySelector(".like-count")
@@ -800,8 +643,6 @@ function toggleLike(button) {
   likeCount.textContent = count
 }
 
-<<<<<<< HEAD
-// NOWA FUNKCJA toggleComments dla profilu (podobna do homepage)
 function toggleComments(postId) {
   const commentsContainer = document.getElementById(`comments-${postId}`)
 
@@ -815,14 +656,13 @@ function toggleComments(postId) {
   } else {
     commentsContainer.style.display = "block"
 
-    // Jeśli kontener jest pusty, dodaj przykładowe komentarze i formularz
     if (commentsContainer.innerHTML.trim() === "") {
       showSimpleCommentForm(postId, commentsContainer)
     }
   }
 }
 
-// NOWA FUNKCJA do wyświetlania formularza komentarzy na profilu
+
 function showSimpleCommentForm(postId, container) {
   container.innerHTML = `
     <div style="background: white; border-radius: 8px; padding: 1rem; margin-top: 0.5rem; border: 1px solid #e5e7eb; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
@@ -851,7 +691,6 @@ function showSimpleCommentForm(postId, container) {
   `
 }
 
-// NOWA FUNKCJA do dodawania komentarzy na profilu
 function addQuickComment(postId) {
   const input = document.getElementById(`comment-input-${postId}`)
   const text = input.value.trim()
@@ -870,7 +709,6 @@ function addQuickComment(postId) {
   existingComments.appendChild(newComment)
   input.value = ""
 
-  // Zaktualizuj licznik komentarzy
   const commentBtn = document.querySelector(`[onclick="toggleComments(${postId})"]`)
   if (commentBtn) {
     const countSpan = commentBtn.querySelector(".comment-count")
@@ -878,35 +716,31 @@ function addQuickComment(postId) {
   }
 }
 
-// Funkcja do wyświetlania postów użytkownika z localStorage
 function displayUserPosts() {
   const postsContainer = document.querySelector(".recent-friends-cards")
   if (!postsContainer) return
 
-  // Pobierz posty z localStorage
   const savedPosts = localStorage.getItem("userPosts")
   const userPosts = savedPosts ? JSON.parse(savedPosts) : []
 
   if (userPosts.length > 0) {
-    // Wyczyść istniejące posty (oprócz domyślnych)
     const existingPosts = postsContainer.querySelectorAll("article")
     existingPosts.forEach((post, index) => {
       if (index >= 2) {
-        // Zachowaj pierwsze 2 domyślne posty
+        // get 2 default posts
         post.remove()
       }
     })
 
-    // Wyświetl maksymalnie 3 najnowsze posty użytkownika
+    // dispaly max 3 last posts (just like in my figma)
     const recentPosts = userPosts.slice(0, 3)
 
     recentPosts.forEach((post, index) => {
       const postElement = document.createElement("article")
       postElement.className = "card"
-      postElement.dataset.index = index + 2 // +2 bo mamy już 2 domyślne posty
+      postElement.dataset.index = index + 2
       postElement.dataset.postId = post.id
 
-      // Utwórz galerię zdjęć
       const galleryImages = post.images && post.images.length > 0 ? post.images : ["pictures/pic-hp-gallery-1.jpg"]
 
       postElement.innerHTML = `
@@ -944,62 +778,21 @@ function displayUserPosts() {
         </div>
         <div class="flex items-center mt-3 justify-end">
           <div class="flex space-x-3 text-[12px] text-black">
-=======
-// Funkcja do wyświetlania postów użytkownika z API
-async function displayUserPosts() {
-  const postsContainer = document.querySelector(".recent-friends-cards")
-  if (!postsContainer) return
-
-  try {
-    // Pobierz posty użytkownika z API
-    const response = await fetch(`api/posts.php?user_id=${window.currentUser?.id || 1}`)
-    const data = await response.json()
-
-    if (data.success && data.posts.length > 0) {
-      // Wyczyść istniejące posty
-      postsContainer.innerHTML = ""
-
-      // Wyświetl maksymalnie 3 najnowsze posty
-      const recentPosts = data.posts.slice(0, 3)
-
-      recentPosts.forEach((post, index) => {
-        const postElement = document.createElement("article")
-        postElement.className = "card"
-        postElement.dataset.index = index
-        postElement.dataset.postId = post.id
-
-        // Utwórz galerię zdjęć
-        const galleryImages = post.images && post.images.length > 0 ? post.images : ["pictures/pic-hp-gallery-1.jpg"]
-
-        postElement.innerHTML = `
-          <div class="gallery-image-container">
-            <img
-              alt="User meal"
-              src="${galleryImages[0]}"
-              loading="lazy"
-              class="gallery-image"
-              data-current="0"
-            />
->>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
             <button
-              aria-label="Previous meal"
-              class="gallery-arrow left"
+              aria-label="Comment on meal"
+              class="comment-btn"
               type="button"
-<<<<<<< HEAD
               onclick="toggleComments(${post.id})"
-=======
-              onclick="navigateGallery('left', ${index})"
->>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
             >
-              <i class="fas fa-chevron-left"></i>
+              <i class="fas fa-comment"></i>
+              <span class="comment-count">0</span>
             </button>
             <button
-              aria-label="Next meal"
-              class="gallery-arrow right"
+              aria-label="Like meal"
+              class="like-btn"
               type="button"
-              onclick="navigateGallery('right', ${index})"
+              onclick="toggleLike(this)"
             >
-<<<<<<< HEAD
               <i class="fas fa-heart"></i>
               <span class="like-count">0</span>
             </button>
@@ -1036,156 +829,19 @@ function deletePost(cardIndex) {
     if (postElement) {
       postElement.remove()
 
-      // Update localStorage if needed
       const savedPosts = localStorage.getItem("userPosts")
       if (savedPosts) {
         const userPosts = JSON.parse(savedPosts)
-        const actualIndex = cardIndex - 2 // -2 bo pierwsze 2 to domyślne posty
+        const actualIndex = cardIndex - 2 
         if (userPosts.length > actualIndex && actualIndex >= 0) {
           userPosts.splice(actualIndex, 1)
           localStorage.setItem("userPosts", JSON.stringify(userPosts))
         }
       }
     }
-=======
-              <i class="fas fa-chevron-right"></i>
-            </button>
-          </div>
-          <div class="flex items-center mt-3 justify-end">
-            <div class="flex space-x-3 text-[12px] text-black">
-              <button
-                aria-label="Comment on meal"
-                class="comment-btn"
-                type="button"
-                onclick="toggleComments(${post.id})"
-              >
-                <i class="fas fa-comment"></i>
-                <span class="comment-count">${post.comments_count || 0}</span>
-              </button>
-              <button
-                aria-label="Like meal"
-                class="like-btn"
-                type="button"
-                onclick="toggleLike(this)"
-              >
-                <i class="fas fa-heart"></i>
-                <span class="like-count">${post.likes_count || 0}</span>
-              </button>
-            </div>
-          </div>
-          <div class="avatar-username mt-3">
-            <img
-              alt="Your avatar"
-              class="w-5 h-5 object-cover border border-black"
-              height="20"
-              src="${post.profile_image || "pictures/hp-prof-1.jpg"}"
-              width="20"
-            />
-            <p class="text-[10px] font-sans select-none">${post.username}</p>
-          </div>
-          <p class="text-[8px] mt-1 font-sans text-black/70 leading-tight select-none card-description">
-            ${post.description}
-          </p>
-          <p class="text-[8px] mt-1 font-sans text-black/70 leading-tight select-none">
-            <strong>Type:</strong> ${post.meal_type.charAt(0).toUpperCase() + post.meal_type.slice(1)}
-            ${post.calories ? ` • <strong>Calories:</strong> ${post.calories}` : ""}
-          </p>
-          <div class="comments-container" id="comments-${post.id}"></div>
-        `
-
-        postsContainer.appendChild(postElement)
-      })
-    }
-  } catch (error) {
-    console.error("Error loading user posts:", error)
   }
 }
 
-// Dodaj funkcje do obsługi komentarzy w profilu
-async function toggleComments(postId) {
-  const commentsContainer = document.getElementById(`comments-${postId}`)
-
-  if (commentsContainer.classList.contains("active")) {
-    commentsContainer.classList.remove("active")
-    return
-  }
-
-  try {
-    const response = await fetch(`api/comments.php?post_id=${postId}`)
-    const data = await response.json()
-
-    if (data.success) {
-      displayComments(commentsContainer, data.comments, postId)
-      commentsContainer.classList.add("active")
-    }
-  } catch (error) {
-    console.error("Error loading comments:", error)
-  }
-}
-
-function displayComments(container, comments, postId) {
-  container.innerHTML = ""
-
-  // Add comment input
-  const inputDiv = document.createElement("div")
-  inputDiv.className = "comment-input-container"
-  inputDiv.innerHTML = `
-    <input type="text" placeholder="Add a comment..." class="comment-input" id="comment-input-${postId}">
-    <button onclick="addComment(${postId})" class="comment-submit-btn">Post</button>
-  `
-  container.appendChild(inputDiv)
-
-  // Add existing comments
-  comments.forEach((comment) => {
-    const commentDiv = document.createElement("div")
-    commentDiv.className = "comment-item"
-    commentDiv.innerHTML = `
-      <div class="comment-author">${comment.username}</div>
-      <div class="comment-text">${comment.content}</div>
-      <div class="comment-time">${new Date(comment.created_at).toLocaleTimeString()}</div>
-    `
-    container.appendChild(commentDiv)
-  })
-}
-
-async function addComment(postId) {
-  const input = document.getElementById(`comment-input-${postId}`)
-  const content = input.value.trim()
-
-  if (!content) return
-
-  try {
-    const formData = new FormData()
-    formData.append("post_id", postId)
-    formData.append("content", content)
-
-    const response = await fetch("api/comments.php", {
-      method: "POST",
-      body: formData,
-    })
-
-    const data = await response.json()
-
-    if (data.success) {
-      input.value = ""
-      // Reload comments
-      toggleComments(postId)
-      toggleComments(postId)
-
-      // Update comment count
-      const commentBtn = document.querySelector(`[onclick="toggleComments(${postId})"]`)
-      const countSpan = commentBtn.querySelector(".comment-count")
-      countSpan.textContent = Number.parseInt(countSpan.textContent) + 1
-    } else {
-      alert(data.message)
-    }
-  } catch (error) {
-    console.error("Error adding comment:", error)
->>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
-  }
-}
-
-// Initialize page
 document.addEventListener("DOMContentLoaded", () => {
   generateCalendar()
   updateMealScheduleDisplay()
@@ -1194,7 +850,6 @@ document.addEventListener("DOMContentLoaded", () => {
   updateFriendRequestBadge()
   displayUserPosts()
 
-  // DODAJ KONTENERY KOMENTARZY do istniejących postów na profilu
   const articles = document.querySelectorAll("article.card")
   articles.forEach((article, index) => {
     if (!article.querySelector(".comments-container")) {
@@ -1206,11 +861,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
 
-  // Settings icon click handler
   const settingsIcon = document.getElementById("settingsIcon")
   settingsIcon.addEventListener("click", openSettings)
 
-  // Form event listeners
   const usernameInput = document.getElementById("usernameInput")
   const passwordInput = document.getElementById("passwordInput")
   const bioInput = document.getElementById("bioInput")
@@ -1233,49 +886,24 @@ document.addEventListener("DOMContentLoaded", () => {
     updateSaveButton()
   })
 
-  // Meal schedule inputs
+  // meal schedule inputs
   ;["breakfastTimeInput", "lunchTimeInput", "dinnerTimeInput", "snackTimeInput"].forEach((id) => {
     document.getElementById(id).addEventListener("change", updateSaveButton)
   })
 
-  // Q&A inputs
+  // q&a inputs
   ;["qa1Input", "qa2Input", "qa3Input"].forEach((id) => {
     document.getElementById(id).addEventListener("input", updateSaveButton)
   })
 
   settingsForm.addEventListener("submit", saveSettings)
 
-<<<<<<< HEAD
-=======
-  // FIXED: Add like button click handlers for profile page
-  const likeButtons = document.querySelectorAll(".like-btn")
-  likeButtons.forEach((button) => {
-    button.addEventListener("click", function () {
-      toggleLike(this)
-    })
-  })
-
-  // Comment button click handlers
-  const commentButtons = document.querySelectorAll(".comment-btn")
-  commentButtons.forEach((button) => {
-    button.addEventListener("click", function () {
-      const card = this.closest(".card")
-      const postId = card.dataset.postId
-      if (postId) {
-        toggleComments(postId)
-      }
-    })
-  })
-
->>>>>>> bedcc8833e2b8b2d9bd6facc58b573133d455c38
-  // Add tab click listeners
   document.querySelectorAll(".tab-btn").forEach((btn) => {
     btn.addEventListener("click", function () {
       switchTab(this.dataset.tab)
     })
   })
 
-  // Add search functionality
   const searchInput = document.getElementById("friendSearchInput")
   if (searchInput) {
     searchInput.addEventListener("keypress", (e) => {
@@ -1284,21 +912,18 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     })
 
-    // Real-time search as user types
     searchInput.addEventListener("input", function () {
       searchQuery = this.value.toLowerCase().trim()
       populateFriendsContent()
     })
   }
 
-  // Add search button functionality
   const searchBtn = document.querySelector(".search-btn")
   if (searchBtn) {
     searchBtn.addEventListener("click", searchFriends)
   }
 })
 
-// Keyboard navigation
 document.addEventListener("keydown", (event) => {
   const settingsPanel = document.getElementById("settingsPanel")
   const notificationsPanel = document.getElementById("notificationsPanel")

@@ -25,7 +25,8 @@ if (document.getElementById('registerPassword')) {
 
     passwordInput.addEventListener('input', function() {
         const password = this.value;
-        
+        // from documentation:
+
         // min. 8 characters
         // min. 1 number
         // min. 1 uppercase letter
@@ -86,14 +87,14 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const formData = new FormData(this);
             
-            fetch('login.php', {  // No path change needed - same directory
+            fetch('login.php', {  
                 method: 'POST',
                 body: formData
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    window.location.href = '../homepage.php'; // Assuming homepage is in parent directory
+                    window.location.href = '../homepage.php';
                 } else {
                     showMessage(data.message, 'error');
                 }
@@ -110,14 +111,14 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const formData = new FormData(this);
             
-            fetch('register.php', {  // No path change needed - same directory
+            fetch('register.php', {  
                 method: 'POST',
                 body: formData
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    window.location.href = 'login.html'; // No path change needed - same directory
+                    window.location.href = 'login.html'; 
                 } else {
                     showMessage(data.message, 'error');
                 }

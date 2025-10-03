@@ -1,8 +1,7 @@
 <?php
 session_start();
-require_once '../config.php'; // Zmieniono ścieżkę do config.php
+require_once '../config.php';
 
-// for JSON
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
